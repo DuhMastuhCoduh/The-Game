@@ -14,7 +14,7 @@ public class Board
 
 	public static final char[][] board = new char[][] 
 	{
-		{'e','e','b','e','e'},
+		{'e','e','b','e','e'},//test
 		{'e','e','e','e','e'},
 		{'e','e','e','e','e'},
 		{'e','e','e','e','e'},

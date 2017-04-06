@@ -24,6 +24,7 @@ public class Board
 	public Board(Card card) 
 	{
 		this.card = card;
+		System.out.println("five");
 	}
 
 }

@@ -315,11 +315,12 @@ public class Onitama implements MouseListener
 
 		}
 	}
-
+	
+	//TODO
 	private void checkLegalMove() {
 		
 	}
-
+	//TODO
 	private void move() 
 	{
 
@@ -327,14 +328,14 @@ public class Onitama implements MouseListener
 
 		redTurn = !redTurn;
 	}
-
+	//TODO
 	private boolean checkWin() 
 	{
 		return false;
 	}
 
 ////////////////////////GRAPHICS////////////////////////
-	
+	//TODO
 	@SuppressWarnings("serial")
 	private class OnitamaPanel extends JPanel
 	{
@@ -396,7 +397,7 @@ public class Onitama implements MouseListener
 
 	}
 
-	
+	//TODO
 	public void mouseReleased(MouseEvent e) 
 	{
 		mouseX = e.getX();

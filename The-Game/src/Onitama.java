@@ -375,7 +375,7 @@ public class Onitama implements MouseListener
 ////////////////////////MOUSE EVENTS////////////////////////
 	
 	public void mouseClicked(MouseEvent e) {
-
+		System.out.println("X: "+e.getX()+" Y: "+e.getY());
 
 	}
 
@@ -387,14 +387,18 @@ public class Onitama implements MouseListener
 
 	
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 
 	
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-
+		mouseX = e.getX();
+		mouseY = e.getY();
+	
+		if(mouseX>206 && mouseY>203)
+		{
+			
+		}
 	}
 
 	//TODO

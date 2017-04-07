@@ -395,9 +395,9 @@ public class Onitama implements MouseListener
 		mouseX = e.getX();
 		mouseY = e.getY();
 	
-		if(mouseX>206 && mouseY>203)
+		if(mouseX>206 && mouseY>203 && mouseX<592 && mouseY<587)
 		{
-			
+			System.out.println("traps arenut gay");
 		}
 	}
 

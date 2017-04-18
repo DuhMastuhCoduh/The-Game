@@ -83,91 +83,101 @@ public class Card
 	private void setLegalMoves() 
 	{
 		//based on a piece at position (0,0)
-		if(cardName.equals("BOAR")) 
-		{
-			legalMoves.add(new Position(-1,0));
-			legalMoves.add(new Position(0,1));
-			legalMoves.add(new Position(0,-1));
-		} else if(cardName.equals("FROG")) 
-		{
-			legalMoves.add(new Position(1,1));
-			legalMoves.add(new Position(-1,-1));
-			legalMoves.add(new Position(0,-2));
-		} else if(cardName.equals("ROOSTER"))
-		{
-			legalMoves.add(new Position(0,-1));
-			legalMoves.add(new Position(1,-1));
-			legalMoves.add(new Position(0,1));
-			legalMoves.add(new Position(-1,1));
-		} else if(cardName.equals("CRANE"))
-		{
-			legalMoves.add(new Position(1,-1));
-			legalMoves.add(new Position(1,1));
-			legalMoves.add(new Position(-1,0));
+		if(cardName.equals("BOAR")) 		    // * * * * *
+		{									    // * * O * *
+			legalMoves.add(new Position(-1,0)); // * O X O *
+			legalMoves.add(new Position(0,1));  // * * * * *
+			legalMoves.add(new Position(0,-1)); // * * * * *
 			
-		} else if(cardName.equals("MONKEY"))
-		{
-			legalMoves.add(new Position(-1,-1));
-			legalMoves.add(new Position(1,-1));
+		} else if(cardName.equals("FROG"))	    // * * * * *
+		{									    // * O * * *
+			legalMoves.add(new Position(1,1));  // O * X * *
+			legalMoves.add(new Position(-1,-1));// * * * O *
+			legalMoves.add(new Position(0,-2)); // * * * * *
+			
+		} else if(cardName.equals("ROOSTER"))   // * * * * *
+		{									    // * * * O *
+			legalMoves.add(new Position(0,-1)); // * O X O *
+			legalMoves.add(new Position(1,-1)); // * O * * *
+			legalMoves.add(new Position(0,1));  // * * * * *
 			legalMoves.add(new Position(-1,1));
+		} else if(cardName.equals("CRANE"))	    // * * * * *
+		{									    // * * O * *
+			legalMoves.add(new Position(1,-1)); // * * X * *
+			legalMoves.add(new Position(1,1));  // * * * * *
+			legalMoves.add(new Position(-1,0)); // * O * O *
+			
+		} else if(cardName.equals("MONKEY"))    // * * * * *
+		{										// * O * O *
+			legalMoves.add(new Position(-1,-1));// * * X * *
+			legalMoves.add(new Position(1,-1)); // * O * O *
+			legalMoves.add(new Position(-1,1)); // * * * * *
 			legalMoves.add(new Position(1,1));
-		} else if(cardName.equals("DRAGON")) 
-		{
-			legalMoves.add(new Position(-1,-2));
-			legalMoves.add(new Position(1,-1));
-			legalMoves.add(new Position(-1,2));
+		} else if(cardName.equals("DRAGON"))    // * * * * *
+		{										// O * * * O
+			legalMoves.add(new Position(-1,-2));// * * X * *
+			legalMoves.add(new Position(1,-1)); // * O * O *
+			legalMoves.add(new Position(-1,2)); // * * * * *
 			legalMoves.add(new Position(1,1));
-		} else if(cardName.equals("GOOSE")) 
-		{
-			legalMoves.add(new Position(-1,-1));
-			legalMoves.add(new Position(0,-1));
-			legalMoves.add(new Position(0,1));
+		} else if(cardName.equals("GOOSE")) 	// * * * * *
+		{										// * O * * *
+			legalMoves.add(new Position(-1,-1));// * O X O *
+			legalMoves.add(new Position(0,-1)); // * * * O *
+			legalMoves.add(new Position(0,1));  // * * * * *
 			legalMoves.add(new Position(1,1));
-		} else if(cardName.equals("TIGER")) 
-		{
-			legalMoves.add(new Position(-2,0));
-			legalMoves.add(new Position(1,0));
-		} else if(cardName.equals("MANTIS")) 
-		{
-			legalMoves.add(new Position(-1,-1));
-			legalMoves.add(new Position(1,0));
+		} else if(cardName.equals("TIGER")) 	// * * O * *
+		{										// * * * * *
+			legalMoves.add(new Position(-2,0)); // * * X * *
+			legalMoves.add(new Position(1,0));  // * * O * *
+												// * * * * *
+			
+		} else if(cardName.equals("MANTIS"))    // * * * * *
+		{										// * O * O *
+			legalMoves.add(new Position(-1,-1));// * * X * *
+			legalMoves.add(new Position(1,0));  // * * O * *
+			legalMoves.add(new Position(-1,1)); // * * * * *
+			
+		} else if(cardName.equals("ELEPHANT"))  // * * * * *
+		{  										// * O * O *
+			legalMoves.add(new Position(0,-1)); // * O X O *
+			legalMoves.add(new Position(-1,-1));// * * * * *
+			legalMoves.add(new Position(0,1));  // * * * * *
 			legalMoves.add(new Position(-1,1));
-		} else if(cardName.equals("ELEPHANT")) 
-		{
-			legalMoves.add(new Position(0,-1));
-			legalMoves.add(new Position(-1,-1));
-			legalMoves.add(new Position(0,1));
-			legalMoves.add(new Position(-1,1));
-		} else if(cardName.equals("CRAB")) 
-		{
-			legalMoves.add(new Position(0,-2));
-			legalMoves.add(new Position(-1,0));
-			legalMoves.add(new Position(0,2));
-		} else if(cardName.equals("RABBIT")) 
-		{
-			legalMoves.add(new Position(1,-1));
-			legalMoves.add(new Position(-1,1));
-			legalMoves.add(new Position(0,2));
-		} else if(cardName.equals("EEL")) 
-		{
-			legalMoves.add(new Position(-1,-1));
-			legalMoves.add(new Position(1,-1));
-			legalMoves.add(new Position(0,1));
-		} else if(cardName.equals("COBRA")) 
-		{
-			legalMoves.add(new Position(0,-1));
-			legalMoves.add(new Position(-1,1));
-			legalMoves.add(new Position(1,1));
-		} else if(cardName.equals("HORSE")) 
-		{
-			legalMoves.add(new Position(0,-1));
-			legalMoves.add(new Position(-1,0));
-			legalMoves.add(new Position(1,0));
-		} else if(cardName.equals("OX")) 
-		{
-			legalMoves.add(new Position(-1,0));
-			legalMoves.add(new Position(0,1));
-			legalMoves.add(new Position(1,0));
+		} else if(cardName.equals("CRAB")) 		// * * * * *
+		{										// * * O * *
+			legalMoves.add(new Position(0,-2)); // O * X * O
+			legalMoves.add(new Position(-1,0)); // * * * * *
+			legalMoves.add(new Position(0,2));  // * * * * *
+			
+		} else if(cardName.equals("RABBIT"))    // * * * * *
+		{										// * * * O *
+			legalMoves.add(new Position(1,-1)); // * * X * O
+			legalMoves.add(new Position(-1,1)); // * O * * *
+			legalMoves.add(new Position(0,2));  // * * * * *
+			
+		} else if(cardName.equals("EEL"))       // * * * * *
+		{										// * O * * *
+			legalMoves.add(new Position(-1,-1));// * * X O *
+			legalMoves.add(new Position(1,-1)); // * O * * *
+			legalMoves.add(new Position(0,1));  // * * * * *
+			
+		} else if(cardName.equals("COBRA"))     // * * * * *
+		{										// * * * O *
+			legalMoves.add(new Position(0,-1)); // * O X * *
+			legalMoves.add(new Position(-1,1)); // * * * O *
+			legalMoves.add(new Position(1,1));  // * * * * *
+			
+		} else if(cardName.equals("HORSE"))     // * * * * *
+		{										// * * O * *
+			legalMoves.add(new Position(0,-1)); // * O X * *
+			legalMoves.add(new Position(-1,0)); // * * O * *
+			legalMoves.add(new Position(1,0));  // * * * * *
+			
+		} else if(cardName.equals("OX")) 		// * * * * *
+		{ 										// * * O * *
+			legalMoves.add(new Position(-1,0)); // * * X O *
+			legalMoves.add(new Position(0,1));  // * * O * *
+			legalMoves.add(new Position(1,0));  // * * * * *
 		}
 	}
 	

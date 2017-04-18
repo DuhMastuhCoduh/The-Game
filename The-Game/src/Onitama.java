@@ -369,7 +369,13 @@ public class Onitama implements MouseListener
 			}
 			drawPieces(g);
 		}
-
+		//square board places
+		//top left - (207,203)
+		//bottom left - (207,588)
+		//top right - (592,203)
+		//bottom right - (592,588)
+		//squares are 77x77
+		//needs to be a buffer zone of a couple pixels
 	}
 
 ////////////////////////MOUSE EVENTS////////////////////////

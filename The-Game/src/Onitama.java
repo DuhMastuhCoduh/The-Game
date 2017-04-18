@@ -47,8 +47,9 @@ public class Onitama implements MouseListener
 
 		//debug
 
-		System.out.println(redTurn);
-
+		System.out.println("\nredTurn: " + redTurn);
+		
+		System.out.println("\nlegal moves: ");
 		for(int i = 0; i < legalMoves.size();i++) {
 			for(int c = 0; c < legalMoves.get(i).size();c++) {
 				System.out.println("disciple " + i + ": " + legalMoves.get(i).get(c));
@@ -353,58 +354,79 @@ public class Onitama implements MouseListener
 		}
 
 		public void paintComponent(Graphics g) {
+			
 			super.paintComponent(g);
+			
+			//draws board
 			try {
 				final BufferedImage oniBoard = ImageIO.read(new File("resources\\board.png"));
 				g.drawImage(oniBoard, 0, 0, null);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			g.setColor(Color.GREEN);
+			
+			//draws board bounds
+			g.setColor(Color.green);
 			g.drawRect(boardX, boardY, boardWidth*5, boardHeight*5);
 			for(int i = 0; i < 5;i++) {
 				for(int c = 0; c<5;c++) {
 					g.drawRect(boardX+c*boardWidth, boardY+i*boardHeight, boardWidth, boardHeight);
 				}
 			}
+			
+			//draws all player pieces
 			drawPieces(g);
+			
+			//draw player cards
+			//red
+			g.setColor(Color.red);	
+			g.drawRect(207,80,191,100);		//card 1
+			g.drawRect(401,80,191,100);		//card 2
+			//blue
+			g.setColor(Color.blue);
+			g.drawRect(207,611,191,100);	//card 1
+			g.drawRect(401,611,191,100);	//card 2
+			
+			//will be accessed by ImageIO.read(new File("resources\\" + cardName + ".png"));)
+			
 		}
+		//image size constraints
+			//pieces:	77x77
+			//board:	frame size
+			//cards:	191x100
+		
 		//square board places
-		//top left - (207,203)
-		//bottom left - (207,588)
-		//top right - (592,203)
-		//bottom right - (592,588)
-		//squares are 77x77
-		//needs to be a buffer zone of a couple pixels
+			//top left:		(207,203)
+			//bottom left:	(207,588)
+			//top right:	(592,203)
+			//bottom right:	(592,588)
+			//squares are 77x77
+			//needs to be a buffer zone of a couple pixels:i disagree
+		
+		//card places	width(191) height(100)
+			//red card 1:	x(207) y(80) 
+			//red card 2:	x(401) y(80)
+			//blue card 1:	x(207) y(611)
+			//blue card 2:	x(401) y(611)
 	}
 
 ////////////////////////MOUSE EVENTS////////////////////////
 	
-	public void mouseClicked(MouseEvent e) {
-		System.out.println("X: "+e.getX()+" Y: "+e.getY());
-
-	}
-
+	/* PLAN FOR ACTIONS:
+	 * 1.	player chooses a card (mouseReleased)
+	 * 2.	players clicks and drags a piece (mousePressed)										[TO BE IMPLEMENTED]
+	 * 3.	onto legal move and places onto legal move (mouseReleased)							[TO BE IMPLEMENTED]
+	 * 4.	checks if legal move, if so, cards are swapped, piece is moves, next turn starts	[TO BE IMPLEMENTED]
+	 */
 	
-	public void mouseEntered(MouseEvent e) {
-
-
-	}
-
+	public void mouseClicked(MouseEvent e) { }
+	public void mouseEntered(MouseEvent e) { }
+	public void mouseExited(MouseEvent e) { }
 	
-	public void mouseExited(MouseEvent e) {
-
-	}
-
-	
-	public void mousePressed(MouseEvent e) {
-		mouseX = e.getX();
-		mouseY = e.getY();
-	
-		if(mouseX>206 && mouseY>203 && mouseX<592 && mouseY<587)
-		{
-			System.out.println("traps arenut gay");
-		}
+	//TODO
+	public void mousePressed(MouseEvent e) 
+	{ 
+		
 	}
 
 	//TODO
@@ -413,12 +435,10 @@ public class Onitama implements MouseListener
 		mouseX = e.getX();
 		mouseY = e.getY();
 		
-		if(mouseX>207&&mouseX<207+77*5) 
+		if(mouseX>207&&mouseX<207+77*5)		//if click is within x bounds of board
 		{
-			if(mouseY>203&&mouseY<203+77*5) 
+			if(mouseY>203&&mouseY<203+77*5)	//if click is withing y bounds of board
 			{
-				lastPos = currentPos;
-				
 				for(int i = 0; i < 5; i++) 
 				{
 					if(mouseX>207+77*(i)) 
@@ -431,15 +451,28 @@ public class Onitama implements MouseListener
 					}	
 				}
 				
-				currentPiece = player1.getPiece(currentPos);
+				System.out.println(currentPos);
 				
-				if(currentPiece == null) 
+				currentPiece = player1.getPiece(currentPos);
+			} else if(mouseY>80&&mouseY<180&&redTurn)	//if click is within y bounds of red cards and is red turn
+			{
+				
+				if(mouseX<398)			//card 1
 				{
-					currentPiece = player2.getPiece(currentPos);
+					System.out.println("red card 1");
+				} else if(mouseX>401)	//card 2
+				{
+					System.out.println("red card 2");
 				}
-				if(currentPiece != null) 
+			} else if(mouseY>611&&mouseY<711&&!redTurn)	//if click is within y bounds of blue cards and is not red turn
+			{
+				
+				if(mouseX<398)			//card 1
 				{
-					//move
+					System.out.println("blue card 1");
+				} else if(mouseX>401)	//card 2
+				{
+					System.out.println("blue card 2");
 				}
 			}
 		}

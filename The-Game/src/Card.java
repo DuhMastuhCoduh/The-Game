@@ -1,4 +1,8 @@
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 public class Card 
 {
@@ -6,6 +10,7 @@ public class Card
 	private int cardID;
 	private boolean redCard;
 	private ArrayList<Position> legalMoves = new ArrayList<Position>();
+	private BufferedImage cardImg;
 	
 	public Card(int cardID) 
 	{
@@ -77,12 +82,49 @@ public class Card
 			cardName = "OX";
 			redCard = false;
 		}
+		
+		switch(cardID) {
+		case 1: try {cardImg = ImageIO.read(new File("src/resources/"));}
+		catch (Exception e) {e.printStackTrace();};break;
+		case 2: try {cardImg = ImageIO.read(new File("src/resources/"));}
+		catch (Exception e) {e.printStackTrace();};break;
+		case 3: try {cardImg = ImageIO.read(new File("src/resources/"));}
+		catch (Exception e) {e.printStackTrace();};break;
+		case 4: try {cardImg = ImageIO.read(new File("src/resources/"));}
+		catch (Exception e) {e.printStackTrace();};break;
+		case 5: try {cardImg = ImageIO.read(new File("src/resources/"));}
+		catch (Exception e) {e.printStackTrace();};break;
+		case 6: try {cardImg = ImageIO.read(new File("src/resources/"));}
+		catch (Exception e) {e.printStackTrace();};break;
+		case 7: try {cardImg = ImageIO.read(new File("src/resources/"));}
+		catch (Exception e) {e.printStackTrace();};break;
+		case 8: try {cardImg = ImageIO.read(new File("src/resources/"));}
+		catch (Exception e) {e.printStackTrace();};break;
+		case 9: try {cardImg = ImageIO.read(new File("src/resources/"));}
+		catch (Exception e) {e.printStackTrace();};break;
+		case 10: try {cardImg = ImageIO.read(new File("src/resources/"));}
+		catch (Exception e) {e.printStackTrace();};break;
+		case 11: try {cardImg = ImageIO.read(new File("src/resources/"));}
+		catch (Exception e) {e.printStackTrace();};break;
+		case 12: try {cardImg = ImageIO.read(new File("src/resources/"));}
+		catch (Exception e) {e.printStackTrace();};break;
+		case 13: try {cardImg = ImageIO.read(new File("src/resources/"));}
+		catch (Exception e) {e.printStackTrace();};break;
+		case 14: try {cardImg = ImageIO.read(new File("src/resources/"));}
+		catch (Exception e) {e.printStackTrace();};break;
+		case 15: try {cardImg = ImageIO.read(new File("src/resources/"));}
+		catch (Exception e) {e.printStackTrace();};break;
+		case 16: try {cardImg = ImageIO.read(new File("src/resources/"));}
+		catch (Exception e) {e.printStackTrace();};break;
+		}
+		
 		setLegalMoves();
 	}
 	
 	private void setLegalMoves() 
 	{
 		//based on a piece at position (0,0)
+		//by (r,c) where r is row and c is column
 		if(cardName.equals("BOAR")) 		    // * * * * *
 		{									    // * * O * *
 			legalMoves.add(new Position(-1,0)); // * O X O *
@@ -200,5 +242,8 @@ public class Card
 	public void setCardName(String cardName) {
 		this.cardName = cardName;
 	}
-
+	
+	public BufferedImage getImage() {
+		return cardImg;
+	}
 }

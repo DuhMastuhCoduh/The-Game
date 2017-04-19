@@ -83,42 +83,52 @@ public class Card
 			redCard = false;
 		}
 		
-		switch(cardID) {
-		case 1: try {cardImg = ImageIO.read(new File("src/resources/"));}
-		catch (Exception e) {e.printStackTrace();};break;
-		case 2: try {cardImg = ImageIO.read(new File("src/resources/"));}
-		catch (Exception e) {e.printStackTrace();};break;
-		case 3: try {cardImg = ImageIO.read(new File("src/resources/"));}
-		catch (Exception e) {e.printStackTrace();};break;
-		case 4: try {cardImg = ImageIO.read(new File("src/resources/"));}
-		catch (Exception e) {e.printStackTrace();};break;
-		case 5: try {cardImg = ImageIO.read(new File("src/resources/"));}
-		catch (Exception e) {e.printStackTrace();};break;
-		case 6: try {cardImg = ImageIO.read(new File("src/resources/"));}
-		catch (Exception e) {e.printStackTrace();};break;
-		case 7: try {cardImg = ImageIO.read(new File("src/resources/"));}
-		catch (Exception e) {e.printStackTrace();};break;
-		case 8: try {cardImg = ImageIO.read(new File("src/resources/"));}
-		catch (Exception e) {e.printStackTrace();};break;
-		case 9: try {cardImg = ImageIO.read(new File("src/resources/"));}
-		catch (Exception e) {e.printStackTrace();};break;
-		case 10: try {cardImg = ImageIO.read(new File("src/resources/"));}
-		catch (Exception e) {e.printStackTrace();};break;
-		case 11: try {cardImg = ImageIO.read(new File("src/resources/"));}
-		catch (Exception e) {e.printStackTrace();};break;
-		case 12: try {cardImg = ImageIO.read(new File("src/resources/"));}
-		catch (Exception e) {e.printStackTrace();};break;
-		case 13: try {cardImg = ImageIO.read(new File("src/resources/"));}
-		catch (Exception e) {e.printStackTrace();};break;
-		case 14: try {cardImg = ImageIO.read(new File("src/resources/"));}
-		catch (Exception e) {e.printStackTrace();};break;
-		case 15: try {cardImg = ImageIO.read(new File("src/resources/"));}
-		catch (Exception e) {e.printStackTrace();};break;
-		case 16: try {cardImg = ImageIO.read(new File("src/resources/"));}
-		catch (Exception e) {e.printStackTrace();};break;
+		setLegalMoves();
+		
+		try 
+		{
+			cardImg = ImageIO.read(new File("resources\\" + cardName + ".png"));
+			
+		} catch(Exception e) 
+		{
+			//e.printStackTrace();
+			System.out.println("card images not implemented");
 		}
 		
-		setLegalMoves();
+//		switch(cardID) {
+//		case 1: try {cardImg = ImageIO.read(new File("src/resources/"));}
+//		catch (Exception e) {e.printStackTrace();};break;
+//		case 2: try {cardImg = ImageIO.read(new File("src/resources/"));}
+//		catch (Exception e) {e.printStackTrace();};break;
+//		case 3: try {cardImg = ImageIO.read(new File("src/resources/"));}
+//		catch (Exception e) {e.printStackTrace();};break;
+//		case 4: try {cardImg = ImageIO.read(new File("src/resources/"));}
+//		catch (Exception e) {e.printStackTrace();};break;
+//		case 5: try {cardImg = ImageIO.read(new File("src/resources/"));}
+//		catch (Exception e) {e.printStackTrace();};break;
+//		case 6: try {cardImg = ImageIO.read(new File("src/resources/"));}
+//		catch (Exception e) {e.printStackTrace();};break;
+//		case 7: try {cardImg = ImageIO.read(new File("src/resources/"));}
+//		catch (Exception e) {e.printStackTrace();};break;
+//		case 8: try {cardImg = ImageIO.read(new File("src/resources/"));}
+//		catch (Exception e) {e.printStackTrace();};break;
+//		case 9: try {cardImg = ImageIO.read(new File("src/resources/"));}
+//		catch (Exception e) {e.printStackTrace();};break;
+//		case 10: try {cardImg = ImageIO.read(new File("src/resources/"));}
+//		catch (Exception e) {e.printStackTrace();};break;
+//		case 11: try {cardImg = ImageIO.read(new File("src/resources/"));}
+//		catch (Exception e) {e.printStackTrace();};break;
+//		case 12: try {cardImg = ImageIO.read(new File("src/resources/"));}
+//		catch (Exception e) {e.printStackTrace();};break;
+//		case 13: try {cardImg = ImageIO.read(new File("src/resources/"));}
+//		catch (Exception e) {e.printStackTrace();};break;
+//		case 14: try {cardImg = ImageIO.read(new File("src/resources/"));}
+//		catch (Exception e) {e.printStackTrace();};break;
+//		case 15: try {cardImg = ImageIO.read(new File("src/resources/"));}
+//		catch (Exception e) {e.printStackTrace();};break;
+//		case 16: try {cardImg = ImageIO.read(new File("src/resources/"));}
+//		catch (Exception e) {e.printStackTrace();};break;
+//		}
 	}
 	
 	private void setLegalMoves() 

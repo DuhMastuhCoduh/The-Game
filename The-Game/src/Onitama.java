@@ -13,10 +13,10 @@ import javax.swing.JPanel;
 @SuppressWarnings("unused")
 public class Onitama implements MouseListener
 {
-	
-//================================================================================
-//	VARIABLES
-//================================================================================
+
+	//================================================================================
+	//	VARIABLES
+	//================================================================================
 	private JFrame frame;
 	private JPanel panel;
 
@@ -29,21 +29,15 @@ public class Onitama implements MouseListener
 	private int mouseX,mouseY;
 
 	private Position currentPos = new Position(0,0);
-	private Position afterPos = new Position(0,0);
 	private Piece currentPiece = null;
 	private ArrayList<Position> moves;
 
 	private boolean redTurn;
-	
+
 	private boolean pressed = false;
-	
-	private ArrayList<Card> allCards;
-	private ArrayList<Card> cards;
-	
-	private Card redCard,blueCard;
-//================================================================================
-//	CONSTRUCTOR - starts the game
-//================================================================================
+	//================================================================================
+	//	CONSTRUCTOR - starts the game
+	//================================================================================
 
 	public Onitama() 
 	{
@@ -58,12 +52,12 @@ public class Onitama implements MouseListener
 		//debug
 
 		System.out.println("\nredTurn: " + redTurn);
-		
+
 		System.out.println("\nlegal moves: ");
 		for(int i = 0; i < legalMoves.size();i++) {
 			for(int c = 0; c < legalMoves.get(i).size();c++) {
 				System.out.println("disciple " + i + ": " + legalMoves.get(i).get(c));
-				
+
 			}
 		}
 		System.out.println();
@@ -84,10 +78,10 @@ public class Onitama implements MouseListener
 		frame.setVisible(true);
 
 	}
-	
-//================================================================================
-//	STARTUP METHODS - sets up the game
-//================================================================================
+
+	//================================================================================
+	//	STARTUP METHODS - sets up the game
+	//================================================================================
 
 	private void setFirstTurn() 
 	{
@@ -103,13 +97,13 @@ public class Onitama implements MouseListener
 	private void setCards() 
 	{
 		//array of all cards
-		allCards = new ArrayList<Card>();
+		ArrayList<Card> allCards = new ArrayList<Card>();
 		for(int i = 1; i < 17; i++) 
 		{
 			allCards.add(new Card(i));
 		}
 		//select 5 random cards
-		cards = new ArrayList<Card>(5);
+		ArrayList<Card> cards = new ArrayList<Card>(5);
 		for(int i = 0; i < 5; i++) 
 		{
 			int randIndex = (int)(Math.random()*(allCards.size())+1);
@@ -130,10 +124,10 @@ public class Onitama implements MouseListener
 
 		System.out.println("board card: " + board.getCard());
 	}
-	
-//================================================================================
-//	GAMEPLAY - handles gameplay mechanics and updates
-//================================================================================
+
+	//================================================================================
+	//	GAMEPLAY - handles gameplay mechanics and updates
+	//================================================================================
 
 	private void setLegalMoves() 
 	{
@@ -292,7 +286,7 @@ public class Onitama implements MouseListener
 			}
 			//master
 			legalMoves.add(new ArrayList<Position>());
-			
+
 			for(int i = 0; i < cardMoves.size();i++) 
 			{
 
@@ -331,25 +325,51 @@ public class Onitama implements MouseListener
 
 		}
 	}
-	
+
 	//TODO
 	private boolean checkLegalMove() {
-		int row = currentPos.getRow()-afterPos.getRow();
-		int col = currentPos.getCol()-afterPos.getCol();
-		for(Position movesPos: moves) {
-			if((movesPos.getRow() == row) && (movesPos.getCol() == col)) {
-				System.out.println("Eureka");
-				return true;
-			}
+		//		int row = currentPos.getRow()-afterPos.getRow();
+		//		int col = currentPos.getCol()-afterPos.getCol();
+		//		for(Position movesPos: moves) {
+		//			if((movesPos.getRow() == row) && (movesPos.getCol() == col)) {
+		//				System.out.println("Eureka");
+		//				return true;
+		//			}
+		//		}
+		if(redTurn)
+		{
+			if(redPlayer.getPiece(currentPos)!=null)
+				return false;
+		} else
+		{
+			if(bluePlayer.getPiece(currentPos)!=null)
+				return false;
 		}
+		for(int i = 0; i < legalMoves.get(currentPiece.getID()).size();i++) {
+			if(currentPos.equals(legalMoves.get(currentPiece.getID()).get(i)))
+				return true;
+		}
+
 		return false;
 	}
 	//TODO
 	private void move() 
 	{
 		
-//		redTurn = !redTurn;
-//		setLegalMoves();
+		currentPiece.move(currentPos);
+		
+		if(redTurn)
+		{
+			//if(bluePlayer.getPiece(currentPos)!=null)
+				//bluePlayer.capturePiece(currentPos);
+		} else
+		{
+			//if(redPlayer.getPiece(currentPos)!=null)
+				//redPlayer.capturePiece(currentPos);
+		}
+
+		redTurn = !redTurn;
+		setLegalMoves();
 	}
 	//TODO
 	private boolean checkWin() 
@@ -357,9 +377,9 @@ public class Onitama implements MouseListener
 		return false;
 	}
 
-//================================================================================
-//	GRAPHICS - handles game display
-//================================================================================
+	//================================================================================
+	//	GRAPHICS - handles game display
+	//================================================================================
 
 	//TODO
 	@SuppressWarnings("serial")
@@ -379,9 +399,9 @@ public class Onitama implements MouseListener
 		}
 
 		public void paintComponent(Graphics g) {
-			
+
 			super.paintComponent(g);
-			
+
 			//draws board
 			try {
 				final BufferedImage oniBoard = ImageIO.read(new File("resources\\board.png"));
@@ -389,7 +409,7 @@ public class Onitama implements MouseListener
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
+
 			//draws board bounds
 			g.setColor(Color.green);
 			g.drawRect(boardX, boardY, tileWidth*5, tileHeight*5);
@@ -398,17 +418,17 @@ public class Onitama implements MouseListener
 					g.drawRect(boardX+c*tileWidth, boardY+i*tileHeight, tileWidth, tileHeight);
 				}
 			}
-			
+
 			//draws all player pieces
 			drawPieces(g);
-			
+
 			//draw cards
-			//red
-			g.setColor(Color.red);	
+			//blue
+			g.setColor(Color.blue);	
 			g.drawRect(207,80,191,100);  //card 1
 			g.drawRect(401,80,191,100);  //card 2
-			//blue
-			g.setColor(Color.blue);
+			//red
+			g.setColor(Color.red);
 			g.drawRect(207,611,191,100);  //card 1
 			g.drawRect(401,611,191,100);  //card 2
 			//board
@@ -417,67 +437,67 @@ public class Onitama implements MouseListener
 				g.drawRect(597, 345, 191, 100);
 			else
 				g.drawRect(3,345,191,100);
-			
+
 			//will be accessed by ImageIO.read(new File("resources\\" + cardName + ".png"));)
-			
+
 		}
 		//image size constraints
-			//pieces:	77x77
-			//board:	frame size
-			//cards:	191x100
-		
+		//pieces:	77x77
+		//board:	frame size
+		//cards:	191x100
+
 		//square board places
-			//top left:		(207,203)
-			//bottom left:	(207,588)
-			//top right:	(592,203)
-			//bottom right:	(592,588)
-			//squares are 77x77
-			//needs to be a buffer zone of a couple pixels:i disagree
-		
+		//top left:		(207,203)
+		//bottom left:	(207,588)
+		//top right:	(592,203)
+		//bottom right:	(592,588)
+		//squares are 77x77
+		//needs to be a buffer zone of a couple pixels:i disagree
+
 		//card places	width(191) height(100)
-			//red card 1:	x(207) y(80) 
-			//red card 2:	x(401) y(80)
-			//blue card 1:	x(207) y(611)
-			//blue card 2:	x(401) y(611)
+		//red card 1:	x(207) y(80) 
+		//red card 2:	x(401) y(80)
+		//blue card 1:	x(207) y(611)
+		//blue card 2:	x(401) y(611)
 	}
 
-//================================================================================
-//	MOUSE EVENTS - handles user interaction with the game
-//================================================================================
+	//================================================================================
+	//	MOUSE EVENTS - handles user interaction with the game
+	//================================================================================
 
-	
+
 	/* PLAN FOR ACTIONS:
 	 * 1.	player chooses a card (mouseReleased)
 	 * 2.	players clicks and drags a piece (mousePressed)										[TO BE IMPLEMENTED]
 	 * 3.	onto legal move and places onto legal move (mouseReleased)							[TO BE IMPLEMENTED]
 	 * 4.	checks if legal move, if so, cards are swapped, piece is moves, next turn starts	[TO BE IMPLEMENTED]
 	 */
-	
+
 	public void mouseClicked(MouseEvent e) { }
 	public void mouseEntered(MouseEvent e) { panel.repaint(); }
 	public void mouseExited(MouseEvent e) { }
-	
+
 	//TODO
 	public void mousePressed(MouseEvent e) 
 	{
-		
+
 		mouseX = e.getX();
 		mouseY = e.getY();
-		
+
 		if(mouseX>207&&mouseX<592)  //within x bounds of board
 		{
 			if(mouseY>203&&mouseY<588)  //within y bounds of board
 			{
-				
+
 				pressed = true;
-				
+
 				for(int i = 0; i < 5; i++) 
 				{
 					if(mouseX>207+77*(i))
 						currentPos.setCol(i);
 					if(mouseY>203+77*(i))
 						currentPos.setRow(i);
-					
+
 					if(redTurn) {
 						currentPiece = redPlayer.getPiece(currentPos);
 					} else {
@@ -487,7 +507,7 @@ public class Onitama implements MouseListener
 				System.out.println("a");
 				System.out.println(currentPos);
 				System.out.println(currentPiece);
-				
+
 			}
 		}
 	}
@@ -497,91 +517,92 @@ public class Onitama implements MouseListener
 	{
 		mouseX = e.getX();
 		mouseY = e.getY();
-		
+
 		if(mouseX>207&&mouseX<592)  //if click is within x bounds of board
 		{
 			if(!pressed)  //player did not select a piece
 			{
-				if(mouseY>80&&mouseY<180&&redTurn)  //within y bounds of red cards and red turn
+				if(mouseY>611&&mouseY<711&&redTurn)  //within y bounds of red cards and red turn
 				{
-					
+
 					if(mouseX<398)			//card 1
 					{
-						redCard = cards.get(0);
-						System.out.println("red card 1: "+cards.get(0));
+						System.out.println(redPlayer.getCard1());
 					} else if(mouseX>401)	//card 2
 					{
-						redCard = cards.get(1);
-						System.out.println("red card 2: "+cards.get(1));
+						System.out.println(redPlayer.getCard2());
 					}
-					moves = redCard.getLegalMoves();
-				} else if(mouseY>611&&mouseY<711&&!redTurn)  //within y bounds of blue cards and not red turn
+					//moves = redCard.getLegalMoves();
+				} else if(mouseY>80&&mouseY<180&&!redTurn)  //within y bounds of blue cards and not red turn
 				{
-					
+
 					if(mouseX<398)			//card 1
 					{
-						blueCard = cards.get(2);
-						System.out.println("blue card 1: "+cards.get(2));
+						System.out.println(bluePlayer.getCard1());
 					} else if(mouseX>401)	//card 2
 					{
-						blueCard = cards.get(3);
-						System.out.println("blue card 2: "+cards.get(3));
+						System.out.println(bluePlayer.getCard2());
 					}
-					moves = blueCard.getLegalMoves();
+					//moves = blueCard.getLegalMoves();
 				}
 			} else  //player has selected a piece
 			{		//[IMPLEMENT CHECKING WHICH CARD IS SELECTED]
-				if(mouseX>207&&mouseX<592)  //within x bounds of board
+				if(mouseY>203&&mouseY<588)  //within y bounds of board
 				{
-					if(mouseY>203&&mouseY<588)  //within y bounds of board
+
+					pressed = false;
+
+					for(int i = 0; i < 5; i++) 
 					{
-						
-						pressed = true;
-						
-						for(int i = 0; i < 5; i++) 
-						{
-							if(mouseX>207+77*(i))
-								afterPos.setCol(i);
-							if(mouseY>203+77*(i))
-								afterPos.setRow(i);
-							
-							if(checkLegalMove())
-								move();
-							
-						}
-						
-						System.out.println("b");
-						System.out.println(currentPos);
-						System.out.println(currentPiece);
-						
-					} else  //not released within y bounds of board
-					{
-						
+						if(mouseX>207+77*(i))
+							currentPos.setCol(i);
+						if(mouseY>203+77*(i))
+							currentPos.setRow(i);
+
+						if(checkLegalMove())
+							move();
+
 					}
-				} else  //not released within x bounds of board
+
+					System.out.println("b");
+					System.out.println(currentPos);
+					System.out.println(currentPiece);
+
+				} else  //not released within y bounds of board
 				{
+					pressed = false;
+					currentPiece = null;
+					currentPos = new Position(0,0);
 					
+					System.out.println("c");
+					System.out.println(currentPos);
+					System.out.println(currentPiece);
+					System.out.println();
 				}
+
 			}
+		} else
+		{
+			pressed = false;
+			currentPiece = null;
+			currentPos = new Position(0,0);
+
+			System.out.println("c");
+			System.out.println(currentPos);
+			System.out.println(currentPiece);
+			System.out.println();
 		}
-		
-		pressed = false;
-		currentPiece = null;
-		currentPos = new Position(0,0);
-		
-		System.out.println("c");
-		System.out.println(currentPos);
-		System.out.println(currentPiece);
-		System.out.println();
-		
+
+
+
 		panel.repaint();
 	}
-	
-//================================================================================
-//	MAIN
-//================================================================================
 
-	
+	//================================================================================
+	//	MAIN
+	//================================================================================
+
+
 	public static void main(String[] args) {
 
 		new Onitama();

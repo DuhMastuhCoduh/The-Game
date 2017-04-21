@@ -38,7 +38,7 @@ public class Piece
 	
 	public void move(Position newPos) 
 	{
-		position = newPos;
+		position = new Position(newPos.getRow(),newPos.getCol());
 	}
 	
 	public Position getPosition() 

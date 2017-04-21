@@ -11,12 +11,13 @@ public class Card
 	private boolean redCard;
 	private ArrayList<Position> legalMoves = new ArrayList<Position>();
 	private BufferedImage cardImg;
-	
+	private char[][] moves;
+
 	public Card(int cardID) 
 	{
-		
+
 		this.cardID = cardID;
-		
+
 		if(cardID == 1) 
 		{
 			cardName = "BOAR";
@@ -82,55 +83,20 @@ public class Card
 			cardName = "OX";
 			redCard = false;
 		}
-		
+
 		setLegalMoves();
-		
+
 		try 
 		{
 			cardImg = ImageIO.read(new File("resources\\" + cardName + ".png"));
-			
+
 		} catch(Exception e) 
 		{
 			//e.printStackTrace();
 			System.out.println("card images not implemented");
 		}
-		
-//		switch(cardID) {
-//		case 1: try {cardImg = ImageIO.read(new File("src/resources/"));}
-//		catch (Exception e) {e.printStackTrace();};break;
-//		case 2: try {cardImg = ImageIO.read(new File("src/resources/"));}
-//		catch (Exception e) {e.printStackTrace();};break;
-//		case 3: try {cardImg = ImageIO.read(new File("src/resources/"));}
-//		catch (Exception e) {e.printStackTrace();};break;
-//		case 4: try {cardImg = ImageIO.read(new File("src/resources/"));}
-//		catch (Exception e) {e.printStackTrace();};break;
-//		case 5: try {cardImg = ImageIO.read(new File("src/resources/"));}
-//		catch (Exception e) {e.printStackTrace();};break;
-//		case 6: try {cardImg = ImageIO.read(new File("src/resources/"));}
-//		catch (Exception e) {e.printStackTrace();};break;
-//		case 7: try {cardImg = ImageIO.read(new File("src/resources/"));}
-//		catch (Exception e) {e.printStackTrace();};break;
-//		case 8: try {cardImg = ImageIO.read(new File("src/resources/"));}
-//		catch (Exception e) {e.printStackTrace();};break;
-//		case 9: try {cardImg = ImageIO.read(new File("src/resources/"));}
-//		catch (Exception e) {e.printStackTrace();};break;
-//		case 10: try {cardImg = ImageIO.read(new File("src/resources/"));}
-//		catch (Exception e) {e.printStackTrace();};break;
-//		case 11: try {cardImg = ImageIO.read(new File("src/resources/"));}
-//		catch (Exception e) {e.printStackTrace();};break;
-//		case 12: try {cardImg = ImageIO.read(new File("src/resources/"));}
-//		catch (Exception e) {e.printStackTrace();};break;
-//		case 13: try {cardImg = ImageIO.read(new File("src/resources/"));}
-//		catch (Exception e) {e.printStackTrace();};break;
-//		case 14: try {cardImg = ImageIO.read(new File("src/resources/"));}
-//		catch (Exception e) {e.printStackTrace();};break;
-//		case 15: try {cardImg = ImageIO.read(new File("src/resources/"));}
-//		catch (Exception e) {e.printStackTrace();};break;
-//		case 16: try {cardImg = ImageIO.read(new File("src/resources/"));}
-//		catch (Exception e) {e.printStackTrace();};break;
-//		}
 	}
-	
+
 	private void setLegalMoves() 
 	{
 		//based on a piece at position (0,0)
@@ -140,103 +106,264 @@ public class Card
 			legalMoves.add(new Position(-1,0)); // * O X O *
 			legalMoves.add(new Position(0,1));  // * * * * *
 			legalMoves.add(new Position(0,-1)); // * * * * *
-			
+
+			moves = new char[][] 
+					{
+					{'*','*','*','*','*'},
+					{'*','*','O','*','*'},		
+					{'*','O','X','O','*'},
+					{'*','*','*','*','*'},
+					{'*','*','*','*','*'}
+					};
+
 		} else if(cardName.equals("FROG"))	    // * * * * *
 		{									    // * O * * *
 			legalMoves.add(new Position(1,1));  // O * X * *
 			legalMoves.add(new Position(-1,-1));// * * * O *
 			legalMoves.add(new Position(0,-2)); // * * * * *
-			
+
+			moves = new char[][] 
+					{
+					{'*','*','*','*','*'},
+					{'*','O','*','*','*'},		
+					{'O','*','X','*','*'},
+					{'*','*','*','O','*'},
+					{'*','*','*','*','*'}
+					};
+
 		} else if(cardName.equals("ROOSTER"))   // * * * * *
 		{									    // * * * O *
 			legalMoves.add(new Position(0,-1)); // * O X O *
 			legalMoves.add(new Position(1,-1)); // * O * * *
 			legalMoves.add(new Position(0,1));  // * * * * *
 			legalMoves.add(new Position(-1,1));
+
+			moves = new char[][] 
+					{
+					{'*','*','*','*','*'},
+					{'*','*','*','O','*'},		
+					{'*','O','X','O','*'},
+					{'*','O','*','*','*'},
+					{'*','*','*','*','*'}
+					};
+
 		} else if(cardName.equals("CRANE"))	    // * * * * *
 		{									    // * * O * *
 			legalMoves.add(new Position(1,-1)); // * * X * *
-			legalMoves.add(new Position(1,1));  // * * * * *
-			legalMoves.add(new Position(-1,0)); // * O * O *
-			
+			legalMoves.add(new Position(1,1));  // * O * O *
+			legalMoves.add(new Position(-1,0)); // * * * * *
+
+			moves = new char[][] 
+					{
+					{'*','*','*','*','*'},
+					{'*','*','O','*','*'},		
+					{'*','*','X','*','*'},
+					{'*','O','*','O','*'},
+					{'*','*','*','*','*'}
+					};
+
 		} else if(cardName.equals("MONKEY"))    // * * * * *
 		{										// * O * O *
 			legalMoves.add(new Position(-1,-1));// * * X * *
 			legalMoves.add(new Position(1,-1)); // * O * O *
 			legalMoves.add(new Position(-1,1)); // * * * * *
 			legalMoves.add(new Position(1,1));
+
+			moves = new char[][] 
+					{
+					{'*','*','*','*','*'},
+					{'*','O','*','O','*'},		
+					{'*','*','X','*','*'},
+					{'*','O','*','O','*'},
+					{'*','*','*','*','*'}
+					};
+
 		} else if(cardName.equals("DRAGON"))    // * * * * *
 		{										// O * * * O
 			legalMoves.add(new Position(-1,-2));// * * X * *
 			legalMoves.add(new Position(1,-1)); // * O * O *
 			legalMoves.add(new Position(-1,2)); // * * * * *
 			legalMoves.add(new Position(1,1));
+
+			moves = new char[][] 
+					{
+					{'*','*','*','*','*'},
+					{'O','*','*','*','O'},		
+					{'*','*','X','*','*'},
+					{'*','O','*','O','*'},
+					{'*','*','*','*','*'}
+					};
+
 		} else if(cardName.equals("GOOSE")) 	// * * * * *
 		{										// * O * * *
 			legalMoves.add(new Position(-1,-1));// * O X O *
 			legalMoves.add(new Position(0,-1)); // * * * O *
 			legalMoves.add(new Position(0,1));  // * * * * *
 			legalMoves.add(new Position(1,1));
+
+			moves = new char[][] 
+					{
+					{'*','*','*','*','*'},
+					{'*','O','*','*','*'},		
+					{'*','O','X','O','*'},
+					{'*','*','*','O','*'},
+					{'*','*','*','*','*'}
+					};
+
 		} else if(cardName.equals("TIGER")) 	// * * O * *
 		{										// * * * * *
 			legalMoves.add(new Position(-2,0)); // * * X * *
 			legalMoves.add(new Position(1,0));  // * * O * *
-												// * * * * *
-			
+			// * * * * *
+
+
+			moves = new char[][] 
+					{
+					{'*','*','O','*','*'},
+					{'*','*','*','*','*'},		
+					{'*','*','X','*','*'},
+					{'*','*','O','*','*'},
+					{'*','*','*','*','*'}
+					};
+
 		} else if(cardName.equals("MANTIS"))    // * * * * *
 		{										// * O * O *
 			legalMoves.add(new Position(-1,-1));// * * X * *
 			legalMoves.add(new Position(1,0));  // * * O * *
 			legalMoves.add(new Position(-1,1)); // * * * * *
-			
+
+
+			moves = new char[][] 
+					{
+					{'*','*','*','*','*'},
+					{'*','O','*','O','*'},		
+					{'*','*','X','*','*'},
+					{'*','*','O','*','*'},
+					{'*','*','*','*','*'}
+					};
+
 		} else if(cardName.equals("ELEPHANT"))  // * * * * *
 		{  										// * O * O *
 			legalMoves.add(new Position(0,-1)); // * O X O *
 			legalMoves.add(new Position(-1,-1));// * * * * *
 			legalMoves.add(new Position(0,1));  // * * * * *
 			legalMoves.add(new Position(-1,1));
+
+			moves = new char[][] 
+					{
+					{'*','*','*','*','*'},
+					{'*','O','*','O','*'},		
+					{'*','O','X','O','*'},
+					{'*','*','*','*','*'},
+					{'*','*','*','*','*'}
+					};
+
 		} else if(cardName.equals("CRAB")) 		// * * * * *
 		{										// * * O * *
 			legalMoves.add(new Position(0,-2)); // O * X * O
 			legalMoves.add(new Position(-1,0)); // * * * * *
 			legalMoves.add(new Position(0,2));  // * * * * *
-			
+
+			moves = new char[][] 
+					{
+					{'*','*','*','*','*'},
+					{'*','*','O','*','*'},		
+					{'O','*','X','*','O'},
+					{'*','*','*','*','*'},
+					{'*','*','*','*','*'}
+					};
+
 		} else if(cardName.equals("RABBIT"))    // * * * * *
 		{										// * * * O *
 			legalMoves.add(new Position(1,-1)); // * * X * O
 			legalMoves.add(new Position(-1,1)); // * O * * *
 			legalMoves.add(new Position(0,2));  // * * * * *
-			
+
+			moves = new char[][] 
+					{
+					{'*','*','*','*','*'},
+					{'*','*','*','O','*'},		
+					{'*','*','X','*','O'},
+					{'*','O','*','*','*'},
+					{'*','*','*','*','*'}
+					};
+
 		} else if(cardName.equals("EEL"))       // * * * * *
 		{										// * O * * *
 			legalMoves.add(new Position(-1,-1));// * * X O *
 			legalMoves.add(new Position(1,-1)); // * O * * *
 			legalMoves.add(new Position(0,1));  // * * * * *
-			
+
+			moves = new char[][] 
+					{
+					{'*','*','*','*','*'},
+					{'*','O','*','*','*'},		
+					{'*','*','X','O','*'},
+					{'*','O','*','*','*'},
+					{'*','*','*','*','*'}
+					};
+
 		} else if(cardName.equals("COBRA"))     // * * * * *
 		{										// * * * O *
 			legalMoves.add(new Position(0,-1)); // * O X * *
 			legalMoves.add(new Position(-1,1)); // * * * O *
 			legalMoves.add(new Position(1,1));  // * * * * *
-			
+
+			moves = new char[][] 
+					{
+					{'*','*','*','*','*'},
+					{'*','*','*','O','*'},		
+					{'*','O','X','*','*'},
+					{'*','*','*','O','*'},
+					{'*','*','*','*','*'}
+					};
+
 		} else if(cardName.equals("HORSE"))     // * * * * *
 		{										// * * O * *
 			legalMoves.add(new Position(0,-1)); // * O X * *
 			legalMoves.add(new Position(-1,0)); // * * O * *
 			legalMoves.add(new Position(1,0));  // * * * * *
-			
+
+			moves = new char[][] 
+					{
+					{'*','*','*','*','*'},
+					{'*','*','O','*','*'},		
+					{'*','O','X','*','*'},
+					{'*','*','O','*','*'},
+					{'*','*','*','*','*'}
+					};
+
 		} else if(cardName.equals("OX")) 		// * * * * *
 		{ 										// * * O * *
 			legalMoves.add(new Position(-1,0)); // * * X O *
 			legalMoves.add(new Position(0,1));  // * * O * *
 			legalMoves.add(new Position(1,0));  // * * * * *
+
+			moves = new char[][] 
+					{
+					{'*','*','*','*','*'},
+					{'*','*','O','*','*'},		
+					{'*','*','X','O','*'},
+					{'*','*','O','*','*'},
+					{'*','*','*','*','*'}
+					};
+
 		}
 	}
-	
+
 	public String toString() {
+		for(int i = 0; i < moves.length;i++)
+		{
+			for(int c = 0; c < moves[i].length;c++)
+			{
+				System.out.print(moves[i][c]+" ");
+			}
+			System.out.println();
+		}
+		System.out.println();
 		return cardName + "- redCard: " + redCard + ", cardID: " + cardID + ", #legal: " + legalMoves.size();
 	}
-	
+
 	public ArrayList<Position> getLegalMoves() {
 		return legalMoves;
 	}
@@ -244,7 +371,7 @@ public class Card
 	public String getCardName() {
 		return cardName;
 	}
-	
+
 	public boolean redCard() {
 		return redCard;
 	}
@@ -252,7 +379,7 @@ public class Card
 	public void setCardName(String cardName) {
 		this.cardName = cardName;
 	}
-	
+
 	public BufferedImage getImage() {
 		return cardImg;
 	}

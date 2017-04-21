@@ -424,16 +424,24 @@ public class Onitama implements MouseListener
 		int boardX = 207,boardY = 203;
 		int tileHeight = 77,tileWidth = 77;
 
-		public OnitamaPanel() {
+		public OnitamaPanel() 
+		{
 
 		}
 
-		private void drawPieces(Graphics g) {
+		private void drawPieces(Graphics g) 
+		{
 			redPlayer.drawPieces(g);
 			bluePlayer.drawPieces(g);
 		}
+		
+		private void drawLegalMoves(Graphics g) 
+		{
+			
+		}
 
-		public void paintComponent(Graphics g) {
+		public void paintComponent(Graphics g) 
+		{
 
 			super.paintComponent(g);
 
@@ -545,6 +553,7 @@ public class Onitama implements MouseListener
 
 			}
 		}
+		panel.repaint();
 	}
 
 	//TODO

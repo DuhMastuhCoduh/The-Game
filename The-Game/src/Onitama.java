@@ -246,8 +246,8 @@ public class Onitama implements MouseListener
 				legalMoves.add(new ArrayList<Position>());
 				for(int c = 0; c < cardMoves.size(); c++) 
 				{
-					int tempRow = temp.getPosition().getRow()+-1*cardMoves.get(c).getRow();
-					int tempCol = temp.getPosition().getCol()+-1*cardMoves.get(c).getCol();
+					int tempRow = temp.getPosition().getRow()-cardMoves.get(c).getRow();
+					int tempCol = temp.getPosition().getCol()-cardMoves.get(c).getCol();
 
 					if(tempRow > -1 && tempRow < 5) 
 					{
@@ -273,8 +273,8 @@ public class Onitama implements MouseListener
 				//legalMoves.add(new ArrayList<Position>());
 				for(int c = 0; c < cardMoves.size(); c++) 
 				{
-					int tempRow = temp.getPosition().getRow()+-1*cardMoves.get(c).getRow();
-					int tempCol = temp.getPosition().getCol()+-1*cardMoves.get(c).getCol();
+					int tempRow = temp.getPosition().getRow()-cardMoves.get(c).getRow();
+					int tempCol = temp.getPosition().getCol()-cardMoves.get(c).getCol();
 
 					if(tempRow > -1 && tempRow < 5) 
 					{
@@ -293,8 +293,8 @@ public class Onitama implements MouseListener
 			for(int i = 0; i < cardMoves.size();i++) 
 			{
 
-				int tempRow = bluePlayer.getMaster().getPosition().getRow()+-1*cardMoves.get(i).getRow();
-				int tempCol = bluePlayer.getMaster().getPosition().getCol()+-1*cardMoves.get(i).getCol();
+				int tempRow = bluePlayer.getMaster().getPosition().getRow()-cardMoves.get(i).getRow();
+				int tempCol = bluePlayer.getMaster().getPosition().getCol()-cardMoves.get(i).getCol();
 
 				if(tempRow > -1 && tempRow < 5) 
 				{
@@ -312,8 +312,8 @@ public class Onitama implements MouseListener
 			for(int i = 0; i < cardMoves.size();i++) 
 			{
 
-				int tempRow = bluePlayer.getMaster().getPosition().getRow()+-1*cardMoves.get(i).getRow();
-				int tempCol = bluePlayer.getMaster().getPosition().getCol()+-1*cardMoves.get(i).getCol();
+				int tempRow = bluePlayer.getMaster().getPosition().getRow()-cardMoves.get(i).getRow();
+				int tempCol = bluePlayer.getMaster().getPosition().getCol()-cardMoves.get(i).getCol();
 
 				if(tempRow > -1 && tempRow < 5) 
 				{

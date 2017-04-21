@@ -402,9 +402,10 @@ public class Onitama implements MouseListener
 			//if(redPlayer.getPiece(currentPos)!=null)
 				//redPlayer.capturePiece(currentPos);
 		}
-		panel.repaint();
+		cardPressed = false;
 		redTurn = !redTurn;
 		setLegalMoves();
+		panel.repaint();
 	}
 	//TODO
 	private boolean checkWin() 
@@ -616,7 +617,7 @@ public class Onitama implements MouseListener
 
 					}
 					
-					cardPressed = false;
+					//cardPressed = false;
 
 					System.out.println("b");
 					System.out.println(currentPos);

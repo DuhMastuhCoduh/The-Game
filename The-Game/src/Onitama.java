@@ -402,7 +402,7 @@ public class Onitama implements MouseListener
 			//if(redPlayer.getPiece(currentPos)!=null)
 				//redPlayer.capturePiece(currentPos);
 		}
-
+		panel.repaint();
 		redTurn = !redTurn;
 		setLegalMoves();
 	}
@@ -589,7 +589,7 @@ public class Onitama implements MouseListener
 					//moves = blueCard.getLegalMoves();
 				}
 			} else //player has selected a piece
-			{		//[IMPLEMENT CHECKING WHICH CARD IS SELECTED]
+			{		//[IMPLEMENT CHECKING WHICH CARD IS SELECTED] --------------DONE
 				if(mouseY>203&&mouseY<588)  //within y bounds of board
 				{
 

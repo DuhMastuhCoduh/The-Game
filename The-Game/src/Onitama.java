@@ -33,8 +33,11 @@ public class Onitama implements MouseListener
 	private ArrayList<Position> moves;
 
 	private boolean redTurn;
+	
+	private int selectedCard;
 
 	private boolean pressed = false;
+	private boolean cardPressed = false;
 	//================================================================================
 	//	CONSTRUCTOR - starts the game
 	//================================================================================
@@ -328,8 +331,8 @@ public class Onitama implements MouseListener
 
 	//TODO
 	private boolean checkLegalMove() {
-		//		int row = currentPos.getRow()-afterPos.getRow();
-		//		int col = currentPos.getCol()-afterPos.getCol();
+		//		int row = afterPos.getRow()-currentPos.getRow();
+		//		int col = afterPos.getCol()-currentPos.getCol();
 		//		for(Position movesPos: moves) {
 		//			if((movesPos.getRow() == row) && (movesPos.getCol() == col)) {
 		//				System.out.println("Eureka");
@@ -357,6 +360,38 @@ public class Onitama implements MouseListener
 	{
 		
 		currentPiece.move(currentPos);
+		
+		Card holdCard = board.getCard();
+		
+		if(redTurn) 
+		{
+			if(selectedCard == 1)
+			{
+				board.setCard(redPlayer.getCard1());
+				redPlayer.setCard1(holdCard);
+				
+			}
+			if(selectedCard == 2)
+			{
+				board.setCard(redPlayer.getCard2());
+				redPlayer.setCard2(holdCard);
+			}
+		} else
+		{
+			if(selectedCard == 1)
+			{
+				board.setCard(bluePlayer.getCard1());
+				bluePlayer.setCard1(holdCard);
+				
+			}
+			if(selectedCard == 2)
+			{
+				board.setCard(bluePlayer.getCard2());
+				bluePlayer.setCard2(holdCard);
+			}
+		}
+		
+		
 		
 		if(redTurn)
 		{
@@ -528,9 +563,13 @@ public class Onitama implements MouseListener
 					if(mouseX<398)			//card 1
 					{
 						System.out.println(redPlayer.getCard1());
+						selectedCard = 1;
+						cardPressed = true;
 					} else if(mouseX>401)	//card 2
 					{
 						System.out.println(redPlayer.getCard2());
+						selectedCard = 2;
+						cardPressed = true;
 					}
 					//moves = redCard.getLegalMoves();
 				} else if(mouseY>80&&mouseY<180&&!redTurn)  //within y bounds of blue cards and not red turn
@@ -539,13 +578,17 @@ public class Onitama implements MouseListener
 					if(mouseX<398)			//card 1
 					{
 						System.out.println(bluePlayer.getCard1());
+						selectedCard = 1;
+						cardPressed = true;
 					} else if(mouseX>401)	//card 2
 					{
 						System.out.println(bluePlayer.getCard2());
+						selectedCard = 2;
+						cardPressed = true;
 					}
 					//moves = blueCard.getLegalMoves();
 				}
-			} else  //player has selected a piece
+			} else //player has selected a piece
 			{		//[IMPLEMENT CHECKING WHICH CARD IS SELECTED]
 				if(mouseY>203&&mouseY<588)  //within y bounds of board
 				{
@@ -559,10 +602,12 @@ public class Onitama implements MouseListener
 						if(mouseY>203+77*(i))
 							currentPos.setRow(i);
 
-						if(checkLegalMove())
+						if(checkLegalMove() && cardPressed)
 							move();
 
 					}
+					
+					cardPressed = false;
 
 					System.out.println("b");
 					System.out.println(currentPos);

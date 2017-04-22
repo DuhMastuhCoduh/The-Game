@@ -469,19 +469,28 @@ public class Onitama implements MouseListener
 			//draw cards
 			//blue
 			g.setColor(Color.blue);	
+			g.drawImage(bluePlayer.getCard1().getImage(), 207, 80, null);
 			g.drawRect(207,80,191,100);  //card 1
+			g.drawImage(bluePlayer.getCard2().getImage(), 401, 80, null);
 			g.drawRect(401,80,191,100);  //card 2
 			//red
 			g.setColor(Color.red);
+			g.drawImage(redPlayer.getCard1().getImage(), 207, 611, null);
 			g.drawRect(207,611,191,100);  //card 1
+			g.drawImage(redPlayer.getCard2().getImage(), 401, 611, null);
 			g.drawRect(401,611,191,100);  //card 2
 			//board
 			g.setColor(Color.white);
 			if(redTurn)
+			{
+				g.drawImage(board.getCard().getImage(),597, 345, null);
 				g.drawRect(597, 345, 191, 100);
+			}
 			else
+			{
+				g.drawImage(board.getCard().getImage(),3, 345, null);
 				g.drawRect(3,345,191,100);
-
+			}
 			//will be accessed by ImageIO.read(new File("resources\\" + cardName + ".png"));)
 
 		}
@@ -533,7 +542,7 @@ public class Onitama implements MouseListener
 			if(mouseY>203&&mouseY<588)  //within y bounds of board
 			{
 
-				pressed = true;
+				//pressed = true;
 
 				for(int i = 0; i < 5; i++) 
 				{
@@ -548,6 +557,10 @@ public class Onitama implements MouseListener
 						currentPiece = bluePlayer.getPiece(currentPos);
 					}
 				}
+				
+				if(currentPiece!=null)
+					pressed = true;
+				
 				System.out.println("a");
 				System.out.println(currentPos);
 				System.out.println(currentPiece);
@@ -603,7 +616,7 @@ public class Onitama implements MouseListener
 				if(mouseY>203&&mouseY<588)  //within y bounds of board
 				{
 
-					pressed = false;
+					//pressed = false;
 
 					for(int i = 0; i < 5; i++) 
 					{
@@ -625,7 +638,7 @@ public class Onitama implements MouseListener
 
 				} else  //not released within y bounds of board
 				{
-					pressed = false;
+					//pressed = false;
 					currentPiece = null;
 					currentPos = new Position(0,0);
 					
@@ -638,7 +651,7 @@ public class Onitama implements MouseListener
 			}
 		} else
 		{
-			pressed = false;
+			//pressed = false;
 			currentPiece = null;
 			currentPos = new Position(0,0);
 
@@ -648,7 +661,7 @@ public class Onitama implements MouseListener
 			System.out.println();
 		}
 
-
+		pressed = false;
 
 		panel.repaint();
 	}

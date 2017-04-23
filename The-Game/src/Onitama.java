@@ -361,7 +361,7 @@ public class Onitama implements MouseListener
 		
 		currentPiece.move(currentPos);
 		
-		Card holdCard = board.getCard();
+		Card holdCard = new Card(board.getCard().getCardID());
 		
 		if(redTurn) 
 		{

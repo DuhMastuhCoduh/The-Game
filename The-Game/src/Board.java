@@ -9,7 +9,7 @@ public class Board
 	}
 
 	public void setCard(Card card) {
-		this.card = card;
+		this.card = new Card(card.getCardID());
 	}
 
 	public static final char[][] board = new char[][] 

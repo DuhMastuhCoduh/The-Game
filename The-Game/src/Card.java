@@ -350,6 +350,10 @@ public class Card
 
 		}
 	}
+	
+	public int getCardID() {
+		return cardID;
+	}
 
 	public String toString() {
 		for(int i = 0; i < moves.length;i++)

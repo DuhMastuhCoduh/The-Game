@@ -583,13 +583,14 @@ public class Onitama implements MouseListener
 		cardPressed = false;
 		redTurn = !redTurn;
 		selectedCard = 0;
-		//resetLegalMoves();
+		resetLegalMoves();
 		panel.repaint();
 	}
 	//TODO
 	private boolean checkWin() 
 	{
 		if(bluePlayer.getMaster().getDead())
+			
 		{
 			winner = "Blue";
 			return true;

@@ -34,6 +34,8 @@ public class Onitama implements MouseListener
 
 	private boolean redTurn;
 	
+	private String winner = "";
+	
 	private int selectedCard;
 
 	private boolean pressed = false;
@@ -150,6 +152,7 @@ public class Onitama implements MouseListener
 			{	
 				Piece temp = redPlayer.getDisciples().get(i);
 				legalMoves.add(new ArrayList<Position>());
+				
 				for(int c = 0; c < cardMoves.size(); c++) 
 				{
 					int tempRow = temp.getPosition().getRow()+cardMoves.get(c).getRow();
@@ -173,48 +176,32 @@ public class Onitama implements MouseListener
 			 * each of the second card's legal moves, and adds them if 
 			 * they are within the bounds of the board
 			 */
-			for(int i = 0; i < redPlayer.getDisciples().size();i++) 
-			{
-				Piece temp = redPlayer.getDisciples().get(i);
-
+			for(int i = 5; i < redPlayer.getDisciples().size()+5;i++) 
+			{	
+				Piece temp = redPlayer.getDisciples().get(i-5);
+				legalMoves.add(new ArrayList<Position>());
+				
 				for(int c = 0; c < cardMoves.size(); c++) 
 				{
 					int tempRow = temp.getPosition().getRow()+cardMoves.get(c).getRow();
 					int tempCol = temp.getPosition().getCol()+cardMoves.get(c).getCol();
 
-					if(tempRow > -1 && tempRow < 5) 
+					if(tempRow > -1 && tempRow < 5)
 					{
 						if(tempCol > -1 && tempCol < 5) 
 						{
 							Position tempPos = new Position(tempRow,tempCol);
 							if(redPlayer.getPiece(tempPos)==null)
-								legalMoves.get(i).add(tempPos);
+								legalMoves.get(i-1).add(tempPos);
 						}
 					}
 				}
 			}
 
 			//master
-			legalMoves.add(new ArrayList<Position>());
-			for(int i = 0; i < cardMoves.size();i++) 
-			{
-
-				int tempRow = redPlayer.getMaster().getPosition().getRow()+cardMoves.get(i).getRow();
-				int tempCol = redPlayer.getMaster().getPosition().getCol()+cardMoves.get(i).getCol();
-
-				if(tempRow > -1 && tempRow < 5) 
-				{
-					if(tempCol > -1 && tempCol < 5) 
-					{
-						Position tempPos = new Position(tempRow,tempCol);
-						if(redPlayer.getPiece(tempPos)==null)
-							legalMoves.get(legalMoves.size()-1).add(tempPos);
-					}
-				}
-			}
-
 			cardMoves = redPlayer.getCard1().getLegalMoves();
-
+			legalMoves.add(new ArrayList<Position>());
+			
 			for(int i = 0; i < cardMoves.size();i++) 
 			{
 
@@ -227,10 +214,43 @@ public class Onitama implements MouseListener
 					{
 						Position tempPos = new Position(tempRow,tempCol);
 						if(redPlayer.getPiece(tempPos)==null)
-							legalMoves.get(legalMoves.size()-1).add(tempPos);
+							legalMoves.get(8).add(tempPos);
 					}
 				}
 			}
+
+			cardMoves = redPlayer.getCard2().getLegalMoves();
+			legalMoves.add(new ArrayList<Position>());
+			
+			for(int i = 0; i < cardMoves.size();i++) 
+			{
+
+				int tempRow = redPlayer.getMaster().getPosition().getRow()+cardMoves.get(i).getRow();
+				int tempCol = redPlayer.getMaster().getPosition().getCol()+cardMoves.get(i).getCol();
+
+				if(tempRow > -1 && tempRow < 5) 
+				{
+					if(tempCol > -1 && tempCol < 5) 
+					{
+						Position tempPos = new Position(tempRow,tempCol);
+						if(redPlayer.getPiece(tempPos)==null)
+							legalMoves.get(9).add(tempPos);
+					}
+				}
+			}
+			System.out.println();
+			System.out.println("size: "+legalMoves.size());
+			System.out.println("size of 1: "+legalMoves.get(0).size());
+			System.out.println("size of 2: "+legalMoves.get(1).size());
+			System.out.println("size of 3: "+legalMoves.get(2).size());
+			System.out.println("size of 4: "+legalMoves.get(3).size());
+			System.out.println("size of 5: "+legalMoves.get(4).size());
+			System.out.println("size of 6: "+legalMoves.get(5).size());
+			System.out.println("size of 7: "+legalMoves.get(6).size());
+			System.out.println("size of 8: "+legalMoves.get(7).size());
+			System.out.println("size of 9: "+legalMoves.get(8).size());
+			System.out.println("size of 10: "+legalMoves.get(9).size());
+			System.out.println("size of disciples: "+redPlayer.getDisciples().size());
 		} 
 		else 
 		{	//sets legal moves for blue turn
@@ -241,15 +261,16 @@ public class Onitama implements MouseListener
 			 * they are within the bounds of the board
 			 */
 			for(int i = 0; i < bluePlayer.getDisciples().size();i++) 
-			{
+			{	
 				Piece temp = bluePlayer.getDisciples().get(i);
 				legalMoves.add(new ArrayList<Position>());
+				
 				for(int c = 0; c < cardMoves.size(); c++) 
 				{
-					int tempRow = temp.getPosition().getRow()-cardMoves.get(c).getRow();
-					int tempCol = temp.getPosition().getCol()-cardMoves.get(c).getCol();
+					int tempRow = temp.getPosition().getRow()+cardMoves.get(c).getRow();
+					int tempCol = temp.getPosition().getCol()+cardMoves.get(c).getCol();
 
-					if(tempRow > -1 && tempRow < 5) 
+					if(tempRow > -1 && tempRow < 5)
 					{
 						if(tempCol > -1 && tempCol < 5) 
 						{
@@ -263,57 +284,41 @@ public class Onitama implements MouseListener
 
 			cardMoves = bluePlayer.getCard2().getLegalMoves();
 
-			/*goes through each disciple and creates a new position for
+			/* goes through each disciple and creates a new position for
 			 * each of the second card's legal moves, and adds them if 
 			 * they are within the bounds of the board
 			 */
-			for(int i = 0; i < bluePlayer.getDisciples().size();i++) 
-			{
-				Piece temp = bluePlayer.getDisciples().get(i);
-				//legalMoves.add(new ArrayList<Position>());
+			for(int i = 5; i < bluePlayer.getDisciples().size()+5;i++) 
+			{	
+				Piece temp = bluePlayer.getDisciples().get(i-5);
+				legalMoves.add(new ArrayList<Position>());
+				
 				for(int c = 0; c < cardMoves.size(); c++) 
 				{
-					int tempRow = temp.getPosition().getRow()-cardMoves.get(c).getRow();
-					int tempCol = temp.getPosition().getCol()-cardMoves.get(c).getCol();
+					int tempRow = temp.getPosition().getRow()+cardMoves.get(c).getRow();
+					int tempCol = temp.getPosition().getCol()+cardMoves.get(c).getCol();
 
-					if(tempRow > -1 && tempRow < 5) 
+					if(tempRow > -1 && tempRow < 5)
 					{
 						if(tempCol > -1 && tempCol < 5) 
 						{
 							Position tempPos = new Position(tempRow,tempCol);
 							if(bluePlayer.getPiece(tempPos)==null)
-								legalMoves.get(i).add(tempPos);
+								legalMoves.get(i-1).add(tempPos);
 						}
 					}
 				}
 			}
+
 			//master
-			legalMoves.add(new ArrayList<Position>());
-
-			for(int i = 0; i < cardMoves.size();i++) 
-			{
-
-				int tempRow = bluePlayer.getMaster().getPosition().getRow()-cardMoves.get(i).getRow();
-				int tempCol = bluePlayer.getMaster().getPosition().getCol()-cardMoves.get(i).getCol();
-
-				if(tempRow > -1 && tempRow < 5) 
-				{
-					if(tempCol > -1 && tempCol < 5) 
-					{
-						Position tempPos = new Position(tempRow,tempCol);
-						if(bluePlayer.getPiece(tempPos)==null)
-							legalMoves.get(legalMoves.size()-1).add(tempPos);
-					}
-				}
-			}
-
 			cardMoves = bluePlayer.getCard1().getLegalMoves();
-
+			legalMoves.add(new ArrayList<Position>());
+			
 			for(int i = 0; i < cardMoves.size();i++) 
 			{
 
-				int tempRow = bluePlayer.getMaster().getPosition().getRow()-cardMoves.get(i).getRow();
-				int tempCol = bluePlayer.getMaster().getPosition().getCol()-cardMoves.get(i).getCol();
+				int tempRow = bluePlayer.getMaster().getPosition().getRow()+cardMoves.get(i).getRow();
+				int tempCol = bluePlayer.getMaster().getPosition().getCol()+cardMoves.get(i).getCol();
 
 				if(tempRow > -1 && tempRow < 5) 
 				{
@@ -321,24 +326,49 @@ public class Onitama implements MouseListener
 					{
 						Position tempPos = new Position(tempRow,tempCol);
 						if(bluePlayer.getPiece(tempPos)==null)
-							legalMoves.get(legalMoves.size()-1).add(tempPos);
+							legalMoves.get(8).add(tempPos);
 					}
 				}
 			}
 
+			cardMoves = bluePlayer.getCard2().getLegalMoves();
+			legalMoves.add(new ArrayList<Position>());
+			
+			for(int i = 0; i < cardMoves.size();i++) 
+			{
+
+				int tempRow = bluePlayer.getMaster().getPosition().getRow()+cardMoves.get(i).getRow();
+				int tempCol = bluePlayer.getMaster().getPosition().getCol()+cardMoves.get(i).getCol();
+
+				if(tempRow > -1 && tempRow < 5) 
+				{
+					if(tempCol > -1 && tempCol < 5) 
+					{
+						Position tempPos = new Position(tempRow,tempCol);
+						if(bluePlayer.getPiece(tempPos)==null)
+							legalMoves.get(9).add(tempPos);
+					}
+				}
+			}
+			System.out.println();
+			System.out.println("size: "+legalMoves.size());
+			System.out.println("size of 1: "+legalMoves.get(0).size());
+			System.out.println("size of 2: "+legalMoves.get(1).size());
+			System.out.println("size of 3: "+legalMoves.get(2).size());
+			System.out.println("size of 4: "+legalMoves.get(3).size());
+			System.out.println("size of 5: "+legalMoves.get(4).size());
+			System.out.println("size of 6: "+legalMoves.get(5).size());
+			System.out.println("size of 7: "+legalMoves.get(6).size());
+			System.out.println("size of 8: "+legalMoves.get(7).size());
+			System.out.println("size of 9: "+legalMoves.get(8).size());
+			System.out.println("size of 10: "+legalMoves.get(9).size());
+			System.out.println("size of disciples: "+bluePlayer.getDisciples().size());
 		}
 	}
 
 	//TODO
 	private boolean checkLegalMove() {
-		//		int row = afterPos.getRow()-currentPos.getRow();
-		//		int col = afterPos.getCol()-currentPos.getCol();
-		//		for(Position movesPos: moves) {
-		//			if((movesPos.getRow() == row) && (movesPos.getCol() == col)) {
-		//				System.out.println("Eureka");
-		//				return true;
-		//			}
-		//		}
+		
 		if(redTurn)
 		{
 			if(redPlayer.getPiece(currentPos)!=null)
@@ -348,10 +378,43 @@ public class Onitama implements MouseListener
 			if(bluePlayer.getPiece(currentPos)!=null)
 				return false;
 		}
-		for(int i = 0; i < legalMoves.get(currentPiece.getID()).size();i++) {
-			if(currentPos.equals(legalMoves.get(currentPiece.getID()).get(i)))
-				return true;
+		if(redTurn)					//don't think we need to differentiate between redTurn and blueTurn for this down below
+		{
+			if(selectedCard == 1)
+			{
+				for(int i = 0; i < legalMoves.get(currentPiece.getID()).size();i++) {
+					if(currentPos.equals(legalMoves.get(currentPiece.getID()).get(i)))
+						return true;
+				}
+			}
+			if(selectedCard == 2)
+			{
+				for(int i = 0; i < legalMoves.get(currentPiece.getID()).size()+5;i++) {
+					if(currentPos.equals(legalMoves.get(currentPiece.getID()).get(i)))
+						return true;
+				}
+			}
+		} else 
+		{
+			if(selectedCard == 1)
+			{
+				for(int i = 0; i < legalMoves.get(currentPiece.getID()).size();i++) {
+					if(currentPos.equals(legalMoves.get(currentPiece.getID()).get(i)))
+						return true;
+				}
+			}
+			if(selectedCard == 2)
+			{
+				for(int i = 0; i < legalMoves.get(currentPiece.getID()).size()+5;i++) {
+					if(currentPos.equals(legalMoves.get(currentPiece.getID()).get(i)))
+						return true;
+				}
+			}
 		}
+//		for(int i = 0; i < legalMoves.get(currentPiece.getID()).size();i++) {
+//			if(currentPos.equals(legalMoves.get(currentPiece.getID()).get(i)))
+//				return true;
+//		}
 
 		return false;
 	}
@@ -410,7 +473,25 @@ public class Onitama implements MouseListener
 	//TODO
 	private boolean checkWin() 
 	{
-		return false;
+		if(bluePlayer.getMaster().getDead())
+		{
+			winner = "Blue";
+			return true;
+		} else if(bluePlayer.getMaster().getPosition().getRow() == 4 && bluePlayer.getMaster().getPosition().getCol() == 2)
+		{
+			winner = "Blue";
+			return true;
+		}
+		if(redPlayer.getMaster().getDead())
+		{
+			winner = "Red";
+			return true;
+		} else if(redPlayer.getMaster().getPosition().getRow() == 0 && redPlayer.getMaster().getPosition().getCol() == 2)
+		{
+			winner = "Red";
+			return true;
+		}
+			return false;
 	}
 
 	//================================================================================
@@ -536,7 +617,9 @@ public class Onitama implements MouseListener
 
 		mouseX = e.getX();
 		mouseY = e.getY();
-
+//		System.out.println("ROW "+bluePlayer.getMaster().getPosition().getRow()+" COLUMN "+bluePlayer.getMaster().getPosition().getCol());
+//		System.out.println("ROW "+redPlayer.getMaster().getPosition().getRow()+" COLUMN "+redPlayer.getMaster().getPosition().getCol());
+		
 		if(mouseX>207&&mouseX<592)  //within x bounds of board
 		{
 			if(mouseY>203&&mouseY<588)  //within y bounds of board
@@ -594,7 +677,6 @@ public class Onitama implements MouseListener
 						selectedCard = 2;
 						cardPressed = true;
 					}
-					//moves = redCard.getLegalMoves();
 				} else if(mouseY>80&&mouseY<180&&!redTurn)  //within y bounds of blue cards and not red turn
 				{
 
@@ -609,7 +691,6 @@ public class Onitama implements MouseListener
 						selectedCard = 2;
 						cardPressed = true;
 					}
-					//moves = blueCard.getLegalMoves();
 				}
 			} else //player has selected a piece
 			{		//[IMPLEMENT CHECKING WHICH CARD IS SELECTED] --------------DONE

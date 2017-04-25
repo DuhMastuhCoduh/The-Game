@@ -484,52 +484,10 @@ public class Onitama implements MouseListener
 	//TODO
 	private boolean checkLegalMove() {
 		
-		if(redTurn)
-		{
-			if(redPlayer.getPiece(currentPos)!=null)
-				return false;
-		} else
-		{
-			if(bluePlayer.getPiece(currentPos)!=null)
-				return false;
+		for(int i = 0; i < legalMoves.get(currentPiece.getID()).size();i++) {
+			if(currentPos.equals(legalMoves.get(currentPiece.getID()).get(i)))
+				return true;
 		}
-		if(redTurn)					//don't think we need to differentiate between redTurn and blueTurn for this down below
-		{
-			if(selectedCard == 1)
-			{
-				for(int i = 0; i < legalMoves.get(currentPiece.getID()).size();i++) {
-					if(currentPos.equals(legalMoves.get(currentPiece.getID()).get(i)))
-						return true;
-				}
-			}
-			if(selectedCard == 2)
-			{
-				for(int i = 0; i < legalMoves.get(currentPiece.getID()).size();i++) {
-					if(currentPos.equals(legalMoves.get(currentPiece.getID()).get(i)))
-						return true;
-				}
-			}
-		} else 
-		{
-			if(selectedCard == 1)
-			{
-				for(int i = 0; i < legalMoves.get(currentPiece.getID()).size();i++) {
-					if(currentPos.equals(legalMoves.get(currentPiece.getID()).get(i)))
-						return true;
-				}
-			}
-			if(selectedCard == 2)
-			{
-				for(int i = 0; i < legalMoves.get(currentPiece.getID()).size();i++) {
-					if(currentPos.equals(legalMoves.get(currentPiece.getID()).get(i)))
-						return true;
-				}
-			}
-		}
-//		for(int i = 0; i < legalMoves.get(currentPiece.getID()).size();i++) {
-//			if(currentPos.equals(legalMoves.get(currentPiece.getID()).get(i)))
-//				return true;
-//		}
 
 		return false;
 	}

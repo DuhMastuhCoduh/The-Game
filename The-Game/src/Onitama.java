@@ -10,6 +10,12 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+/*	CURRENT KNOWN BUGS
+ * 	-when an invalid move is selected picks a seemingly random move sometimes?
+ * 	
+ * 
+ */
+
 @SuppressWarnings("unused")
 public class Onitama implements MouseListener
 {

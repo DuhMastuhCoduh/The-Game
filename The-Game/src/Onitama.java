@@ -245,7 +245,6 @@ public class Onitama implements MouseListener
 					}
 				}
 			}
-			
 		}
 	}
 	

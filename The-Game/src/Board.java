@@ -23,7 +23,7 @@ public class Board
 	
 	public Board(Card card) 
 	{
-		this.card = card;
+		this.card = new Card(card.getCardID());
 	}
 
 }

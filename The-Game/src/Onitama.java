@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 
 /*	CURRENT KNOWN BUGS
  * 	-when an invalid move is selected picks a seemingly random move sometimes?
- * 	
+ * 	-sometimes move selection doesnt work
  * 
  */
 
@@ -30,7 +30,7 @@ public class Onitama implements MouseListener
 
 	private Board board;
 
-	private ArrayList<ArrayList<Position>> legalMoves;
+	private ArrayList<ArrayList<Position>> legalMoves = new ArrayList<ArrayList<Position>>();
 
 	private int mouseX,mouseY;
 
@@ -581,6 +581,7 @@ public class Onitama implements MouseListener
 				//redPlayer.capturePiece(currentPos);
 		}
 		cardPressed = false;
+		currentPiece = null;
 		redTurn = !redTurn;
 		selectedCard = 0;
 		resetLegalMoves();
@@ -636,6 +637,15 @@ public class Onitama implements MouseListener
 		
 		private void drawLegalMoves(Graphics g) 
 		{
+			g.setColor(Color.orange);
+			if(currentPiece!=null) 
+			{
+				for(int i = 0; i < legalMoves.get(currentPiece.getID()).size();i++) 
+				{
+					Position temp = legalMoves.get(currentPiece.getID()).get(i);
+					g.fillRect(temp.getXCoord(),temp.getyCoord(),77,77);
+				}
+			}
 			
 		}
 
@@ -651,7 +661,9 @@ public class Onitama implements MouseListener
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-
+			
+			drawLegalMoves(g);
+			
 			//draws board bounds
 			g.setColor(Color.green);
 			g.drawRect(boardX, boardY, tileWidth*5, tileHeight*5);

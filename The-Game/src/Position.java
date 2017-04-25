@@ -3,14 +3,14 @@ public class Position
 {
 	
 	private int row, col;
-	private int xCoord, yCoord;
+	private int XCoord, yCoord;
 	
-	public int getxCoord() {
-		return xCoord;
+	public int getXCoord() {
+		return XCoord;
 	}
 
-	public void setxCoord(int xCoord) {
-		this.xCoord = xCoord;
+	public void setXCoord(int XCoord) {
+		this.XCoord = XCoord;
 	}
 
 	public int getyCoord() {
@@ -26,7 +26,7 @@ public class Position
 		this.row = row;
 		this.col = col;
 		
-		xCoord = 207 + 77*col;
+		XCoord = 207 + 77*col;
 		yCoord = 203 + 77*row;
 		
 	}

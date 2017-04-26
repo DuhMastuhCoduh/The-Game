@@ -35,10 +35,12 @@ public class Player
 		{
 			for(int i = 0; i < 5;i++) 
 			{
-				if(i != 2)
+				if(i > 2)
+					disciples.add(new Piece(teamRed,new Position(0,i),false,i-1));
+				else if(i < 2)
 					disciples.add(new Piece(teamRed,new Position(0,i),false,i));
 				else
-					master = new Piece(teamRed,new Position(0,i),true,i);
+					master = new Piece(teamRed,new Position(0,i),true,4);
 			}
 		}
 	}

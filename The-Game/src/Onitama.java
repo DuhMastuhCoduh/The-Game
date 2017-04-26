@@ -383,7 +383,7 @@ public class Onitama implements MouseListener
 			}
 		}
 		
-		private void rotateImage(int degrees, BufferedImage image, int drawLocationX,int drawLocationY,Graphics g)
+		private void drawRotateImage(int degrees, BufferedImage image, int drawLocationX,int drawLocationY,Graphics g)
 		{
 			
 			double rotationRequired = Math.toRadians (180);
@@ -394,6 +394,8 @@ public class Onitama implements MouseListener
 
 			// Drawing the rotated image at the required drawing locations
 			g.drawImage(op.filter(image, null), drawLocationX, drawLocationY, null);
+			
+			//http://stackoverflow.com/questions/8639567/java-rotating-images
 		}
 
 		public void paintComponent(Graphics g) 
@@ -427,9 +429,9 @@ public class Onitama implements MouseListener
 			//draw cards
 			//blue
 			g.setColor(Color.blue);
-			rotateImage(180,bluePlayer.getCard1().getImage(),207,80,g);
+			drawRotateImage(180,bluePlayer.getCard1().getImage(),207,80,g);
 			g.drawRect(207,80,191,100);  //card 1
-			rotateImage(180,bluePlayer.getCard2().getImage(),401,80,g);
+			drawRotateImage(180,bluePlayer.getCard2().getImage(),401,80,g);
 			g.drawRect(401,80,191,100);  //card 2
 			//red
 			g.setColor(Color.red);
@@ -446,7 +448,7 @@ public class Onitama implements MouseListener
 			}
 			else
 			{
-				rotateImage(180,board.getCard().getImage(),3,345,g);
+				drawRotateImage(180,board.getCard().getImage(),3,345,g);
 				g.drawRect(3,345,191,100);
 			}
 			//will be accessed by ImageIO.read(new File("resources\\" + cardName + ".png"));)

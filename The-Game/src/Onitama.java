@@ -2,6 +2,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
@@ -380,6 +382,19 @@ public class Onitama implements MouseListener
 				}
 			}
 		}
+		
+		private void rotateImage(int degrees, BufferedImage image, int drawLocationX,int drawLocationY,Graphics g)
+		{
+			
+			double rotationRequired = Math.toRadians (180);
+			double locationX = image.getWidth() / 2;
+			double locationY = image.getHeight() / 2;
+			AffineTransform tx = AffineTransform.getRotateInstance(rotationRequired, locationX, locationY);
+			AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
+
+			// Drawing the rotated image at the required drawing locations
+			g.drawImage(op.filter(image, null), drawLocationX, drawLocationY, null);
+		}
 
 		public void paintComponent(Graphics g) 
 		{
@@ -411,10 +426,10 @@ public class Onitama implements MouseListener
 
 			//draw cards
 			//blue
-			g.setColor(Color.blue);	
-			g.drawImage(bluePlayer.getCard1().getImage(), 207, 80, null);
+			g.setColor(Color.blue);
+			rotateImage(180,bluePlayer.getCard1().getImage(),207,80,g);
 			g.drawRect(207,80,191,100);  //card 1
-			g.drawImage(bluePlayer.getCard2().getImage(), 401, 80, null);
+			rotateImage(180,bluePlayer.getCard2().getImage(),401,80,g);
 			g.drawRect(401,80,191,100);  //card 2
 			//red
 			g.setColor(Color.red);
@@ -431,7 +446,7 @@ public class Onitama implements MouseListener
 			}
 			else
 			{
-				g.drawImage(board.getCard().getImage(),3, 345, null);
+				rotateImage(180,board.getCard().getImage(),3,345,g);
 				g.drawRect(3,345,191,100);
 			}
 			//will be accessed by ImageIO.read(new File("resources\\" + cardName + ".png"));)

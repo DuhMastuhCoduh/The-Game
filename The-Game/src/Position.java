@@ -13,7 +13,7 @@ public class Position
 		this.XCoord = XCoord;
 	}
 
-	public int getyCoord() {
+	public int getYCoord() {
 		return yCoord;
 	}
 

@@ -16,7 +16,7 @@ import javax.swing.JPanel;
  * 	-when an invalid move is selected picks a seemingly random move sometimes?
  * 	+blue team legal moves on wrong pieces
  * 	+sometimes move selection doesnt work
- *  -card and red piece selected then piece released in place, if only one available move, automatically moves it
+ *  +card and red piece selected then piece released in place, if only one available move, automatically moves it
  * 
  */
 
@@ -259,6 +259,7 @@ public class Onitama implements MouseListener
 		for(int i = 0; i < legalMoves.get(currentPiece.getID()).size();i++) {
 			if(currentPos.equals(legalMoves.get(currentPiece.getID()).get(i)))
 				return true;
+			
 		}
 
 		return false;
@@ -379,7 +380,7 @@ public class Onitama implements MouseListener
 				for(int i = 0; i < legalMoves.get(currentPiece.getID()).size();i++) 
 				{
 					Position temp = legalMoves.get(currentPiece.getID()).get(i);
-					g.fillRect(temp.getXCoord(),temp.getyCoord(),77,77);
+					g.fillRect(temp.getXCoord(),temp.getYCoord(),77,77);
 				}
 			}
 		}
@@ -411,6 +412,9 @@ public class Onitama implements MouseListener
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			
+			//g.setColor(Color.white);
+			//g.fillRect(currentPos.getXCoord(), currentPos.getYCoord(), 77, 77);
 			
 			if(selectedCard != 0)
 			drawLegalMoves(g);
@@ -581,11 +585,11 @@ public class Onitama implements MouseListener
 						if(mouseY>203+77*(i))
 							currentPos.setRow(i);
 
-						if(cardPressed)
-							if(checkLegalMove())
-								move();
-
 					}
+					
+					if(cardPressed)
+						if(checkLegalMove())
+							move();
 
 					System.out.println("b");
 					System.out.println(currentPos);

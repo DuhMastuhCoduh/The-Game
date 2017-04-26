@@ -12,9 +12,10 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-/*	CURRENT KNOWN BUGS
+/*	CURRENT KNOWN BUGS:	- = unresolved;	+ = resolved
  * 	-when an invalid move is selected picks a seemingly random move sometimes?
- * 	-sometimes move selection doesnt work
+ * 	+blue team legal moves on wrong pieces
+ * 	+sometimes move selection doesnt work
  *  -card and red piece selected then piece released in place, if only one available move, automatically moves it
  * 
  */
@@ -451,7 +452,6 @@ public class Onitama implements MouseListener
 				drawRotateImage(180,board.getCard().getImage(),3,345,g);
 				g.drawRect(3,345,191,100);
 			}
-			//will be accessed by ImageIO.read(new File("resources\\" + cardName + ".png"));)
 
 		}
 		//image size constraints
@@ -477,14 +477,6 @@ public class Onitama implements MouseListener
 	//================================================================================
 	//	MOUSE EVENTS - handles user interaction with the game
 	//================================================================================
-
-
-	/* PLAN FOR ACTIONS:
-	 * 1.	player chooses a card (mouseReleased)
-	 * 2.	players clicks and drags a piece (mousePressed)										[TO BE IMPLEMENTED]
-	 * 3.	onto legal move and places onto legal move (mouseReleased)							[TO BE IMPLEMENTED]
-	 * 4.	checks if legal move, if so, cards are swapped, piece is moves, next turn starts	[TO BE IMPLEMENTED]
-	 */
 
 	public void mouseClicked(MouseEvent e) { }
 	public void mouseEntered(MouseEvent e) { panel.repaint(); }
@@ -576,7 +568,7 @@ public class Onitama implements MouseListener
 					}
 				}
 			} else //player has selected a piece
-			{		//[IMPLEMENT CHECKING WHICH CARD IS SELECTED] --------------DONE
+			{
 				if(mouseY>203&&mouseY<588)  //within y bounds of board
 				{
 
@@ -594,8 +586,6 @@ public class Onitama implements MouseListener
 								move();
 
 					}
-					
-					//cardPressed = false;
 
 					System.out.println("b");
 					System.out.println(currentPos);
@@ -603,7 +593,6 @@ public class Onitama implements MouseListener
 
 				} else  //not released within y bounds of board
 				{
-					//pressed = false;
 					currentPiece = null;
 					currentPos = new Position(0,0);
 					
@@ -616,7 +605,6 @@ public class Onitama implements MouseListener
 			}
 		} else
 		{
-			//pressed = false;
 			currentPiece = null;
 			currentPos = new Position(0,0);
 

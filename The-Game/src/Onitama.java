@@ -482,7 +482,8 @@ public class Onitama implements MouseListener
 
 	//TODO
 	private boolean checkLegalMove() {
-		
+		System.out.println("HEY "+legalMoves.size());
+		System.out.println("HEY YOU "+legalMoves.get(0));
 		for(int i = 0; i < legalMoves.get(currentPiece.getID()).size();i++) {
 			if(currentPos.equals(legalMoves.get(currentPiece.getID()).get(i)))
 				return true;
@@ -591,7 +592,7 @@ public class Onitama implements MouseListener
 			redPlayer.drawPieces(g);
 			bluePlayer.drawPieces(g);
 		}
-		
+
 		private void drawLegalMoves(Graphics g) 
 		{
 			g.setColor(Color.orange);
@@ -603,7 +604,6 @@ public class Onitama implements MouseListener
 					g.fillRect(temp.getXCoord(),temp.getyCoord(),77,77);
 				}
 			}
-			
 		}
 
 		public void paintComponent(Graphics g) 
@@ -619,6 +619,7 @@ public class Onitama implements MouseListener
 				e.printStackTrace();
 			}
 			
+			if(selectedCard != 0)
 			drawLegalMoves(g);
 			
 			//draws board bounds
@@ -787,7 +788,7 @@ public class Onitama implements MouseListener
 				if(mouseY>203&&mouseY<588)  //within y bounds of board
 				{
 
-					//pressed = false;
+					pressed = false;
 
 					for(int i = 0; i < 5; i++) 
 					{
@@ -796,8 +797,9 @@ public class Onitama implements MouseListener
 						if(mouseY>203+77*(i))
 							currentPos.setRow(i);
 
-						if(checkLegalMove() && cardPressed)
-							move();
+						if(cardPressed)
+							if(checkLegalMove())
+								move();
 
 					}
 					

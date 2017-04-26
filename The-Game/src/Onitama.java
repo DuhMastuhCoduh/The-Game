@@ -13,7 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /*	CURRENT KNOWN BUGS:	- = unresolved;	+ = resolved
- * 	-when an invalid move is selected picks a seemingly random move sometimes?
+ * 	+when an invalid move is selected picks a seemingly random move sometimes?
  * 	+blue team legal moves on wrong pieces
  * 	+sometimes move selection doesnt work
  *  +card and red piece selected then piece released in place, if only one available move, automatically moves it
@@ -388,7 +388,7 @@ public class Onitama implements MouseListener
 		private void drawRotateImage(int degrees, BufferedImage image, int drawLocationX,int drawLocationY,Graphics g)
 		{
 			
-			double rotationRequired = Math.toRadians (180);
+			double rotationRequired = Math.toRadians (degrees);
 			double locationX = image.getWidth() / 2;
 			double locationY = image.getHeight() / 2;
 			AffineTransform tx = AffineTransform.getRotateInstance(rotationRequired, locationX, locationY);

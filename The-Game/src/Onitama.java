@@ -304,14 +304,8 @@ public class Onitama implements MouseListener
 		
 		if(redTurn)
 		{	
-			for(Piece redPiece: redPlayer.getDisciples()) {
-				for(Piece bluePiece: bluePlayer.getDisciples()) {
-					if(redPiece.getPosition().equals(bluePiece.getPosition()))
-						bluePiece.setDead(true);
-				}
-			}
-			//if(bluePlayer.getPiece(currentPos)!=null)
-				//bluePlayer.capturePiece(currentPos);
+			//if(bluePlayer.getPiece(currentPos)!=null) put this in and make piece dead, put if statement
+				//bluePlayer.capturePiece(currentPos);  at top of move method, if piece is dead, skip over everything
 		} else
 		{
 			//if(redPlayer.getPiece(currentPos)!=null)

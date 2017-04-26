@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 /*	CURRENT KNOWN BUGS
  * 	-when an invalid move is selected picks a seemingly random move sometimes?
  * 	-sometimes move selection doesnt work
+ *  -card and red piece selected then piece released in place, if only one available move, automatically moves it
  * 
  */
 
@@ -530,7 +531,13 @@ public class Onitama implements MouseListener
 		
 		
 		if(redTurn)
-		{
+		{	
+			for(Piece redPiece: redPlayer.getDisciples()) {
+				for(Piece bluePiece: bluePlayer.getDisciples()) {
+					if(redPiece.getPosition().equals(bluePiece.getPosition()))
+						bluePiece.setDead(true);
+				}
+			}
 			//if(bluePlayer.getPiece(currentPos)!=null)
 				//bluePlayer.capturePiece(currentPos);
 		} else

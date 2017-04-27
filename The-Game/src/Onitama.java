@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /*	CURRENT KNOWN BUGS:	- = unresolved;	+ = resolved
@@ -43,6 +44,8 @@ public class Onitama implements MouseListener
 	private ArrayList<Position> moves;
 
 	private boolean redTurn;
+	
+	private boolean winMessageDisplayed = false;
 	
 	private String winner = "";
 	
@@ -490,6 +493,8 @@ public class Onitama implements MouseListener
 		mouseX = e.getX();
 		mouseY = e.getY();
 		
+		if(!checkWin())
+		{
 		if(mouseX>207&&mouseX<592)  //within x bounds of board
 		{
 			if(mouseY>203&&mouseY<588)  //within y bounds of board
@@ -529,6 +534,7 @@ public class Onitama implements MouseListener
 			}
 		}
 		panel.repaint();
+		}
 	}
 
 	//TODO
@@ -536,7 +542,9 @@ public class Onitama implements MouseListener
 	{
 		mouseX = e.getX();
 		mouseY = e.getY();
-
+		
+		if(!checkWin())
+		{
 		if(mouseX>207&&mouseX<592)  //if click is within x bounds of board
 		{
 			if(!pressed)  //player did not select a piece
@@ -589,23 +597,29 @@ public class Onitama implements MouseListener
 							currentPos.setRow(i);
 
 					}
-					
+
 					if(cardPressed)
 						if(checkLegalMove())
 							move();
 
 					System.out.println("b");
 					System.out.println(currentPos);
-					System.out.println(currentPiece.printPiece());
+					if(currentPiece!=null)
+						System.out.println(currentPiece.printPiece());
+					else
+						System.out.println(currentPiece);
 
 				} else  //not released within y bounds of board
 				{
 					currentPiece = null;
 					currentPos = new Position(0,0);
-					
+
 					System.out.println("c");
 					System.out.println(currentPos);
-					System.out.println(currentPiece.printPiece());
+					if(currentPiece!=null)
+						System.out.println(currentPiece.printPiece());
+					else
+						System.out.println(currentPiece);
 					System.out.println();
 				}
 
@@ -617,13 +631,22 @@ public class Onitama implements MouseListener
 
 			System.out.println("c");
 			System.out.println(currentPos);
-			System.out.println(currentPiece.printPiece());
+			if(currentPiece!=null)
+				System.out.println(currentPiece.printPiece());
+			else
+				System.out.println(currentPiece);
 			System.out.println();
 		}
 
 		pressed = false;
 
 		panel.repaint();
+		}
+		else if(!winMessageDisplayed)
+		{
+			winMessageDisplayed = true;
+			JOptionPane.showMessageDialog(frame,winner);
+		}
 	}
 
 	//================================================================================

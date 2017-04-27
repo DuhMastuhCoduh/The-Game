@@ -50,15 +50,17 @@ public class Onitama implements MouseListener
 	private ArrayList<Position> moves;
 
 	private boolean redTurn;
-	
+
 	private boolean winMessageDisplayed = false;
-	
+
 	private String winner = "";
-	
+
 	private int selectedCard = 0;
 
 	private boolean pressed = false;
 	private boolean cardPressed = false;
+
+	private boolean gameOver = false;
 	//================================================================================
 	//	CONSTRUCTOR - starts the game
 	//================================================================================
@@ -148,12 +150,12 @@ public class Onitama implements MouseListener
 	{
 		legalMoves = new ArrayList<ArrayList<Position>>();
 	}
-	
+
 	private void setLegalMoves() 
 	{
 		legalMoves = new ArrayList<ArrayList<Position>>();
 		ArrayList<Position> cardMoves = new ArrayList<Position>();
-		
+
 		if(redTurn)
 		{
 			if(selectedCard==1)
@@ -164,12 +166,12 @@ public class Onitama implements MouseListener
 			{
 				cardMoves = redPlayer.getCard2().getLegalMoves();
 			}
-			
+
 			for(int i = 0; i < redPlayer.getDisciples().size();i++) 
 			{	
 				Piece temp = redPlayer.getDisciples().get(i);
 				legalMoves.add(new ArrayList<Position>());
-				
+
 				for(int c = 0; c < cardMoves.size(); c++) 
 				{
 					int tempRow = temp.getPosition().getRow()+cardMoves.get(c).getRow();
@@ -188,9 +190,9 @@ public class Onitama implements MouseListener
 					}
 				}
 			}
-			
+
 			legalMoves.add(new ArrayList<Position>());
-			
+
 			for(int i = 0; i < cardMoves.size();i++) 
 			{
 
@@ -209,7 +211,7 @@ public class Onitama implements MouseListener
 					}
 				}
 			}
-			
+
 		}
 		else
 		{
@@ -221,12 +223,12 @@ public class Onitama implements MouseListener
 			{
 				cardMoves = bluePlayer.getCard2().getLegalMoves();
 			}
-			
+
 			for(int i = 0; i < bluePlayer.getDisciples().size();i++) 
 			{	
 				Piece temp = bluePlayer.getDisciples().get(i);
 				legalMoves.add(new ArrayList<Position>());
-				
+
 				for(int c = 0; c < cardMoves.size(); c++) 
 				{
 					int tempRow = temp.getPosition().getRow()-cardMoves.get(c).getRow();
@@ -245,9 +247,9 @@ public class Onitama implements MouseListener
 					}
 				}
 			}
-			
+
 			legalMoves.add(new ArrayList<Position>());
-			
+
 			for(int i = 0; i < cardMoves.size();i++) 
 			{
 
@@ -268,7 +270,7 @@ public class Onitama implements MouseListener
 			}
 		}
 	}
-	
+
 	//TODO
 	private boolean checkLegalMove() {
 		//System.out.println("HEY "+legalMoves.size());
@@ -276,7 +278,7 @@ public class Onitama implements MouseListener
 		for(int i = 0; i < legalMoves.get(currentPiece.getID()).size();i++) {
 			if(currentPos.equals(legalMoves.get(currentPiece.getID()).get(i)))
 				return true;
-			
+
 		}
 
 		return false;
@@ -284,18 +286,18 @@ public class Onitama implements MouseListener
 	//TODO
 	private void move() 
 	{
-		
+
 		currentPiece.move(currentPos);
-		
+
 		Card holdCard = new Card(board.getCard().getCardID());
-		
+
 		if(redTurn) 
 		{
 			if(selectedCard == 1)
 			{
 				board.setCard(redPlayer.getCard1());
 				redPlayer.setCard1(holdCard);
-				
+
 			}
 			if(selectedCard == 2)
 			{
@@ -308,7 +310,7 @@ public class Onitama implements MouseListener
 			{
 				board.setCard(bluePlayer.getCard1());
 				bluePlayer.setCard1(holdCard);
-				
+
 			}
 			if(selectedCard == 2)
 			{
@@ -316,9 +318,9 @@ public class Onitama implements MouseListener
 				bluePlayer.setCard2(holdCard);
 			}
 		}
-		
-		
-		
+
+
+
 		if(redTurn)
 		{	
 			if(bluePlayer.getPiece(currentPos)!=null) {
@@ -340,27 +342,27 @@ public class Onitama implements MouseListener
 		panel.repaint();
 	}
 	//TODO
-	private boolean checkWin() 
+	private void checkWin() 
 	{
 		if(bluePlayer.getMaster().getDead())
 		{
 			winner = "Blue";
-			return true;
+			gameOver = true;
 		} else if(bluePlayer.getMaster().getPosition().getRow() == 4 && bluePlayer.getMaster().getPosition().getCol() == 2)
 		{
 			winner = "Blue";
-			return true;
+			gameOver = true;
 		}
 		if(redPlayer.getMaster().getDead())
 		{
 			winner = "Red";
-			return true;
+			gameOver = true;
 		} else if(redPlayer.getMaster().getPosition().getRow() == 0 && redPlayer.getMaster().getPosition().getCol() == 2)
 		{
 			winner = "Red";
-			return true;
+			gameOver = true;
 		}
-			return false;
+		gameOver = false;
 	}
 
 	//================================================================================
@@ -368,7 +370,7 @@ public class Onitama implements MouseListener
 	//================================================================================
 
 	///////[INSTRUCTION SCREEN}//////////
-	
+
 	//TODO
 	@SuppressWarnings("serial")
 	private class OnitamaPanel extends JPanel
@@ -400,10 +402,10 @@ public class Onitama implements MouseListener
 				}
 			}
 		}
-		
+
 		private void drawRotateImage(int degrees, BufferedImage image, int drawLocationX,int drawLocationY,Graphics g)
 		{
-			
+
 			double rotationRequired = Math.toRadians (degrees);
 			double locationX = image.getWidth() / 2;
 			double locationY = image.getHeight() / 2;
@@ -412,7 +414,7 @@ public class Onitama implements MouseListener
 
 			// Drawing the rotated image at the required drawing locations
 			g.drawImage(op.filter(image, null), drawLocationX, drawLocationY, null);
-			
+
 			//http://stackoverflow.com/questions/8639567/java-rotating-images
 		}
 
@@ -428,13 +430,13 @@ public class Onitama implements MouseListener
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
+
 			//g.setColor(Color.white);
 			//g.fillRect(currentPos.getXCoord(), currentPos.getYCoord(), 77, 77);
-			
+
 			if(selectedCard != 0)
-			drawLegalMoves(g);
-			
+				drawLegalMoves(g);
+
 			//draws board bounds
 			g.setColor(Color.green);
 			g.drawRect(boardX, boardY, tileWidth*5, tileHeight*5);
@@ -508,102 +510,15 @@ public class Onitama implements MouseListener
 
 		mouseX = e.getX();
 		mouseY = e.getY();
-		
-		if(!checkWin())
+
+		if(!gameOver)
 		{
-		if(mouseX>207&&mouseX<592)  //within x bounds of board
-		{
-			if(mouseY>203&&mouseY<588)  //within y bounds of board
-			{
-
-				//pressed = true;
-
-				for(int i = 0; i < 5; i++) 
-				{
-					if(mouseX>207+77*(i))
-						currentPos.setCol(i);
-					if(mouseY>203+77*(i))
-						currentPos.setRow(i);
-
-					if(redTurn) {
-						currentPiece = redPlayer.getPiece(currentPos);
-					} else {
-						currentPiece = bluePlayer.getPiece(currentPos);
-					}
-				}
-				if(currentPiece != null)
-					if(currentPiece.getDead()) {
-						//System.out.println("DEAD: "+currentPiece.getDead());
-						currentPiece = null;
-					}
-
-				if(currentPiece!=null)
-					pressed = true;
-
-				System.out.println("a");
-				System.out.println(currentPos);
-				if(currentPiece!=null)
-					System.out.println(currentPiece.printPiece());
-				else
-					System.out.println(currentPiece);
-
-			}
-		}
-		panel.repaint();
-		}
-	}
-
-	//TODO
-	public void mouseReleased(MouseEvent e) 
-	{
-		mouseX = e.getX();
-		mouseY = e.getY();
-		
-		if(!checkWin())
-		{
-		if(mouseX>207&&mouseX<592)  //if click is within x bounds of board
-		{
-			if(!pressed)  //player did not select a piece
-			{
-				if(mouseY>611&&mouseY<711&&redTurn)  //within y bounds of red cards and red turn
-				{
-
-					if(mouseX<398)			//card 1
-					{
-						System.out.println(redPlayer.getCard1());
-						selectedCard = 1;
-						cardPressed = true;
-						setLegalMoves();
-					} else if(mouseX>401)	//card 2
-					{
-						System.out.println(redPlayer.getCard2());
-						selectedCard = 2;
-						cardPressed = true;
-						setLegalMoves();
-					}
-				} else if(mouseY>80&&mouseY<180&&!redTurn)  //within y bounds of blue cards and not red turn
-				{
-
-					if(mouseX<398)			//card 1
-					{
-						System.out.println(bluePlayer.getCard1());
-						selectedCard = 1;
-						cardPressed = true;
-						setLegalMoves();
-					} else if(mouseX>401)	//card 2
-					{
-						System.out.println(bluePlayer.getCard2());
-						selectedCard = 2;
-						cardPressed = true;
-						setLegalMoves();
-					}
-				}
-			} else //player has selected a piece
+			if(mouseX>207&&mouseX<592)  //within x bounds of board
 			{
 				if(mouseY>203&&mouseY<588)  //within y bounds of board
 				{
 
-					pressed = false;
+					//pressed = true;
 
 					for(int i = 0; i < 5; i++) 
 					{
@@ -612,51 +527,138 @@ public class Onitama implements MouseListener
 						if(mouseY>203+77*(i))
 							currentPos.setRow(i);
 
+						if(redTurn) {
+							currentPiece = redPlayer.getPiece(currentPos);
+						} else {
+							currentPiece = bluePlayer.getPiece(currentPos);
+						}
+					}
+					if(currentPiece != null)
+						if(currentPiece.getDead()) {
+							//System.out.println("DEAD: "+currentPiece.getDead());
+							currentPiece = null;
+						}
+
+					if(currentPiece!=null)
+						pressed = true;
+
+					System.out.println("a");
+					System.out.println(currentPos);
+					if(currentPiece!=null)
+						System.out.println(currentPiece.printPiece());
+					else
+						System.out.println(currentPiece);
+
+				}
+			}
+			panel.repaint();
+		}
+	}
+
+	//TODO
+	public void mouseReleased(MouseEvent e) 
+	{
+		mouseX = e.getX();
+		mouseY = e.getY();
+
+		if(!gameOver)
+		{
+			if(mouseX>207&&mouseX<592)  //if click is within x bounds of board
+			{
+				if(!pressed)  //player did not select a piece
+				{
+					if(mouseY>611&&mouseY<711&&redTurn)  //within y bounds of red cards and red turn
+					{
+
+						if(mouseX<398)			//card 1
+						{
+							System.out.println(redPlayer.getCard1());
+							selectedCard = 1;
+							cardPressed = true;
+							setLegalMoves();
+						} else if(mouseX>401)	//card 2
+						{
+							System.out.println(redPlayer.getCard2());
+							selectedCard = 2;
+							cardPressed = true;
+							setLegalMoves();
+						}
+					} else if(mouseY>80&&mouseY<180&&!redTurn)  //within y bounds of blue cards and not red turn
+					{
+
+						if(mouseX<398)			//card 1
+						{
+							System.out.println(bluePlayer.getCard1());
+							selectedCard = 1;
+							cardPressed = true;
+							setLegalMoves();
+						} else if(mouseX>401)	//card 2
+						{
+							System.out.println(bluePlayer.getCard2());
+							selectedCard = 2;
+							cardPressed = true;
+							setLegalMoves();
+						}
+					}
+				} else //player has selected a piece
+				{
+					if(mouseY>203&&mouseY<588)  //within y bounds of board
+					{
+
+						pressed = false;
+
+						for(int i = 0; i < 5; i++) 
+						{
+							if(mouseX>207+77*(i))
+								currentPos.setCol(i);
+							if(mouseY>203+77*(i))
+								currentPos.setRow(i);
+
+						}
+
+						if(cardPressed)
+							if(checkLegalMove())
+								move();
+
+						System.out.println("b");
+						System.out.println(currentPos);
+						if(currentPiece!=null)
+							System.out.println(currentPiece.printPiece());
+						else
+							System.out.println(currentPiece);
+
+					} else  //not released within y bounds of board
+					{
+						currentPiece = null;
+						currentPos = new Position(0,0);
+
+						System.out.println("c");
+						System.out.println(currentPos);
+						if(currentPiece!=null)
+							System.out.println(currentPiece.printPiece());
+						else
+							System.out.println(currentPiece);
+						System.out.println();
 					}
 
-					if(cardPressed)
-						if(checkLegalMove())
-							move();
-
-					System.out.println("b");
-					System.out.println(currentPos);
-					if(currentPiece!=null)
-						System.out.println(currentPiece.printPiece());
-					else
-						System.out.println(currentPiece);
-
-				} else  //not released within y bounds of board
-				{
-					currentPiece = null;
-					currentPos = new Position(0,0);
-
-					System.out.println("c");
-					System.out.println(currentPos);
-					if(currentPiece!=null)
-						System.out.println(currentPiece.printPiece());
-					else
-						System.out.println(currentPiece);
-					System.out.println();
 				}
+			} else
+			{
+				currentPiece = null;
+				currentPos = new Position(0,0);
 
+				System.out.println("c");
+				System.out.println(currentPos);
+				if(currentPiece!=null)
+					System.out.println(currentPiece.printPiece());
+				else
+					System.out.println(currentPiece);
+				System.out.println();
 			}
-		} else
-		{
-			currentPiece = null;
-			currentPos = new Position(0,0);
 
-			System.out.println("c");
-			System.out.println(currentPos);
-			if(currentPiece!=null)
-				System.out.println(currentPiece.printPiece());
-			else
-				System.out.println(currentPiece);
-			System.out.println();
-		}
+			pressed = false;
 
-		pressed = false;
-
-		panel.repaint();
+			panel.repaint();
 		}
 		else if(!winMessageDisplayed)
 		{

@@ -56,4 +56,11 @@ public class Piece
 		return master;
 	}
 
+	public String printPiece()
+	{
+		if(master)
+			return "master";
+		else
+			return "disciple";
+	}
 }

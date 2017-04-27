@@ -304,12 +304,16 @@ public class Onitama implements MouseListener
 		
 		if(redTurn)
 		{	
-			//if(bluePlayer.getPiece(currentPos)!=null) put this in and make piece dead, put if statement
-				//bluePlayer.capturePiece(currentPos);  at top of move method, if piece is dead, skip over everything
+			if(bluePlayer.getPiece(currentPos)!=null) {
+				bluePlayer.getPiece(currentPos).setDead(true);
+				//System.out.println("GOOOD JOB");
+			}
 		} else
 		{
-			//if(redPlayer.getPiece(currentPos)!=null)
-				//redPlayer.capturePiece(currentPos);
+			if(redPlayer.getPiece(currentPos)!=null) {
+				redPlayer.getPiece(currentPos).setDead(true);
+				//System.out.println("GOOOD JOB");
+			}
 		}
 		cardPressed = false;
 		currentPiece = null;
@@ -322,7 +326,6 @@ public class Onitama implements MouseListener
 	private boolean checkWin() 
 	{
 		if(bluePlayer.getMaster().getDead())
-			
 		{
 			winner = "Blue";
 			return true;
@@ -486,8 +489,6 @@ public class Onitama implements MouseListener
 
 		mouseX = e.getX();
 		mouseY = e.getY();
-//		System.out.println("ROW "+bluePlayer.getMaster().getPosition().getRow()+" COLUMN "+bluePlayer.getMaster().getPosition().getCol());
-//		System.out.println("ROW "+redPlayer.getMaster().getPosition().getRow()+" COLUMN "+redPlayer.getMaster().getPosition().getCol());
 		
 		if(mouseX>207&&mouseX<592)  //within x bounds of board
 		{
@@ -509,13 +510,21 @@ public class Onitama implements MouseListener
 						currentPiece = bluePlayer.getPiece(currentPos);
 					}
 				}
-				
+				if(currentPiece != null)
+					if(currentPiece.getDead()) {
+						//System.out.println("DEAD: "+currentPiece.getDead());
+						currentPiece = null;
+					}
+
 				if(currentPiece!=null)
 					pressed = true;
-				
+
 				System.out.println("a");
 				System.out.println(currentPos);
-				System.out.println(currentPiece);
+				if(currentPiece!=null)
+					System.out.println(currentPiece.printPiece());
+				else
+					System.out.println(currentPiece);
 
 			}
 		}
@@ -587,7 +596,7 @@ public class Onitama implements MouseListener
 
 					System.out.println("b");
 					System.out.println(currentPos);
-					System.out.println(currentPiece);
+					System.out.println(currentPiece.printPiece());
 
 				} else  //not released within y bounds of board
 				{
@@ -596,7 +605,7 @@ public class Onitama implements MouseListener
 					
 					System.out.println("c");
 					System.out.println(currentPos);
-					System.out.println(currentPiece);
+					System.out.println(currentPiece.printPiece());
 					System.out.println();
 				}
 
@@ -608,7 +617,7 @@ public class Onitama implements MouseListener
 
 			System.out.println("c");
 			System.out.println(currentPos);
-			System.out.println(currentPiece);
+			System.out.println(currentPiece.printPiece());
 			System.out.println();
 		}
 

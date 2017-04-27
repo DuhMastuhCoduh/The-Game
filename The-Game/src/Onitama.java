@@ -18,7 +18,8 @@ import javax.swing.JPanel;
  * 	+blue team legal moves on wrong pieces
  * 	+sometimes move selection doesnt work
  *  +card and red piece selected then piece released in place, if only one available move, automatically moves it
- * 
+ * 	+if a piece has died for X team and X team piece land on that space, that piece cant be selected
+ * 	
  */
 
 @SuppressWarnings("unused")
@@ -176,6 +177,8 @@ public class Onitama implements MouseListener
 							Position tempPos = new Position(tempRow,tempCol);
 							if(redPlayer.getPiece(tempPos)==null)
 								legalMoves.get(i).add(tempPos);
+							else if(redPlayer.getPiece(tempPos).getDead())
+								legalMoves.get(i).add(tempPos);
 						}
 					}
 				}
@@ -196,6 +199,8 @@ public class Onitama implements MouseListener
 						Position tempPos = new Position(tempRow,tempCol);
 						if(redPlayer.getPiece(tempPos)==null)
 							legalMoves.get(legalMoves.size()-1).add(tempPos);
+						else if(redPlayer.getPiece(tempPos).getDead())
+							legalMoves.get(i).add(tempPos);
 					}
 				}
 			}
@@ -229,6 +234,8 @@ public class Onitama implements MouseListener
 							Position tempPos = new Position(tempRow,tempCol);
 							if(bluePlayer.getPiece(tempPos)==null)
 								legalMoves.get(i).add(tempPos);
+							else if(bluePlayer.getPiece(tempPos).getDead())
+								legalMoves.get(i).add(tempPos);
 						}
 					}
 				}
@@ -249,6 +256,8 @@ public class Onitama implements MouseListener
 						Position tempPos = new Position(tempRow,tempCol);
 						if(bluePlayer.getPiece(tempPos)==null)
 							legalMoves.get(legalMoves.size()-1).add(tempPos);
+						else if(bluePlayer.getPiece(tempPos).getDead())
+							legalMoves.get(i).add(tempPos);
 					}
 				}
 			}

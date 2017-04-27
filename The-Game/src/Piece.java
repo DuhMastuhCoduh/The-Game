@@ -23,6 +23,7 @@ public class Piece
 	
 	public void setDead(boolean dead)
 	{
+		System.out.println("================");
 		this.dead = dead;
 	}
 	

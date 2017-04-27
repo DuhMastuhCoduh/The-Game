@@ -102,10 +102,12 @@ public class Player
 	{
 		for(int i = 0; i < disciples.size();i++) {
 			if(disciples.get(i).getPosition().equals(pos)) {
-				return disciples.get(i);
+				if(!disciples.get(i).getDead())
+					return disciples.get(i);
 			}
 		}
-		if(master.getPosition().equals(pos))
+		
+		if(master.getPosition().equals(pos) && !master.getDead())
 			return master;
 		return null;
 	}

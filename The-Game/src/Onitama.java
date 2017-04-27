@@ -19,7 +19,7 @@ import javax.swing.JPanel;
  * 	+sometimes move selection doesnt work
  *  +card and red piece selected then piece released in place, if only one available move, automatically moves it
  * 	+if a piece has died for X team and X team piece land on that space, that piece cant be selected
- * 	
+ * 	+if a piece has died for X team, other X team pieces cannot land in that spot
  */
 
 @SuppressWarnings("unused")

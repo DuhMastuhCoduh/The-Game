@@ -12,14 +12,14 @@ public class Board
 		this.card = new Card(card.getCardID());
 	}
 
-	public static final char[][] board = new char[][] 
-	{
-		{'e','e','b','e','e'},
-		{'e','e','e','e','e'},
-		{'e','e','e','e','e'},
-		{'e','e','e','e','e'},
-		{'e','e','r','e','e'},
-	};
+//	public static final char[][] board = new char[][] 
+//	{
+//		{'e','e','b','e','e'},
+//		{'e','e','e','e','e'},
+//		{'e','e','e','e','e'},
+//		{'e','e','e','e','e'},
+//		{'e','e','r','e','e'},
+//	};
 	
 	public Board(Card card) 
 	{

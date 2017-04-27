@@ -13,9 +13,9 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-/*	[TO BE IMPLEMENTED]
- * 	AI/Computer player for the player to play against
- *	welcome/instruction screen
+/*	[TO BE IMPLEMENTED]	- = unimplemented;	+ = implemented
+ * 	-AI/Computer player for the player to play against
+ *	-welcome/instruction screen
  */
 
 /*	CURRENT KNOWN BUGS:	- = unresolved;	+ = resolved
@@ -339,6 +339,7 @@ public class Onitama implements MouseListener
 		redTurn = !redTurn;
 		selectedCard = 0;
 		resetLegalMoves();
+		checkWin();
 		panel.repaint();
 	}
 	//TODO
@@ -346,23 +347,23 @@ public class Onitama implements MouseListener
 	{
 		if(bluePlayer.getMaster().getDead())
 		{
-			winner = "Blue";
+			winner = "Red";
 			gameOver = true;
-		} else if(bluePlayer.getMaster().getPosition().getRow() == 4 && bluePlayer.getMaster().getPosition().getCol() == 2)
+		} else if(bluePlayer.getMaster().getPosition().equals(new Position(4,2)))
 		{
 			winner = "Blue";
 			gameOver = true;
 		}
 		if(redPlayer.getMaster().getDead())
 		{
-			winner = "Red";
+			winner = "Blue";
 			gameOver = true;
-		} else if(redPlayer.getMaster().getPosition().getRow() == 0 && redPlayer.getMaster().getPosition().getCol() == 2)
+		} else if(redPlayer.getMaster().getPosition().equals(new Position(0,2)))
 		{
 			winner = "Red";
 			gameOver = true;
 		}
-		gameOver = false;
+		//gameOver = false;
 	}
 
 	//================================================================================
@@ -420,7 +421,7 @@ public class Onitama implements MouseListener
 
 		public void paintComponent(Graphics g) 
 		{
-
+			
 			super.paintComponent(g);
 
 			//draws board
@@ -474,7 +475,22 @@ public class Onitama implements MouseListener
 				drawRotateImage(180,board.getCard().getImage(),3,345,g);
 				g.drawRect(3,345,191,100);
 			}
-
+			
+			if(gameOver) 
+			{
+				if(!winMessageDisplayed) 
+				{
+					System.out.println("++++++++++");
+					winMessageDisplayed = true;
+					JOptionPane.showMessageDialog(frame,winner);
+				}
+				
+				System.out.println("================");
+				//DRAW IMAGE ON THE BOARD THAT SAYS WHICH TEAM WINS
+				//GIVE PLAYER OPTION TO PLAY AGAIN
+				
+			}
+			
 		}
 		//image size constraints
 		//pieces:	77x77
@@ -501,7 +517,7 @@ public class Onitama implements MouseListener
 	//================================================================================
 
 	public void mouseClicked(MouseEvent e) { }
-	public void mouseEntered(MouseEvent e) { panel.repaint(); }
+	public void mouseEntered(MouseEvent e) { }
 	public void mouseExited(MouseEvent e) { }
 
 	//TODO
@@ -659,11 +675,8 @@ public class Onitama implements MouseListener
 			pressed = false;
 
 			panel.repaint();
-		}
-		else if(!winMessageDisplayed)
-		{
-			winMessageDisplayed = true;
-			JOptionPane.showMessageDialog(frame,winner);
+		} else {
+			//GIVE PLAYER OPTION TO PLAY AGAIN
 		}
 	}
 

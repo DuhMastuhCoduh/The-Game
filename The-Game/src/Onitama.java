@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 /*	[TO BE IMPLEMENTED]	- = unimplemented;	+ = implemented
  * 	-AI/Computer player for the player to play against
  *	-welcome/instruction screen
+ *	-replay option
  */
 
 /*	CURRENT KNOWN BUGS:	- = unresolved;	+ = resolved
@@ -483,7 +484,7 @@ public class Onitama implements MouseListener
 					System.out.println("++++++++++");
 					winMessageDisplayed = true;
 					JOptionPane.showMessageDialog(frame,winner);
-					panel.repaint();
+					//panel.repaint();
 				}
 				
 				System.out.println("================");

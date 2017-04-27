@@ -13,6 +13,11 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+/*	[TO BE IMPLEMENTED]
+ * 	AI/Computer player for the player to play against
+ *	welcome/instruction screen
+ */
+
 /*	CURRENT KNOWN BUGS:	- = unresolved;	+ = resolved
  * 	+when an invalid move is selected picks a seemingly random move sometimes?
  * 	+blue team legal moves on wrong pieces
@@ -362,6 +367,8 @@ public class Onitama implements MouseListener
 	//	GRAPHICS - handles game display
 	//================================================================================
 
+	///////[INSTRUCTION SCREEN}//////////
+	
 	//TODO
 	@SuppressWarnings("serial")
 	private class OnitamaPanel extends JPanel

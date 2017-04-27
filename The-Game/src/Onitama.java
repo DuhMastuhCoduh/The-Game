@@ -483,11 +483,14 @@ public class Onitama implements MouseListener
 					System.out.println("++++++++++");
 					winMessageDisplayed = true;
 					JOptionPane.showMessageDialog(frame,winner);
+					panel.repaint();
 				}
 				
 				System.out.println("================");
 				//DRAW IMAGE ON THE BOARD THAT SAYS WHICH TEAM WINS
 				//GIVE PLAYER OPTION TO PLAY AGAIN
+				
+			
 				
 			}
 			

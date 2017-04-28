@@ -1,5 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.AffineTransform;
@@ -9,6 +11,8 @@ import java.io.File;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -32,9 +36,9 @@ import javax.swing.JPanel;
 public class Onitama implements MouseListener
 {
 
-	//================================================================================
-	//	VARIABLES
-	//================================================================================
+//================================================================================
+//	VARIABLES
+//================================================================================
 	private JFrame frame;
 	private JPanel panel;
 
@@ -62,11 +66,26 @@ public class Onitama implements MouseListener
 	private boolean cardPressed = false;
 
 	private boolean gameOver = false;
-	//================================================================================
-	//	CONSTRUCTOR - starts the game
-	//================================================================================
+//================================================================================
+//	CONSTRUCTORs - starts the game
+//================================================================================
 
-	public Onitama() 
+	public Onitama()
+	{
+		frame = new JFrame("Onitama");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		panel = new WelcomeScreen();
+		
+		frame.setContentPane(panel);
+		
+		frame.setSize(800, 800);
+		frame.setResizable(false);
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+	}
+	
+	private void startGame(boolean PVP) 
 	{
 
 		redPlayer = new Player(true);
@@ -74,17 +93,9 @@ public class Onitama implements MouseListener
 
 		setCards();
 		setFirstTurn();
-		//setLegalMoves();
-
-		//debug
 
 		System.out.println("\nredTurn: " + redTurn);
-
-		//////////////////////
-
-		frame = new JFrame("Onitama");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		
 		panel = new OnitamaPanel();
 		panel.addMouseListener(this);
 
@@ -97,9 +108,9 @@ public class Onitama implements MouseListener
 
 	}
 
-	//================================================================================
-	//	STARTUP METHODS - sets up the game
-	//================================================================================
+//================================================================================
+//	STARTUP METHODS - sets up the game
+//================================================================================
 
 	private void setFirstTurn() 
 	{
@@ -143,9 +154,9 @@ public class Onitama implements MouseListener
 		System.out.println("board card: " + board.getCard());
 	}
 
-	//================================================================================
-	//	GAMEPLAY - handles gameplay mechanics and updates
-	//================================================================================
+//================================================================================
+//	GAMEPLAY - handles gameplay mechanics and updates
+//================================================================================
 
 	private void resetLegalMoves() 
 	{
@@ -272,7 +283,7 @@ public class Onitama implements MouseListener
 		}
 	}
 
-	//TODO
+	
 	private boolean checkLegalMove() {
 		//System.out.println("HEY "+legalMoves.size());
 		//System.out.println("HEY YOU "+legalMoves.get(0));
@@ -284,7 +295,7 @@ public class Onitama implements MouseListener
 
 		return false;
 	}
-	//TODO
+	
 	private void move() 
 	{
 
@@ -343,7 +354,7 @@ public class Onitama implements MouseListener
 		checkWin();
 		panel.repaint();
 	}
-	//TODO
+	
 	private void checkWin() 
 	{
 		if(bluePlayer.getMaster().getDead())
@@ -367,11 +378,62 @@ public class Onitama implements MouseListener
 		//gameOver = false;
 	}
 
-	//================================================================================
-	//	GRAPHICS - handles game display
-	//================================================================================
+//================================================================================
+//	GRAPHICS - handles game display
+//================================================================================
+	//TODO
+	private class WelcomeScreen extends JPanel implements ActionListener
+	{
+		
+		private JButton playerVComputer, playerVPlayer;
+		private JButton howToPlay;
+		
+		public WelcomeScreen()
+		{
+			
+			this.setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
+			
+			
+			playerVComputer = new JButton("Player vs. Computer");
+			playerVComputer.setActionCommand("pvc");
+			playerVComputer.setAlignmentX(JButton.CENTER_ALIGNMENT);
+			playerVComputer.addActionListener(this);
+			this.add(playerVComputer);
+			
+			playerVPlayer = new JButton("Player vs. Player");
+			playerVPlayer.setActionCommand("pvp");
+			playerVPlayer.setAlignmentX(JButton.CENTER_ALIGNMENT);
+			playerVPlayer.addActionListener(this);
+			this.add(playerVPlayer);
+			
+			howToPlay = new JButton("How to play");
+			howToPlay.setActionCommand("htp");
+			howToPlay.setAlignmentX(JButton.CENTER_ALIGNMENT);
+			howToPlay.addActionListener(this);
+			this.add(howToPlay);
+			
+		}
 
-	///////[INSTRUCTION SCREEN}//////////
+		@Override
+		public void actionPerformed(ActionEvent arg0) 
+		{
+			if(arg0.getActionCommand().equals("pvc")) 
+			{
+				System.out.println("[TODO]");
+				//start game against computer player
+			}
+			else if(arg0.getActionCommand().equals("pvp"))
+			{
+				startGame(true);
+			}
+			else if(arg0.getActionCommand().equals("htp"))
+			{
+				System.out.println("[TODO]");
+				//bring player to screen that tells them how to play
+			}
+		}
+		
+	}
 
 	//TODO
 	@SuppressWarnings("serial")
@@ -481,13 +543,10 @@ public class Onitama implements MouseListener
 			{
 				if(!winMessageDisplayed) 
 				{
-					System.out.println("++++++++++");
 					winMessageDisplayed = true;
 					JOptionPane.showMessageDialog(frame,winner);
 					//panel.repaint();
 				}
-
-				System.out.println("================");
 				//DRAW IMAGE ON THE BOARD THAT SAYS WHICH TEAM WINS
 				//GIVE PLAYER OPTION TO PLAY AGAIN
 
@@ -516,9 +575,9 @@ public class Onitama implements MouseListener
 		//blue card 2:	x(401) y(611)
 	}
 
-	//================================================================================
-	//	MOUSE EVENTS - handles user interaction with the game
-	//================================================================================
+//================================================================================
+//	MOUSE EVENTS - handles user interaction with the game
+//================================================================================
 
 	public void mouseClicked(MouseEvent e) { }
 	public void mouseEntered(MouseEvent e) { }
@@ -684,9 +743,9 @@ public class Onitama implements MouseListener
 		}
 	}
 
-	//================================================================================
-	//	MAIN
-	//================================================================================
+//================================================================================
+//	MAIN
+//================================================================================
 
 
 	public static void main(String[] args) {

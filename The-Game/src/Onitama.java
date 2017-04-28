@@ -105,6 +105,8 @@ public class Onitama implements MouseListener
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+		
+		panel.repaint();
 
 	}
 
@@ -489,7 +491,7 @@ public class Onitama implements MouseListener
 
 			//draws board
 			try {
-				final BufferedImage oniBoard = ImageIO.read(new File("resources\\board.png"));
+				final BufferedImage oniBoard = ImageIO.read(new File("src\\resources\\board.png"));
 				g.drawImage(oniBoard, 0, 0, null);
 			} catch (Exception e) {
 				e.printStackTrace();

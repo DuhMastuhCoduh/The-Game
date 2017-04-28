@@ -58,14 +58,14 @@ public class Player
 			if(!disciples.get(i).getDead()) {
 				if(teamRed) {
 					try {
-						final BufferedImage piece = ImageIO.read(new File("resources\\red disciple.png"));
+						final BufferedImage piece = ImageIO.read(new File("src\\resources\\red disciple.png"));
 						g.drawImage(piece, disciples.get(i).getPosition().getXCoord(), disciples.get(i).getPosition().getYCoord(), null);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
 				} else {
 					try {
-						final BufferedImage piece = ImageIO.read(new File("resources\\blue disciple.png"));
+						final BufferedImage piece = ImageIO.read(new File("src\\resources\\blue disciple.png"));
 						g.drawImage(piece, disciples.get(i).getPosition().getXCoord(), disciples.get(i).getPosition().getYCoord(), null);
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -76,14 +76,14 @@ public class Player
 		if(!master.getDead()) {
 			if(teamRed) {
 				try {
-					final BufferedImage piece = ImageIO.read(new File("resources\\red master.png"));
+					final BufferedImage piece = ImageIO.read(new File("src\\resources\\red master.png"));
 					g.drawImage(piece, master.getPosition().getXCoord(), master.getPosition().getYCoord(), null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			} else {
 				try {
-					final BufferedImage piece = ImageIO.read(new File("resources\\blue master.png"));
+					final BufferedImage piece = ImageIO.read(new File("src\\resources\\blue master.png"));
 					g.drawImage(piece, master.getPosition().getXCoord(), master.getPosition().getYCoord(), null);
 				} catch (Exception e) {
 					e.printStackTrace();

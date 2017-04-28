@@ -422,7 +422,7 @@ public class Onitama implements MouseListener
 
 		public void paintComponent(Graphics g) 
 		{
-			
+
 			super.paintComponent(g);
 
 			//draws board
@@ -476,7 +476,7 @@ public class Onitama implements MouseListener
 				drawRotateImage(180,board.getCard().getImage(),3,345,g);
 				g.drawRect(3,345,191,100);
 			}
-			
+
 			if(gameOver) 
 			{
 				if(!winMessageDisplayed) 
@@ -486,15 +486,15 @@ public class Onitama implements MouseListener
 					JOptionPane.showMessageDialog(frame,winner);
 					//panel.repaint();
 				}
-				
+
 				System.out.println("================");
 				//DRAW IMAGE ON THE BOARD THAT SAYS WHICH TEAM WINS
 				//GIVE PLAYER OPTION TO PLAY AGAIN
-				
-			
-				
+
+
+
 			}
-			
+
 		}
 		//image size constraints
 		//pieces:	77x77

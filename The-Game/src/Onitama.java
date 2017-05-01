@@ -361,20 +361,20 @@ public class Onitama implements MouseListener
 	{
 		if(bluePlayer.getMaster().getDead())
 		{
-			winner = "Red";
+			winner = "Red wins!";
 			gameOver = true;
 		} else if(bluePlayer.getMaster().getPosition().equals(new Position(4,2)))
 		{
-			winner = "Blue";
+			winner = "Blue win!";
 			gameOver = true;
 		}
 		if(redPlayer.getMaster().getDead())
 		{
-			winner = "Blue";
+			winner = "Blue win!";
 			gameOver = true;
 		} else if(redPlayer.getMaster().getPosition().equals(new Position(0,2)))
 		{
-			winner = "Red";
+			winner = "Red win!";
 			gameOver = true;
 		}
 		//gameOver = false;
@@ -658,7 +658,6 @@ public class Onitama implements MouseListener
 	public void mouseEntered(MouseEvent e) { }
 	public void mouseExited(MouseEvent e) { }
 
-	//TODO
 	public void mousePressed(MouseEvent e) 
 	{
 
@@ -709,7 +708,6 @@ public class Onitama implements MouseListener
 		}
 	}
 
-	//TODO
 	public void mouseReleased(MouseEvent e) 
 	{
 		mouseX = e.getX();

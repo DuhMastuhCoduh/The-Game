@@ -94,7 +94,7 @@ public class Onitama implements MouseListener
 		setCards();
 		setFirstTurn();
 
-		System.out.println("\nredTurn: " + redTurn);
+		//System.out.println("\nredTurn: " + redTurn);
 		
 		panel = new OnitamaPanel();
 		panel.addMouseListener(this);
@@ -147,13 +147,13 @@ public class Onitama implements MouseListener
 		bluePlayer.setCard1(cards.get(2));
 		bluePlayer.setCard2(cards.get(3));
 
-		System.out.println("redPlayer: " + redPlayer);
-		System.out.println("bluePlayer: " + bluePlayer);
-		System.out.println();
+		//System.out.println("redPlayer: " + redPlayer);
+		//System.out.println("bluePlayer: " + bluePlayer);
+		//System.out.println();
 
 		board = new Board(cards.get(4));
 
-		System.out.println("board card: " + board.getCard());
+		//System.out.println("board card: " + board.getCard());
 	}
 
 //================================================================================
@@ -287,8 +287,6 @@ public class Onitama implements MouseListener
 
 	
 	private boolean checkLegalMove() {
-		//System.out.println("HEY "+legalMoves.size());
-		//System.out.println("HEY YOU "+legalMoves.get(0));
 		for(int i = 0; i < legalMoves.get(currentPiece.getID()).size();i++) {
 			if(currentPos.equals(legalMoves.get(currentPiece.getID()).get(i)))
 				return true;
@@ -339,13 +337,11 @@ public class Onitama implements MouseListener
 		{	
 			if(bluePlayer.getPiece(currentPos)!=null) {
 				bluePlayer.getPiece(currentPos).setDead(true);
-				//System.out.println("GOOOD JOB");
 			}
 		} else
 		{
 			if(redPlayer.getPiece(currentPos)!=null) {
 				redPlayer.getPiece(currentPos).setDead(true);
-				//System.out.println("GOOOD JOB");
 			}
 		}
 		cardPressed = false;
@@ -430,7 +426,7 @@ public class Onitama implements MouseListener
 			}
 			else if(arg0.getActionCommand().equals("htp"))
 			{
-				//System.out.println("[TODO]");
+				System.out.println("[TODO]");
 				//bring player to screen that tells them how to play
 			}
 		}
@@ -653,13 +649,13 @@ public class Onitama implements MouseListener
 
 						if(mouseX<398)			//card 1
 						{
-							System.out.println(redPlayer.getCard1());
+							//System.out.println(redPlayer.getCard1());
 							selectedCard = 1;
 							cardPressed = true;
 							setLegalMoves();
 						} else if(mouseX>401)	//card 2
 						{
-							System.out.println(redPlayer.getCard2());
+							//System.out.println(redPlayer.getCard2());
 							selectedCard = 2;
 							cardPressed = true;
 							setLegalMoves();
@@ -669,13 +665,13 @@ public class Onitama implements MouseListener
 
 						if(mouseX<398)			//card 1
 						{
-							System.out.println(bluePlayer.getCard1());
+							//System.out.println(bluePlayer.getCard1());
 							selectedCard = 1;
 							cardPressed = true;
 							setLegalMoves();
 						} else if(mouseX>401)	//card 2
 						{
-							System.out.println(bluePlayer.getCard2());
+							//System.out.println(bluePlayer.getCard2());
 							selectedCard = 2;
 							cardPressed = true;
 							setLegalMoves();

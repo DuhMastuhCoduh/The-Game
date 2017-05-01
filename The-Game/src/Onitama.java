@@ -1,5 +1,8 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -14,6 +17,7 @@ import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -385,31 +389,51 @@ public class Onitama implements MouseListener
 		
 		private JButton playerVComputer, playerVPlayer;
 		private JButton howToPlay;
+		private JLabel welcome;
 		
 		public WelcomeScreen()
 		{
 			
-			this.setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
+			//this.setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
+
+			this.setLayout(new GridBagLayout());
+			GridBagConstraints gridBag = new GridBagConstraints();
 			
+			Font font = new Font("Dialog", Font.BOLD, 25);
 			
+			JLabel holder = new JLabel("HI");
+			gridBag.gridy = 10;
+			this.add(holder,gridBag);
 			playerVComputer = new JButton("Player vs. Computer");
 			playerVComputer.setActionCommand("pvc");
 			playerVComputer.setAlignmentX(JButton.CENTER_ALIGNMENT);
 			playerVComputer.addActionListener(this);
-			this.add(playerVComputer);
+			gridBag.gridx = 0;
+			gridBag.gridy = 2;
+			this.add(playerVComputer,gridBag);
 			
 			playerVPlayer = new JButton("Player vs. Player");
 			playerVPlayer.setActionCommand("pvp");
 			playerVPlayer.setAlignmentX(JButton.CENTER_ALIGNMENT);
 			playerVPlayer.addActionListener(this);
-			this.add(playerVPlayer);
+			gridBag.gridx = 2;
+			gridBag.gridy = 2;
+			this.add(playerVPlayer,gridBag);
 			
 			howToPlay = new JButton("How to play");
 			howToPlay.setActionCommand("htp");
 			howToPlay.setAlignmentX(JButton.CENTER_ALIGNMENT);
 			howToPlay.addActionListener(this);
-			this.add(howToPlay);
+			gridBag.gridx = 1;
+			gridBag.gridy = 3;
+			this.add(howToPlay,gridBag);
 			
+			welcome = new JLabel("WELCOME");
+			welcome.setFont(font);
+			gridBag.anchor = GridBagConstraints.PAGE_START;
+			gridBag.gridx = 1;
+			gridBag.gridy = 0;
+			this.add(welcome,gridBag);
 		}
 
 		@Override

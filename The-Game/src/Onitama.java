@@ -29,11 +29,11 @@ import javax.swing.JPanel;
 
 /*	CURRENT KNOWN BUGS:	- = unresolved;	+ = resolved
  * 	+when an invalid move is selected picks a seemingly random move sometimes?
- * 	+blue team legal moves on wrong pieces
+ * 	+blue player legal moves on wrong pieces
  * 	+sometimes move selection doesnt work
  *  +card and red piece selected then piece released in place, if only one available move, automatically moves it
- * 	+if a piece has died for X team and X team piece land on that space, that piece cant be selected
- * 	+if a piece has died for X team, other X team pieces cannot land in that spot
+ * 	+if a piece has died for X player and X player piece land on that space, that piece cant be selected
+ * 	+if a piece has died for X player, other X player pieces cannot land in that spot
  */
 
 @SuppressWarnings("unused")
@@ -388,11 +388,14 @@ public class Onitama implements MouseListener
 	{
 		
 		private JButton playerVComputer, playerVPlayer;
-		private JButton howToPlay;
+		private JLabel howToPlay;
 		private JLabel welcome;
+		private ArrayList<JLabel> rules;
 		
 		public WelcomeScreen()
 		{
+			
+			
 			
 			//this.setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
 
@@ -401,7 +404,7 @@ public class Onitama implements MouseListener
 			
 			Font font = new Font("Dialog", Font.BOLD, 25);
 			
-			JLabel holder = new JLabel("HI");
+			JLabel holder = new JLabel("");
 			gridBag.gridy = 10;
 			this.add(holder,gridBag);
 			playerVComputer = new JButton("Player vs. Computer");
@@ -420,15 +423,52 @@ public class Onitama implements MouseListener
 			gridBag.gridy = 2;
 			this.add(playerVPlayer,gridBag);
 			
-			howToPlay = new JButton("How to play");
-			howToPlay.setActionCommand("htp");
-			howToPlay.setAlignmentX(JButton.CENTER_ALIGNMENT);
-			howToPlay.addActionListener(this);
-			gridBag.gridx = 1;
-			gridBag.gridy = 3;
-			this.add(howToPlay,gridBag);
+			rules = new ArrayList<JLabel>();
 			
-			welcome = new JLabel("WELCOME");
+			rules.add(new JLabel("|HOW TO PLAY|"));
+			rules.get(0).setForeground(Color.red);
+			
+			rules.add(new JLabel("RULES:"));
+			rules.get(1).setForeground(Color.blue);
+			
+			rules.add(new JLabel("Each player (red and blue) starts with 4 pawns and 1 master. The players' pieces start"));
+			rules.add(new JLabel("on their respective sides with the master in the middle(on their respective temple)"));
+			rules.add(new JLabel(" and 2 pawns on each side. The masters and their temples are outlined in yellow."));
+			rules.add(new JLabel("Each player starts with 2 random cards out of 16 available cards, and the board starts"));
+			rules.add(new JLabel("with its own random card. Each card is either colored red or blue, which determins which"));
+			
+			rules.add(new JLabel("player goes first with respect to the card's color. When it is a player's turn, all of"));
+			rules.add(new JLabel("his/her pieces have the same moves based on the cards that they currently have. When that"));
+			rules.add(new JLabel("player moves a piece, the card the he/she used for that move is swapped with the board's card"));
+			rules.add(new JLabel("and placed to the right of and facing the opponent. If a piece lands on the same space as"));
+			rules.add(new JLabel("an opponent's piece, the opponent's piece is captured and taken off of the board. To win,"));
+			
+			rules.add(new JLabel("one player must either capture the opponent's master, or land their own master in the"));
+			rules.add(new JLabel("opponent's temple."));
+			
+			rules.add(new JLabel("HOW TO MOVE:"));
+			rules.get(14).setForeground(Color.blue);
+			
+			rules.add(new JLabel("1. Select the card that you would like to use"));
+			rules.add(new JLabel("2. Press down on the piece that you would like to move"));
+			rules.add(new JLabel("3. Drag and release that piece onto the space that you would like to move to"));
+			
+			for(int i = 0; i < rules.size();i++)
+			{
+				rules.get(i).setAlignmentX(JLabel.CENTER_ALIGNMENT);
+				gridBag.gridx = 1;
+				gridBag.gridy = 3+i;
+				this.add(rules.get(i),gridBag);
+			}
+			
+//			howToPlay = new JLabel("How to play\n" +
+//					"Rules:\n\t1. Players select either player red or player blue\n");
+//			howToPlay.setAlignmentX(JButton.CENTER_ALIGNMENT);
+//			gridBag.gridx = 1;
+//			gridBag.gridy = 3;
+//			this.add(howToPlay,gridBag);
+			
+			welcome = new JLabel("WELCOME TO ONITAMA");
 			welcome.setFont(font);
 			gridBag.anchor = GridBagConstraints.PAGE_START;
 			gridBag.gridx = 1;
@@ -447,11 +487,6 @@ public class Onitama implements MouseListener
 			else if(arg0.getActionCommand().equals("pvp"))
 			{
 				startGame(true);
-			}
-			else if(arg0.getActionCommand().equals("htp"))
-			{
-				System.out.println("[TODO]");
-				//bring player to screen that tells them how to play
 			}
 		}
 		
@@ -478,7 +513,12 @@ public class Onitama implements MouseListener
 
 		private void drawLegalMoves(Graphics g) 
 		{
-			g.setColor(Color.orange);
+			
+			if(redTurn)
+				g.setColor(Color.red);
+			else
+				g.setColor(Color.blue);
+			
 			if(currentPiece!=null) 
 			{
 				for(int i = 0; i < legalMoves.get(currentPiece.getID()).size();i++) 
@@ -523,15 +563,6 @@ public class Onitama implements MouseListener
 			if(selectedCard != 0)
 				drawLegalMoves(g);
 
-			//draws board bounds
-			g.setColor(Color.green);
-			g.drawRect(boardX, boardY, tileWidth*5, tileHeight*5);
-			for(int i = 0; i < 5;i++) {
-				for(int c = 0; c<5;c++) {
-					g.drawRect(boardX+c*tileWidth, boardY+i*tileHeight, tileWidth, tileHeight);
-				}
-			}
-
 			//draws all player pieces
 			drawPieces(g);
 
@@ -554,11 +585,33 @@ public class Onitama implements MouseListener
 			{
 				g.drawImage(board.getCard().getImage(),597, 345, null);
 				g.drawRect(597, 345, 191, 100);
+				
+				if(selectedCard==1)
+				{
+					g.setColor(Color.white);
+					g.drawRect(207,611,191,100);
+				}
+				else if(selectedCard==2)
+				{
+					g.setColor(Color.white);
+					g.drawRect(401, 611, 191, 100);
+				}
 			}
 			else
 			{
 				drawRotateImage(180,board.getCard().getImage(),3,345,g);
 				g.drawRect(3,345,191,100);
+				
+				if(selectedCard==1)
+				{
+					g.setColor(Color.white);
+					g.drawRect(207,80,191,100);
+				}
+				else if(selectedCard==2)
+				{
+					g.setColor(Color.white);
+					g.drawRect(401, 80, 191, 100);
+				}
 			}
 
 			if(gameOver) 
@@ -569,7 +622,7 @@ public class Onitama implements MouseListener
 					JOptionPane.showMessageDialog(frame,winner);
 					//panel.repaint();
 				}
-				//DRAW IMAGE ON THE BOARD THAT SAYS WHICH TEAM WINS
+				//DRAW IMAGE ON THE BOARD THAT SAYS WHICH player WINS
 				//GIVE PLAYER OPTION TO PLAY AGAIN
 
 

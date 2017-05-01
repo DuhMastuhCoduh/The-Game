@@ -409,7 +409,7 @@ public class Onitama implements MouseListener
 			this.add(holder,gridBag);
 			playerVComputer = new JButton("Player vs. Computer");
 			playerVComputer.setActionCommand("pvc");
-			playerVComputer.setAlignmentX(JButton.CENTER_ALIGNMENT);
+			//playerVComputer.setAlignmentX(JButton.CENTER_ALIGNMENT);
 			playerVComputer.addActionListener(this);
 			gridBag.gridx = 0;
 			gridBag.gridy = 2;
@@ -417,7 +417,7 @@ public class Onitama implements MouseListener
 			
 			playerVPlayer = new JButton("Player vs. Player");
 			playerVPlayer.setActionCommand("pvp");
-			playerVPlayer.setAlignmentX(JButton.CENTER_ALIGNMENT);
+			//playerVPlayer.setAlignmentX(JButton.CENTER_ALIGNMENT);
 			playerVPlayer.addActionListener(this);
 			gridBag.gridx = 2;
 			gridBag.gridy = 2;
@@ -455,7 +455,7 @@ public class Onitama implements MouseListener
 			
 			for(int i = 0; i < rules.size();i++)
 			{
-				rules.get(i).setAlignmentX(JLabel.CENTER_ALIGNMENT);
+				//rules.get(i).setAlignmentX(JLabel.CENTER_ALIGNMENT);
 				gridBag.gridx = 1;
 				gridBag.gridy = 3+i;
 				this.add(rules.get(i),gridBag);

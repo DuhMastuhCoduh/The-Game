@@ -430,7 +430,7 @@ public class Onitama implements MouseListener
 			}
 			else if(arg0.getActionCommand().equals("htp"))
 			{
-				System.out.println("[TODO]");
+				//System.out.println("[TODO]");
 				//bring player to screen that tells them how to play
 			}
 		}
@@ -623,12 +623,12 @@ public class Onitama implements MouseListener
 					if(currentPiece!=null)
 						pressed = true;
 
-					System.out.println("a");
-					System.out.println(currentPos);
-					if(currentPiece!=null)
-						System.out.println(currentPiece.printPiece());
-					else
-						System.out.println(currentPiece);
+//					System.out.println("a");
+//					System.out.println(currentPos);
+//					if(currentPiece!=null)
+//						System.out.println(currentPiece.printPiece());
+//					else
+//						System.out.println(currentPiece);
 
 				}
 			}
@@ -701,25 +701,25 @@ public class Onitama implements MouseListener
 							if(checkLegalMove())
 								move();
 
-						System.out.println("b");
-						System.out.println(currentPos);
-						if(currentPiece!=null)
-							System.out.println(currentPiece.printPiece());
-						else
-							System.out.println(currentPiece);
+//						System.out.println("b");
+//						System.out.println(currentPos);
+//						if(currentPiece!=null)
+//							System.out.println(currentPiece.printPiece());
+//						else
+//							System.out.println(currentPiece);
 
 					} else  //not released within y bounds of board
 					{
 						currentPiece = null;
 						currentPos = new Position(0,0);
 
-						System.out.println("c");
-						System.out.println(currentPos);
-						if(currentPiece!=null)
-							System.out.println(currentPiece.printPiece());
-						else
-							System.out.println(currentPiece);
-						System.out.println();
+//						System.out.println("c");
+//						System.out.println(currentPos);
+//						if(currentPiece!=null)
+//							System.out.println(currentPiece.printPiece());
+//						else
+//							System.out.println(currentPiece);
+//						System.out.println();
 					}
 
 				}
@@ -728,13 +728,13 @@ public class Onitama implements MouseListener
 				currentPiece = null;
 				currentPos = new Position(0,0);
 
-				System.out.println("c");
-				System.out.println(currentPos);
-				if(currentPiece!=null)
-					System.out.println(currentPiece.printPiece());
-				else
-					System.out.println(currentPiece);
-				System.out.println();
+//				System.out.println("c");
+//				System.out.println(currentPos);
+//				if(currentPiece!=null)
+//					System.out.println(currentPiece.printPiece());
+//				else
+//					System.out.println(currentPiece);
+//				System.out.println();
 			}
 
 			pressed = false;

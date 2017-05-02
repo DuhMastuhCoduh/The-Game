@@ -23,8 +23,9 @@ import javax.swing.JPanel;
 
 /*	[TO BE IMPLEMENTED]	- = unimplemented;	+ = implemented
  * 	-AI/Computer player for the player to play against
- *	-welcome/instruction screen
- *	-replay option
+ *	+welcome/instruction screen
+ *	+replay option [-make a visible display for replay button]
+ *	-visibly display who won at end of game
  */
 
 /*	CURRENT KNOWN BUGS:	- = unresolved;	+ = resolved
@@ -71,7 +72,7 @@ public class Onitama implements MouseListener
 
 	private boolean gameOver = false;
 //================================================================================
-//	CONSTRUCTORs - starts the game
+//	CONSTRUCTORS - starts the game
 //================================================================================
 
 	public Onitama()
@@ -88,9 +89,23 @@ public class Onitama implements MouseListener
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
+
+//================================================================================
+//	STARTUP METHODS - sets up the game
+//================================================================================
+
+	private void returnToMenu()
+	{
+		panel = new WelcomeScreen();
+		
+		frame.setContentPane(panel);
+		
+		panel.revalidate();
+		frame.revalidate();
+	}
 	
 	private void startGame(boolean PVP) 
-	{
+	{	//[IMPLEMENT] - !pvp (player vs computer)
 
 		redPlayer = new Player(true);
 		bluePlayer = new Player(false);
@@ -110,14 +125,11 @@ public class Onitama implements MouseListener
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		
-		panel.repaint();
+		panel.revalidate();
+		frame.revalidate();
 
 	}
-
-//================================================================================
-//	STARTUP METHODS - sets up the game
-//================================================================================
-
+	
 	private void setFirstTurn() 
 	{
 		if(board.getCard().redCard()) 
@@ -631,9 +643,6 @@ public class Onitama implements MouseListener
 					//panel.repaint();
 				}
 				//DRAW IMAGE ON THE BOARD THAT SAYS WHICH player WINS
-				//GIVE PLAYER OPTION TO PLAY AGAIN
-
-
 
 			}
 
@@ -820,7 +829,14 @@ public class Onitama implements MouseListener
 
 			panel.repaint();
 		} else {
-			//GIVE PLAYER OPTION TO PLAY AGAIN
+			if(mouseX>300&&mouseX<500)
+			{
+				if(mouseY>350&&mouseY<450)
+				{
+					System.out.println("D");
+					returnToMenu();
+				}
+			}
 		}
 	}
 

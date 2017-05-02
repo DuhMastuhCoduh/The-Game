@@ -396,9 +396,6 @@ public class Onitama implements MouseListener
 		{
 			
 			
-			
-			//this.setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
-
 			this.setLayout(new GridBagLayout());
 			GridBagConstraints gridBag = new GridBagConstraints();
 			
@@ -435,7 +432,7 @@ public class Onitama implements MouseListener
 			rules.add(new JLabel("on their respective sides with the master in the middle(on their respective temple)"));
 			rules.add(new JLabel(" and 2 pawns on each side. The masters and their temples are outlined in yellow."));
 			rules.add(new JLabel("Each player starts with 2 random cards out of 16 available cards, and the board starts"));
-			rules.add(new JLabel("with its own random card. Each card is either colored red or blue, which determins which"));
+			rules.add(new JLabel("with its own random card. Each card is either colored red or blue, which determines which"));
 			
 			rules.add(new JLabel("player goes first with respect to the card's color. When it is a player's turn, all of"));
 			rules.add(new JLabel("his/her pieces have the same moves based on the cards that they currently have. When that"));
@@ -490,6 +487,15 @@ public class Onitama implements MouseListener
 			}
 		}
 		
+		public void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			try {
+			final BufferedImage oniBoard = ImageIO.read(new File("src\\resources\\japanese background.jpg"));
+			g.drawImage(oniBoard,0,0,null);
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}	
 	}
 
 	//TODO

@@ -20,6 +20,15 @@ public class Position
 	public void setyCoord(int yCoord) {
 		this.yCoord = yCoord;
 	}
+	
+	public Position(Position pos)
+	{
+		row = pos.getRow();
+		col = pos.getCol();
+		
+		XCoord = 207 + 77*col;
+		yCoord = 203 + 77*row;
+	}
 
 	public Position(int row, int col) 
 	{

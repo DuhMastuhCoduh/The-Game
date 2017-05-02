@@ -13,6 +13,7 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
@@ -71,6 +72,8 @@ public class Onitama implements MouseListener
 	private boolean cardPressed = false;
 
 	private boolean gameOver = false;
+	
+	private boolean PVP;
 //================================================================================
 //	CONSTRUCTORS - starts the game
 //================================================================================
@@ -107,6 +110,8 @@ public class Onitama implements MouseListener
 	private void startGame(boolean PVP) 
 	{	//[IMPLEMENT] - !pvp (player vs computer)
 
+		this.PVP = PVP;
+		
 		redPlayer = new Player(true);
 		bluePlayer = new Player(false);
 
@@ -298,6 +303,49 @@ public class Onitama implements MouseListener
 					}
 				}
 			}
+			
+			if(!PVP)
+			{
+				
+				for(int i = 0; i < bluePlayer.getDisciples().size()+1;i++)
+				{
+					for(int c = 0; c < legalMoves.get(i).size();c++)
+					{
+						if(redPlayer.getPiece(legalMoves.get(i).get(c))!=null)
+						{
+							pressed = true; cardPressed = true;
+							if(i < bluePlayer.getDisciples().size())
+								currentPiece = bluePlayer.getDisciples().get(i);
+							else
+								currentPiece = bluePlayer.getMaster();
+							currentPos = new Position(legalMoves.get(i).get(c));
+							
+							if(checkLegalMove())
+							{
+								move();
+								break;
+							}
+						}
+					}
+					
+				}
+				
+				pressed = true; cardPressed = true;
+				
+				int randomPieceID = (int)(Math.random()*bluePlayer.getDisciples().size());
+				int randomMove = (int)(Math.random()*legalMoves.get(randomPieceID).size());
+				
+				if(randomPieceID < bluePlayer.getDisciples().size())
+					currentPiece = bluePlayer.getDisciples().get(randomPieceID);
+				else
+					currentPiece = bluePlayer.getMaster();
+				
+				currentPos = new Position(legalMoves.get(randomPieceID).get(randomMove));
+				
+				if(checkLegalMove())
+					move();
+			}
+			
 		}
 	}
 
@@ -367,6 +415,13 @@ public class Onitama implements MouseListener
 		resetLegalMoves();
 		checkWin();
 		panel.repaint();
+		
+		if(!PVP)
+		{
+			selectedCard = (int)(Math.random()*2);
+			setLegalMoves();
+		}
+		
 	}
 	
 	private void checkWin() 
@@ -493,7 +548,7 @@ public class Onitama implements MouseListener
 			if(arg0.getActionCommand().equals("pvc")) 
 			{
 				System.out.println("[TODO]");
-				//start game against computer player
+				startGame(false);
 			}
 			else if(arg0.getActionCommand().equals("pvp"))
 			{

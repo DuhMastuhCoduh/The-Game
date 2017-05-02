@@ -3,6 +3,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -14,7 +15,6 @@ import java.io.File;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -399,26 +399,28 @@ public class Onitama implements MouseListener
 			this.setLayout(new GridBagLayout());
 			GridBagConstraints gridBag = new GridBagConstraints();
 			
-			Font font = new Font("Dialog", Font.BOLD, 25);
+			Font font = new Font("Papyrus", Font.PLAIN, 16);
 			
-			JLabel holder = new JLabel("");
-			gridBag.gridy = 10;
-			this.add(holder,gridBag);
 			playerVComputer = new JButton("Player vs. Computer");
+			//playerVComputer.setFont(font); hard to do with gridbag/would take a little time, is it worth?
+			playerVComputer.setFocusPainted(false);//delete the shrug shoulders I think it might break eclipse
 			playerVComputer.setActionCommand("pvc");
-			//playerVComputer.setAlignmentX(JButton.CENTER_ALIGNMENT);
 			playerVComputer.addActionListener(this);
 			gridBag.gridx = 0;
 			gridBag.gridy = 2;
 			this.add(playerVComputer,gridBag);
 			
 			playerVPlayer = new JButton("Player vs. Player");
+			playerVPlayer.setFocusPainted(false);
 			playerVPlayer.setActionCommand("pvp");
-			//playerVPlayer.setAlignmentX(JButton.CENTER_ALIGNMENT);
 			playerVPlayer.addActionListener(this);
 			gridBag.gridx = 2;
 			gridBag.gridy = 2;
 			this.add(playerVPlayer,gridBag);
+			
+			gridBag.insets = new Insets(10,0,0,0);//everything is spaced out so you can actually read it
+			
+			font = new Font("Dialog", Font.BOLD, 25);
 			
 			rules = new ArrayList<JLabel>();
 			

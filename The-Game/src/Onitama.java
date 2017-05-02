@@ -418,6 +418,7 @@ public class Onitama implements MouseListener
 		
 		if(!PVP)
 		{
+			System.out.println("5");
 			selectedCard = (int)(Math.random()*2);
 			setLegalMoves();
 		}

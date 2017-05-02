@@ -132,6 +132,9 @@ public class Onitama implements MouseListener
 		
 		panel.revalidate();
 		frame.revalidate();
+		
+		if(!PVP&&!redTurn)
+			setLegalMoves();
 
 	}
 	

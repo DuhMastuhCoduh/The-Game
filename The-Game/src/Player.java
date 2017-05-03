@@ -16,11 +16,6 @@ public class Player
 	private ArrayList<Piece> disciples = new ArrayList<Piece>();
 	private Piece master;
 	
-	public Player() 
-	{
-		//this is what the computer player uses
-	}
-	
 	public Player(boolean teamRed) 
 	{
 		

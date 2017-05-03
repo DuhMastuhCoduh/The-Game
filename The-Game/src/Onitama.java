@@ -256,110 +256,170 @@ public class Onitama implements MouseListener
 		}
 		else
 		{
-			if(!PVP)
-				selectedCard = (int)(Math.random()*2+1);
-			
-			if(selectedCard==1)
+			if(PVP)
 			{
-				cardMoves = bluePlayer.getCard1().getLegalMoves();
-			} 
-			else if(selectedCard==2)
-			{
-				cardMoves = bluePlayer.getCard2().getLegalMoves();
-			}
+				if(selectedCard==1)
+				{
+					cardMoves = bluePlayer.getCard1().getLegalMoves();
+				} 
+				else if(selectedCard==2)
+				{
+					cardMoves = bluePlayer.getCard2().getLegalMoves();
+				}
 
-			for(int i = 0; i < bluePlayer.getDisciples().size();i++) 
-			{	
-				Piece temp = bluePlayer.getDisciples().get(i);
+				for(int i = 0; i < bluePlayer.getDisciples().size();i++) 
+				{	
+					Piece temp = bluePlayer.getDisciples().get(i);
+					legalMoves.add(new ArrayList<Position>());
+
+					for(int c = 0; c < cardMoves.size(); c++) 
+					{
+						int tempRow = temp.getPosition().getRow()-cardMoves.get(c).getRow();
+						int tempCol = temp.getPosition().getCol()-cardMoves.get(c).getCol();
+
+						if(tempRow > -1 && tempRow < 5)
+						{
+							if(tempCol > -1 && tempCol < 5) 
+							{
+								Position tempPos = new Position(tempRow,tempCol);
+								if(bluePlayer.getPiece(tempPos)==null)
+									legalMoves.get(i).add(tempPos);
+								else if(bluePlayer.getPiece(tempPos).getDead())
+									legalMoves.get(i).add(tempPos);
+							}
+						}
+					}
+				}
+
 				legalMoves.add(new ArrayList<Position>());
 
-				for(int c = 0; c < cardMoves.size(); c++) 
+				for(int i = 0; i < cardMoves.size();i++) 
 				{
-					int tempRow = temp.getPosition().getRow()-cardMoves.get(c).getRow();
-					int tempCol = temp.getPosition().getCol()-cardMoves.get(c).getCol();
 
-					if(tempRow > -1 && tempRow < 5)
+					int tempRow = bluePlayer.getMaster().getPosition().getRow()-cardMoves.get(i).getRow();
+					int tempCol = bluePlayer.getMaster().getPosition().getCol()-cardMoves.get(i).getCol();
+
+					if(tempRow > -1 && tempRow < 5) 
 					{
 						if(tempCol > -1 && tempCol < 5) 
 						{
 							Position tempPos = new Position(tempRow,tempCol);
 							if(bluePlayer.getPiece(tempPos)==null)
-								legalMoves.get(i).add(tempPos);
+								legalMoves.get(legalMoves.size()-1).add(tempPos);
 							else if(bluePlayer.getPiece(tempPos).getDead())
 								legalMoves.get(i).add(tempPos);
 						}
 					}
 				}
 			}
-
-			legalMoves.add(new ArrayList<Position>());
-
-			for(int i = 0; i < cardMoves.size();i++) 
-			{
-
-				int tempRow = bluePlayer.getMaster().getPosition().getRow()-cardMoves.get(i).getRow();
-				int tempCol = bluePlayer.getMaster().getPosition().getCol()-cardMoves.get(i).getCol();
-
-				if(tempRow > -1 && tempRow < 5) 
-				{
-					if(tempCol > -1 && tempCol < 5) 
-					{
-						Position tempPos = new Position(tempRow,tempCol);
-						if(bluePlayer.getPiece(tempPos)==null)
-							legalMoves.get(legalMoves.size()-1).add(tempPos);
-						else if(bluePlayer.getPiece(tempPos).getDead())
-							legalMoves.get(i).add(tempPos);
-					}
-				}
-			}
-			
-			if(!PVP)
+			else
 			{
 				boolean moved = false;
-				for(int i = 0; i < bluePlayer.getDisciples().size()+1;i++)
+				do
 				{
-					for(int c = 0; c < legalMoves.get(i).size();c++)
+					selectedCard++;
+					cardPressed = true;
+					if(selectedCard==1)
 					{
-						if(redPlayer.getPiece(legalMoves.get(i).get(c))!=null)
+						cardMoves = bluePlayer.getCard1().getLegalMoves();
+					} 
+					else if(selectedCard==2)
+					{
+						cardMoves = bluePlayer.getCard2().getLegalMoves();
+					}
+
+					for(int i = 0; i < bluePlayer.getDisciples().size();i++) 
+					{	
+						Piece temp = bluePlayer.getDisciples().get(i);
+						legalMoves.add(new ArrayList<Position>());
+
+						for(int c = 0; c < cardMoves.size(); c++) 
 						{
-							pressed = true; cardPressed = true;
-							if(i < bluePlayer.getDisciples().size())
-								currentPiece = bluePlayer.getDisciples().get(i);
-							else
-								currentPiece = bluePlayer.getMaster();
-							currentPos = new Position(legalMoves.get(i).get(c));
-							
-							if(checkLegalMove())
+							int tempRow = temp.getPosition().getRow()-cardMoves.get(c).getRow();
+							int tempCol = temp.getPosition().getCol()-cardMoves.get(c).getCol();
+
+							if(tempRow > -1 && tempRow < 5)
 							{
-								move();
-								moved = true;
+								if(tempCol > -1 && tempCol < 5) 
+								{
+									Position tempPos = new Position(tempRow,tempCol);
+									if(bluePlayer.getPiece(tempPos)==null)
+										legalMoves.get(i).add(tempPos);
+									else if(bluePlayer.getPiece(tempPos).getDead())
+										legalMoves.get(i).add(tempPos);
+								}
+							}
+						}
+					}
+
+					legalMoves.add(new ArrayList<Position>());
+
+					for(int i = 0; i < cardMoves.size();i++) 
+					{
+
+						int tempRow = bluePlayer.getMaster().getPosition().getRow()-cardMoves.get(i).getRow();
+						int tempCol = bluePlayer.getMaster().getPosition().getCol()-cardMoves.get(i).getCol();
+
+						if(tempRow > -1 && tempRow < 5) 
+						{
+							if(tempCol > -1 && tempCol < 5) 
+							{
+								Position tempPos = new Position(tempRow,tempCol);
+								if(bluePlayer.getPiece(tempPos)==null)
+									legalMoves.get(legalMoves.size()-1).add(tempPos);
+								else if(bluePlayer.getPiece(tempPos).getDead())
+									legalMoves.get(i).add(tempPos);
+							}
+						}
+					}
+					for(int i = 0; i < bluePlayer.getDisciples().size()+1;i++)
+					{
+						for(int c = 0; c < legalMoves.get(i).size();c++)
+						{
+							if(redPlayer.getPiece(legalMoves.get(i).get(c))!=null)
+							{
+								pressed = true;
+								if(i < bluePlayer.getDisciples().size())
+									currentPiece = bluePlayer.getDisciples().get(i);
+								else
+									currentPiece = bluePlayer.getMaster();
+								currentPos = new Position(legalMoves.get(i).get(c));
+
+								if(checkLegalMove())
+								{
+									move();
+									moved = true;
+								}
 							}
 						}
 					}
 					
-				}
+					
+				} while(selectedCard<3&&!moved);
+				
 				if(!moved)
 				{
 					pressed = true; cardPressed = true;
-					
-					int randomPieceID = (int)(Math.random()*bluePlayer.getDisciples().size());
-					int randomMove = (int)(Math.random()*legalMoves.get(randomPieceID).size());
-					
+					selectedCard = (int)(Math.random()*(2-1)+1);
+
+					int randomPieceID = (int)(Math.random()*(bluePlayer.getDisciples().size()));
+					int randomMove = (int)(Math.random()*(legalMoves.get(randomPieceID).size()));
+
 					//System.out.println(randomPieceID + " " + randomMove);
-					
+
 					if(randomPieceID < bluePlayer.getDisciples().size())
 						currentPiece = bluePlayer.getDisciples().get(randomPieceID);
 					else
 						currentPiece = bluePlayer.getMaster();
-					
+
 					currentPos = new Position(legalMoves.get(randomPieceID).get(randomMove));
-					
+
 					if(checkLegalMove())
 						move();
 				}
-				
+
 			}
-			
+
 		}
 	}
 

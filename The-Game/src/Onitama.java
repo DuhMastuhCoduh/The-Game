@@ -30,6 +30,7 @@ import javax.swing.JPanel;
  *	-visibly display who won at end of game
  *	-visibly display who's turn it is
  *	-make AI turns go a little slower if possible
+ *	-AI does not currently attempt to land master in enemy temple
  */
 
 /*	CURRENT KNOWN BUGS:	- = unresolved;	+ = resolved

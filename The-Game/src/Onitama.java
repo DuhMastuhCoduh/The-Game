@@ -1,6 +1,9 @@
+import java.awt.AlphaComposite;
 import java.awt.Color;
+import java.awt.Composite;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -12,8 +15,8 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
-import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
@@ -525,18 +528,10 @@ public class Onitama implements MouseListener
 			
 			for(int i = 0; i < rules.size();i++)
 			{
-				//rules.get(i).setAlignmentX(JLabel.CENTER_ALIGNMENT);
 				gridBag.gridx = 1;
 				gridBag.gridy = 3+i;
 				this.add(rules.get(i),gridBag);
 			}
-			
-//			howToPlay = new JLabel("How to play\n" +
-//					"Rules:\n\t1. Players select either player red or player blue\n");
-//			howToPlay.setAlignmentX(JButton.CENTER_ALIGNMENT);
-//			gridBag.gridx = 1;
-//			gridBag.gridy = 3;
-//			this.add(howToPlay,gridBag);
 			
 			welcome = new JLabel("WELCOME TO ONITAMA");
 			welcome.setFont(font);
@@ -562,12 +557,17 @@ public class Onitama implements MouseListener
 		
 		public void paintComponent(Graphics g) {
 			super.paintComponent(g);
+			Graphics2D g2 = (Graphics2D)g;
+			Composite comp = g2.getComposite();
+			g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,0.5f));
 			try {
-			final BufferedImage oniBoard = ImageIO.read(new File("src\\resources\\japanese background.jpg"));
-			g.drawImage(oniBoard,0,0,null);
+			final BufferedImage oniBackground = ImageIO.read(Onitama.class.getResourceAsStream("/resources/japanese background.jpg"));
+			//final BufferedImage oniBoard = ImageIO.read(new File("src\\resources\\japanese background.jpg"));
+			g2.drawImage(oniBackground,0,0,null);
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
+			g2.setComposite(comp);
 		}	
 	}
 
@@ -630,7 +630,8 @@ public class Onitama implements MouseListener
 
 			//draws board
 			try {
-				final BufferedImage oniBoard = ImageIO.read(new File("src\\resources\\board.png"));
+				final BufferedImage oniBoard = ImageIO.read(Onitama.class.getResourceAsStream("/resources/board.png"));
+				//final BufferedImage oniBoard = ImageIO.read(new File("src\\resources\\board.png"));
 				g.drawImage(oniBoard, 0, 0, null);
 			} catch (Exception e) {
 				e.printStackTrace();

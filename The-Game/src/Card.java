@@ -88,8 +88,8 @@ public class Card
 
 		try 
 		{
-			cardImg = ImageIO.read(new File("src\\resources\\" + cardName + ".png"));
-
+			cardImg = ImageIO.read(Onitama.class.getResourceAsStream("/resources/" + cardName + ".png"));
+			//cardImg = ImageIO.read(new File("src\\resources\\" + cardName + ".png"));
 		} catch(Exception e) 
 		{
 			//e.printStackTrace();

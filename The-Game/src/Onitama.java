@@ -52,6 +52,7 @@ public class Onitama implements MouseListener
 	private JPanel panel;
 
 	private Player redPlayer,bluePlayer;
+	private ComputerPlayer computerPlayer;
 
 	private Board board;
 
@@ -73,6 +74,8 @@ public class Onitama implements MouseListener
 
 	private boolean pressed = false;
 	private boolean cardPressed = false;
+	
+	private boolean compPlay = false;
 
 	private boolean gameOver = false;
 	
@@ -369,6 +372,9 @@ public class Onitama implements MouseListener
 	private void move() 
 	{
 
+		if(compPlay) {
+			selectedCard = computerPlayer.cardChoose();
+		}
 		currentPiece.move(currentPos);
 
 		Card holdCard = new Card(board.getCard().getCardID());
@@ -547,7 +553,8 @@ public class Onitama implements MouseListener
 			if(arg0.getActionCommand().equals("pvc")) 
 			{
 				System.out.println("[TODO]");
-				startGame(false);
+				computerPlayer = new ComputerPlayer(redTurn);
+				startGame(true);
 			}
 			else if(arg0.getActionCommand().equals("pvp"))
 			{
@@ -792,6 +799,7 @@ public class Onitama implements MouseListener
 
 		if(!gameOver)
 		{
+			
 			if(mouseX>207&&mouseX<592)  //if click is within x bounds of board
 			{
 				if(!pressed)  //player did not select a piece

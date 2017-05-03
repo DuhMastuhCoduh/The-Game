@@ -28,6 +28,8 @@ import javax.swing.JPanel;
  *	+welcome/instruction screen
  *	+replay option [-make a visible display for replay button]
  *	-visibly display who won at end of game
+ *	-visibly display who's turn it is
+ *	-make AI turns go a little slower if possible
  */
 
 /*	CURRENT KNOWN BUGS:	- = unresolved;	+ = resolved

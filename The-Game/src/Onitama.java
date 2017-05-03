@@ -14,8 +14,6 @@ import java.awt.event.MouseListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.net.URL;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
@@ -26,7 +24,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /*	[TO BE IMPLEMENTED]	- = unimplemented;	+ = implemented
- * 	-AI/Computer player for the player to play against
+ * 	+AI/Computer player for the player to play against
  *	+welcome/instruction screen
  *	+replay option [-make a visible display for replay button]
  *	-visibly display who won at end of game
@@ -40,8 +38,6 @@ import javax.swing.JPanel;
  * 	+if a piece has died for X player and X player piece land on that space, that piece cant be selected
  * 	+if a piece has died for X player, other X player pieces cannot land in that spot
  */
-
-@SuppressWarnings("unused")
 public class Onitama implements MouseListener
 {
 
@@ -61,7 +57,6 @@ public class Onitama implements MouseListener
 
 	private Position currentPos = new Position(0,0);
 	private Piece currentPiece = null;
-	private ArrayList<Position> moves;
 
 	private boolean redTurn;
 
@@ -102,12 +97,22 @@ public class Onitama implements MouseListener
 
 	private void returnToMenu()
 	{
+		
 		panel = new WelcomeScreen();
 		
 		frame.setContentPane(panel);
 		
 		panel.revalidate();
 		frame.revalidate();
+		
+		gameOver = false;
+		selectedCard = 0;
+		winner = "";
+		cardPressed = false;
+		pressed = false;
+		winMessageDisplayed = false;
+		legalMoves = new ArrayList<ArrayList<Position>>();
+		
 	}
 	
 	private void startGame(boolean PVP) 
@@ -528,8 +533,11 @@ public class Onitama implements MouseListener
 	private class WelcomeScreen extends JPanel implements ActionListener
 	{
 		
+		/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 		private JButton playerVComputer, playerVPlayer;
-		private JLabel howToPlay;
 		private JLabel welcome;
 		private ArrayList<JLabel> rules;
 		
@@ -643,8 +651,8 @@ public class Onitama implements MouseListener
 	private class OnitamaPanel extends JPanel
 	{
 
-		int boardX = 207,boardY = 203;
-		int tileHeight = 77,tileWidth = 77;
+//		int boardX = 207,boardY = 203;
+//		int tileHeight = 77,tileWidth = 77;
 
 		public OnitamaPanel() 
 		{

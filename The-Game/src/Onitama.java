@@ -14,6 +14,7 @@ import java.awt.event.MouseListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
@@ -40,6 +41,9 @@ import javax.swing.JPanel;
  *  +card and red piece selected then piece released in place, if only one available move, automatically moves it
  * 	+if a piece has died for X player and X player piece land on that space, that piece cant be selected
  * 	+if a piece has died for X player, other X player pieces cannot land in that spot
+ * 
+ *  -computer player pieces don't actually die, they just become invisible
+ *  joptionpane for win goes into top left corner when ok is clicked on
  */
 public class Onitama implements MouseListener
 {
@@ -420,6 +424,9 @@ public class Onitama implements MouseListener
 					else
 						currentPiece = bluePlayer.getMaster();
 
+					System.out.println("SIZE: "+legalMoves.size());
+					System.out.println("PIECE ID: "+randomPieceID);
+					System.out.println("ROW: "+legalMoves.get(randomPieceID).get(randomMove).getRow()+" COLUMN: "+legalMoves.get(randomPieceID).get(randomMove).getCol());
 					currentPos = new Position(legalMoves.get(randomPieceID).get(randomMove));
 
 					if(checkLegalMove())
@@ -510,7 +517,7 @@ public class Onitama implements MouseListener
 	{
 		if(bluePlayer.getMaster().getDead())
 		{
-			winner = "Red wins!";
+			winner = "Red win!";
 			gameOver = true;
 		} else if(bluePlayer.getMaster().getPosition().equals(new Position(4,2)))
 		{
@@ -781,7 +788,21 @@ public class Onitama implements MouseListener
 					//panel.repaint();
 				}
 				//DRAW IMAGE ON THE BOARD THAT SAYS WHICH player WINS
-
+				if(winner.equals("Red win!"))
+				{
+					try {
+						g.drawImage(ImageIO.read(Onitama.class.getResourceAsStream("/resources/Red Wins.PNG")),196,300,null);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				} else if(winner.equals("Blue win!"))
+				{
+					try {
+						g.drawImage(ImageIO.read(Onitama.class.getResourceAsStream("/resources/Blue Wins.PNG")),177,300,null);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
 			}
 
 		}
@@ -809,7 +830,9 @@ public class Onitama implements MouseListener
 //	MOUSE EVENTS - handles user interaction with the game
 //================================================================================
 
-	public void mouseClicked(MouseEvent e) { }
+	public void mouseClicked(MouseEvent e) {//System.out.println("x: "+e.getX()+" y: "+e.getY()); }
+		
+	}
 	public void mouseEntered(MouseEvent e) { }
 	public void mouseExited(MouseEvent e) { }
 

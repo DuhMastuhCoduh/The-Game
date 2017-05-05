@@ -43,7 +43,8 @@ import javax.swing.JPanel;
  * 	+if a piece has died for X player, other X player pieces cannot land in that spot
  * 
  *  -computer player pieces don't actually die, they just become invisible
- *  joptionpane for win goes into top left corner when ok is clicked on
+ *  -joptionpane for win goes into top left corner when ok is clicked on
+ *  -above error is a painting issue, might be a resizing issue
  */
 public class Onitama implements MouseListener
 {
@@ -461,7 +462,6 @@ public class Onitama implements MouseListener
 			{
 				board.setCard(redPlayer.getCard1());
 				redPlayer.setCard1(holdCard);
-
 			}
 			if(selectedCard == 2)
 			{
@@ -474,7 +474,6 @@ public class Onitama implements MouseListener
 			{
 				board.setCard(bluePlayer.getCard1());
 				bluePlayer.setCard1(holdCard);
-
 			}
 			if(selectedCard == 2)
 			{
@@ -482,8 +481,6 @@ public class Onitama implements MouseListener
 				bluePlayer.setCard2(holdCard);
 			}
 		}
-
-
 
 		if(redTurn)
 		{	
@@ -496,6 +493,7 @@ public class Onitama implements MouseListener
 				redPlayer.getPiece(currentPos).setDead(true);
 			}
 		}
+		
 		cardPressed = false;
 		currentPiece = null;
 		redTurn = !redTurn;
@@ -507,7 +505,6 @@ public class Onitama implements MouseListener
 		if(!PVP)
 		{
 			//System.out.println("5");
-			
 			setLegalMoves();
 		}
 		

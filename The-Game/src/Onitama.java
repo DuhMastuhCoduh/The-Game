@@ -419,6 +419,7 @@ public class Onitama implements MouseListener
 					
 					do 
 					{
+						System.out.println("\\\\\\\\\\\\\\\\\\\\\\");
 						randomPieceID = (int)(Math.random()*(bluePlayer.getDisciples().size()));
 						randomMove = (int)(Math.random()*(legalMoves.get(randomPieceID).size()));
 
@@ -428,7 +429,7 @@ public class Onitama implements MouseListener
 							currentPiece = bluePlayer.getDisciples().get(randomPieceID);
 						else
 							currentPiece = bluePlayer.getMaster();
-					} while(!currentPiece.getDead());
+					} while(currentPiece.getDead());
 
 					System.out.println("SIZE: "+legalMoves.size());
 					System.out.println("PIECE ID: "+randomPieceID);

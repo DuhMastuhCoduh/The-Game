@@ -129,7 +129,7 @@ public class Onitama implements MouseListener
 		this.PVP = PVP;
 		
 		redPlayer = new Player(true);
-		bluePlayer = new ComputerPlayer(false);
+		bluePlayer = new Player(false);
 
 		setCards();
 		setFirstTurn();
@@ -398,7 +398,7 @@ public class Onitama implements MouseListener
 									currentPiece = bluePlayer.getMaster();
 								currentPos = new Position(legalMoves.get(i).get(c));
 
-								if(checkLegalMove())
+								if(checkLegalMove()&&!currentPiece.getDead())
 								{
 									move();
 									moved = true;
@@ -414,16 +414,21 @@ public class Onitama implements MouseListener
 				{
 					pressed = true; cardPressed = true;
 					selectedCard = (int)(Math.random()*(2-1)+1);
+					
+					int randomPieceID,randomMove;
+					
+					do 
+					{
+						randomPieceID = (int)(Math.random()*(bluePlayer.getDisciples().size()));
+						randomMove = (int)(Math.random()*(legalMoves.get(randomPieceID).size()));
 
-					int randomPieceID = (int)(Math.random()*(bluePlayer.getDisciples().size()));
-					int randomMove = (int)(Math.random()*(legalMoves.get(randomPieceID).size()));
+						//System.out.println(randomPieceID + " " + randomMove);
 
-					//System.out.println(randomPieceID + " " + randomMove);
-
-					if(randomPieceID < bluePlayer.getDisciples().size())
-						currentPiece = bluePlayer.getDisciples().get(randomPieceID);
-					else
-						currentPiece = bluePlayer.getMaster();
+						if(randomPieceID < bluePlayer.getDisciples().size())
+							currentPiece = bluePlayer.getDisciples().get(randomPieceID);
+						else
+							currentPiece = bluePlayer.getMaster();
+					} while(!currentPiece.getDead());
 
 					System.out.println("SIZE: "+legalMoves.size());
 					System.out.println("PIECE ID: "+randomPieceID);

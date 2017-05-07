@@ -21,7 +21,6 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /*	[TO BE IMPLEMENTED]	- = unimplemented;	+ = implemented
@@ -67,8 +66,6 @@ public class Onitama implements MouseListener
 	private Piece currentPiece = null;
 
 	private boolean redTurn;
-
-	private boolean winMessageDisplayed = false;
 
 	private String winner = "";
 
@@ -118,7 +115,6 @@ public class Onitama implements MouseListener
 		winner = "";
 		cardPressed = false;
 		pressed = false;
-		winMessageDisplayed = false;
 		legalMoves = new ArrayList<ArrayList<Position>>();
 		
 	}

@@ -784,27 +784,32 @@ public class Onitama implements MouseListener
 
 			if(gameOver) 
 			{
-				if(!winMessageDisplayed) 
-				{
-					winMessageDisplayed = true;
-					JOptionPane.showMessageDialog(frame,winner);
-					//panel.repaint();
-				}
-				//DRAW IMAGE ON THE BOARD THAT SAYS WHICH player WINS
+//				if(!winMessageDisplayed) 
+//				{
+//					winMessageDisplayed = true;
+//					JOptionPane.showMessageDialog(frame,winner);
+//					//panel.repaint();
+//				}
+//				//DRAW IMAGE ON THE BOARD THAT SAYS WHICH player WINS
 				if(winner.equals("Red win!"))
 				{
 					try {
-						g.drawImage(ImageIO.read(Onitama.class.getResourceAsStream("/resources/Red Wins.PNG")),196,300,null);
+						g.drawImage(ImageIO.read(Onitama.class.getResourceAsStream("/resources/red wins.png")),196,600,null);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
 				} else if(winner.equals("Blue win!"))
 				{
 					try {
-						g.drawImage(ImageIO.read(Onitama.class.getResourceAsStream("/resources/Blue Wins.PNG")),177,300,null);
+						g.drawImage(ImageIO.read(Onitama.class.getResourceAsStream("/resources/blue wins.png")),177,80,null);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
+				}
+				try {
+					g.drawImage(ImageIO.read(Onitama.class.getResourceAsStream("/resources/replay.png")), 300, 350, null);
+				} catch(Exception e) {
+					e.printStackTrace();
 				}
 			}
 
@@ -836,7 +841,7 @@ public class Onitama implements MouseListener
 	public void mouseClicked(MouseEvent e) {//System.out.println("x: "+e.getX()+" y: "+e.getY()); }
 		
 	}
-	public void mouseEntered(MouseEvent e) { }
+	public void mouseEntered(MouseEvent e) { panel.repaint(); }
 	public void mouseExited(MouseEvent e) { }
 
 	public void mousePressed(MouseEvent e) 

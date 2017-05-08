@@ -23,17 +23,17 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-/*	[TO BE IMPLEMENTED]	- = unimplemented;	+ = implemented
+/*	[TO BE IMPLEMENTED]	- = unimplemented;	+ = implemented;
  * 	+AI/Computer player for the player to play against
  *	+welcome/instruction screen
- *	+replay option [-make a visible display for replay button]
- *	-visibly display who won at end of game
- *	-visibly display who's turn it is
+ *	+replay option [+make a visible display for replay button]
+ *	+visibly display who won at end of game
+ *	+visibly display who's turn it is
  *	-make AI turns go a little slower if possible
  *	-AI does not currently attempt to land master in enemy temple
  */
 
-/*	CURRENT KNOWN BUGS:	- = unresolved;	+ = resolved
+/*	CURRENT KNOWN BUGS:	- = unresolved;	+ = resolved; +/- = seemingly fixed but likely still bugged
  * 	+when an invalid move is selected picks a seemingly random move sometimes?
  * 	+blue player legal moves on wrong pieces
  * 	+sometimes move selection doesnt work
@@ -42,10 +42,11 @@ import javax.swing.JPanel;
  * 	+if a piece has died for X player, other X player pieces cannot land in that spot
  * 
  *  +computer player pieces don't actually die, they just become invisible
- *  -joptionpane for win goes into top left corner when ok is clicked on
- *  -above error is a painting issue, might be a resizing issue
- *  -computer player doesn't select a card correctly, can use one cards move but always replaces first card
+ *  +joptionpane for win goes into top left corner when ok is clicked on
+ *  +above error is a painting issue, might be a resizing issue
+ *  +computer player doesn't select a card correctly, can use one cards move but always replaces first card
  *  -computer vs player freezes if computer only has master left
+ *  +/-when red wins in player vs comp displays blue win
  */
 public class Onitama implements MouseListener
 {
@@ -407,6 +408,7 @@ public class Onitama implements MouseListener
 								{
 									move();
 									moved = true;
+									break;
 								}
 							}
 						}
@@ -419,14 +421,71 @@ public class Onitama implements MouseListener
 				{
 					pressed = true; cardPressed = true;
 					
-					
 					int randomPieceID,randomMove;
+					
+					legalMoves = new ArrayList<ArrayList<Position>>();
+					
+					selectedCard = (int)(Math.random()*2+1);
+					
+					if(selectedCard==1)
+					{
+						cardMoves = bluePlayer.getCard1().getLegalMoves();
+					} 
+					else if(selectedCard==2)
+					{
+						cardMoves = bluePlayer.getCard2().getLegalMoves();
+					}
+
+					for(int i = 0; i < bluePlayer.getDisciples().size();i++) 
+					{	
+						Piece temp = bluePlayer.getDisciples().get(i);
+						legalMoves.add(new ArrayList<Position>());
+
+						for(int c = 0; c < cardMoves.size(); c++) 
+						{
+							int tempRow = temp.getPosition().getRow()-cardMoves.get(c).getRow();
+							int tempCol = temp.getPosition().getCol()-cardMoves.get(c).getCol();
+
+							if(tempRow > -1 && tempRow < 5)
+							{
+								if(tempCol > -1 && tempCol < 5) 
+								{
+									Position tempPos = new Position(tempRow,tempCol);
+									if(bluePlayer.getPiece(tempPos)==null)
+										legalMoves.get(i).add(tempPos);
+									else if(bluePlayer.getPiece(tempPos).getDead())
+										legalMoves.get(i).add(tempPos);
+								}
+							}
+						}
+					}
+
+					legalMoves.add(new ArrayList<Position>());
+
+					for(int i = 0; i < cardMoves.size();i++) 
+					{
+
+						int tempRow = bluePlayer.getMaster().getPosition().getRow()-cardMoves.get(i).getRow();
+						int tempCol = bluePlayer.getMaster().getPosition().getCol()-cardMoves.get(i).getCol();
+
+						if(tempRow > -1 && tempRow < 5) 
+						{
+							if(tempCol > -1 && tempCol < 5) 
+							{
+								Position tempPos = new Position(tempRow,tempCol);
+								if(bluePlayer.getPiece(tempPos)==null)
+									legalMoves.get(legalMoves.size()-1).add(tempPos);
+								else if(bluePlayer.getPiece(tempPos).getDead())
+									legalMoves.get(i).add(tempPos);
+							}
+						}
+					}
 					
 					do 
 					{
-						selectedCard = (int)(Math.random()*2+1);
+						
 						//System.out.println("\\\\\\\\\\\\\\\\\\\\\\");add in counting up pieces that are dead and chaning randPieceId to number of dead pieces
-						randomPieceID = (int)(Math.random()*(bluePlayer.getDisciples().size()));
+						randomPieceID = (int)(Math.random()*(bluePlayer.getDisciples().size())+1);
 						randomMove = (int)(Math.random()*(legalMoves.get(randomPieceID).size()));
 
 						//System.out.println(randomPieceID + " " + randomMove);
@@ -482,6 +541,7 @@ public class Onitama implements MouseListener
 			}
 		} else
 		{
+			//System.out.println(selectedCard);
 			if(selectedCard == 1)
 			{
 				board.setCard(bluePlayer.getCard1());
@@ -928,7 +988,7 @@ public class Onitama implements MouseListener
 							cardPressed = true;
 							setLegalMoves();
 						}
-					} else if(mouseY>80&&mouseY<180&&!redTurn)  //within y bounds of blue cards and not red turn
+					} else if(mouseY>80&&mouseY<180&&!redTurn&PVP)  //within y bounds of blue cards and not red turn
 					{
 
 						if(mouseX<398)			//card 1

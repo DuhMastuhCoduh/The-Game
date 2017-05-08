@@ -41,9 +41,11 @@ import javax.swing.JPanel;
  * 	+if a piece has died for X player and X player piece land on that space, that piece cant be selected
  * 	+if a piece has died for X player, other X player pieces cannot land in that spot
  * 
- *  -computer player pieces don't actually die, they just become invisible
+ *  +computer player pieces don't actually die, they just become invisible
  *  -joptionpane for win goes into top left corner when ok is clicked on
  *  -above error is a painting issue, might be a resizing issue
+ *  -computer player doesn't select a card correctly, can use one cards move but always replaces first card
+ *  -computer vs player freezes if computer only has master left
  */
 public class Onitama implements MouseListener
 {
@@ -416,13 +418,14 @@ public class Onitama implements MouseListener
 				if(!moved)
 				{
 					pressed = true; cardPressed = true;
-					selectedCard = (int)(Math.random()*(2-1)+1);
+					
 					
 					int randomPieceID,randomMove;
 					
 					do 
 					{
-						System.out.println("\\\\\\\\\\\\\\\\\\\\\\");
+						selectedCard = (int)(Math.random()*2+1);
+						//System.out.println("\\\\\\\\\\\\\\\\\\\\\\");add in counting up pieces that are dead and chaning randPieceId to number of dead pieces
 						randomPieceID = (int)(Math.random()*(bluePlayer.getDisciples().size()));
 						randomMove = (int)(Math.random()*(legalMoves.get(randomPieceID).size()));
 
@@ -434,9 +437,9 @@ public class Onitama implements MouseListener
 							currentPiece = bluePlayer.getMaster();
 					} while(currentPiece.getDead());
 
-					System.out.println("SIZE: "+legalMoves.size());
-					System.out.println("PIECE ID: "+randomPieceID);
-					System.out.println("ROW: "+legalMoves.get(randomPieceID).get(randomMove).getRow()+" COLUMN: "+legalMoves.get(randomPieceID).get(randomMove).getCol());
+					//System.out.println("SIZE: "+legalMoves.size());
+					//System.out.println("PIECE ID: "+randomPieceID);
+					//System.out.println("ROW: "+legalMoves.get(randomPieceID).get(randomMove).getRow()+" COLUMN: "+legalMoves.get(randomPieceID).get(randomMove).getCol());
 					currentPos = new Position(legalMoves.get(randomPieceID).get(randomMove));
 
 					if(checkLegalMove())
@@ -1006,7 +1009,7 @@ public class Onitama implements MouseListener
 			{
 				if(mouseY>350&&mouseY<450)
 				{
-					System.out.println("D");
+					//System.out.println("D");
 					returnToMenu();
 				}
 			}

@@ -94,6 +94,13 @@ public class Onitama implements MouseListener
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+		
+		try 
+		{
+			frame.setIconImage(ImageIO.read(Onitama.class.getResourceAsStream("/resources/red master.png")));
+		}
+		catch (IOException e) {e.printStackTrace();}
+		
 	}
 
 //================================================================================

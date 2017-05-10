@@ -489,8 +489,10 @@ public class Onitama implements MouseListener
 					{
 						
 						//System.out.println("\\\\\\\\\\\\\\\\\\\\\\");add in counting up pieces that are dead and chaning randPieceId to number of dead pieces
-						randomPieceID = (int)(Math.random()*((bluePlayer.getDisciples().size()))+1);
-						randomMove = (int)(Math.random()*(legalMoves.get(randomPieceID).size()));
+						int randPieceRange = ((bluePlayer.getDisciples().size()-1)-0) +1;
+						randomPieceID = (int)(Math.random()*(randPieceRange));
+						int randMoveRange = ((legalMoves.get(randomPieceID).size()-1)-0)+1;
+						randomMove = (int)(Math.random()*(randMoveRange));
 
 						//System.out.println(randomPieceID + " " + randomMove);
 

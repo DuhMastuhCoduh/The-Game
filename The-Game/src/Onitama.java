@@ -42,9 +42,9 @@ import javax.swing.JPanel;
  * 	+if a piece has died for X player, other X player pieces cannot land in that spot
  * 
  *  +computer player pieces don't actually die, they just become invisible
- *  -joptionpane for win goes into top left corner when ok is clicked on
- *  -above error is a painting issue, might be a resizing issue
- *  -computer player doesn't select a card correctly, can use one cards move but always replaces first card
+ *  +joptionpane for win goes into top left corner when ok is clicked on
+ *  +above error is a painting issue, might be a resizing issue
+ *  +computer player doesn't select a card correctly, can use one cards move but always replaces first card
  *  -computer vs player freezes if computer only has master left
  */
 public class Onitama implements MouseListener
@@ -419,6 +419,62 @@ public class Onitama implements MouseListener
 				{
 					pressed = true; cardPressed = true;
 					
+					resetLegalMoves();
+					selectedCard = (int)(Math.random()*2+1);
+					
+					if(selectedCard==1)
+					{
+						cardMoves = bluePlayer.getCard1().getLegalMoves();
+					} 
+					else if(selectedCard==2)
+					{
+						cardMoves = bluePlayer.getCard2().getLegalMoves();
+					}
+
+					for(int i = 0; i < bluePlayer.getDisciples().size();i++) 
+					{	
+						Piece temp = bluePlayer.getDisciples().get(i);
+						legalMoves.add(new ArrayList<Position>());
+
+						for(int c = 0; c < cardMoves.size(); c++) 
+						{
+							int tempRow = temp.getPosition().getRow()-cardMoves.get(c).getRow();
+							int tempCol = temp.getPosition().getCol()-cardMoves.get(c).getCol();
+
+							if(tempRow > -1 && tempRow < 5)
+							{
+								if(tempCol > -1 && tempCol < 5) 
+								{
+									Position tempPos = new Position(tempRow,tempCol);
+									if(bluePlayer.getPiece(tempPos)==null)
+										legalMoves.get(i).add(tempPos);
+									else if(bluePlayer.getPiece(tempPos).getDead())
+										legalMoves.get(i).add(tempPos);
+								}
+							}
+						}
+					}
+
+					legalMoves.add(new ArrayList<Position>());
+
+					for(int i = 0; i < cardMoves.size();i++) 
+					{
+
+						int tempRow = bluePlayer.getMaster().getPosition().getRow()-cardMoves.get(i).getRow();
+						int tempCol = bluePlayer.getMaster().getPosition().getCol()-cardMoves.get(i).getCol();
+
+						if(tempRow > -1 && tempRow < 5) 
+						{
+							if(tempCol > -1 && tempCol < 5) 
+							{
+								Position tempPos = new Position(tempRow,tempCol);
+								if(bluePlayer.getPiece(tempPos)==null)
+									legalMoves.get(legalMoves.size()-1).add(tempPos);
+								else if(bluePlayer.getPiece(tempPos).getDead())
+									legalMoves.get(i).add(tempPos);
+							}
+						}
+					}
 					
 					int randomPieceID,randomMove;
 					//int countDead = 0;
@@ -431,9 +487,9 @@ public class Onitama implements MouseListener
 					//{
 					do 
 					{
-						selectedCard = (int)(Math.random()*2+1);
+						
 						//System.out.println("\\\\\\\\\\\\\\\\\\\\\\");add in counting up pieces that are dead and chaning randPieceId to number of dead pieces
-						randomPieceID = (int)(Math.random()*(bluePlayer.getDisciples().size()));
+						randomPieceID = (int)(Math.random()*((bluePlayer.getDisciples().size()))+1);
 						randomMove = (int)(Math.random()*(legalMoves.get(randomPieceID).size()));
 
 						//System.out.println(randomPieceID + " " + randomMove);

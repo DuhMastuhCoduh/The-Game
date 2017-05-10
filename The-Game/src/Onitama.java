@@ -46,6 +46,7 @@ import javax.swing.JPanel;
  *  +above error is a painting issue, might be a resizing issue
  *  +computer player doesn't select a card correctly, can use one cards move but always replaces first card
  *  -computer vs player freezes if computer only has master left
+ *  -"index 0: size 0 when picking a random move for the computer sometimes
  */
 public class Onitama implements MouseListener
 {
@@ -489,17 +490,18 @@ public class Onitama implements MouseListener
 					{
 						
 						//System.out.println("\\\\\\\\\\\\\\\\\\\\\\");add in counting up pieces that are dead and chaning randPieceId to number of dead pieces
-						int randPieceRange = ((bluePlayer.getDisciples().size()-1)-0) +1;
+						int randPieceRange = (4-0)+1;
 						randomPieceID = (int)(Math.random()*(randPieceRange));
+						//System.out.println(randomPieceID);
 						int randMoveRange = ((legalMoves.get(randomPieceID).size()-1)-0)+1;
 						randomMove = (int)(Math.random()*(randMoveRange));
+						//System.out.println(randomMove);
 
 						//System.out.println(randomPieceID + " " + randomMove);
 
-						if(randomPieceID < bluePlayer.getDisciples().size()-1)
-							currentPiece = bluePlayer.getDisciples().get(randomPieceID);
-						else if(randomPieceID == 4)
-							currentPiece = bluePlayer.getMaster();
+						currentPiece = bluePlayer.getPiece(randomPieceID);
+						System.out.println(randomPieceID);
+						System.out.println(currentPiece);
 					} while(currentPiece.getDead());
 					//}
 					//else
@@ -511,6 +513,7 @@ public class Onitama implements MouseListener
 					//System.out.println("SIZE: "+legalMoves.size());
 					//System.out.println("PIECE ID: "+randomPieceID);
 					//System.out.println("ROW: "+legalMoves.get(randomPieceID).get(randomMove).getRow()+" COLUMN: "+legalMoves.get(randomPieceID).get(randomMove).getCol());
+					//legalMoves.get(randomPieceID);
 					currentPos = new Position(legalMoves.get(randomPieceID).get(randomMove));
 
 					if(checkLegalMove())

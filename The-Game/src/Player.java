@@ -101,6 +101,18 @@ public class Player
 				", master: " + master.getMaster();
 	}
 	
+	public Piece getPiece(int ID)
+	{
+		if(ID == 4)
+			return master;
+		for(int i = 0; i < disciples.size();i++)
+		{
+			if(disciples.get(i).getID()==ID)
+				return disciples.get(i);
+		}
+		return null;
+	}
+	
 	public Piece getPiece(Position pos) 
 	{
 		for(int i = 0; i < disciples.size();i++) {
@@ -110,7 +122,7 @@ public class Player
 			}
 		}
 		
-		if(master.getPosition().equals(pos) && !master.getDead())
+		if(master.getPosition().equals(pos))
 			return master;
 		return null;
 	}

@@ -421,12 +421,12 @@ public class Onitama implements MouseListener
 					
 					
 					int randomPieceID,randomMove;
-					int countDead = 0;
-					for(int i = 0; i < 3; i++)
-					{
-						if(bluePlayer.getDisciples().get(i).isDead())
-							countDead++;
-					}
+					//int countDead = 0;
+					//for(int i = 0; i < 3; i++)
+					//{
+					//	if(bluePlayer.getDisciples().get(i).isDead())
+					//		countDead++;
+					//}
 					//if(countDead < 4)
 					//{
 					do 

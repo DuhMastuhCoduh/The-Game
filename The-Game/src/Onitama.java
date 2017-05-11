@@ -478,14 +478,6 @@ public class Onitama implements MouseListener
 					}
 					
 					int randomPieceID,randomMove;
-					//int countDead = 0;
-					//for(int i = 0; i < 3; i++)
-					//{
-					//	if(bluePlayer.getDisciples().get(i).isDead())
-					//		countDead++;
-					//}
-					//if(countDead < 4)
-					//{
 					do 
 					{
 						
@@ -503,13 +495,6 @@ public class Onitama implements MouseListener
 						System.out.println(randomPieceID);
 						System.out.println(currentPiece);
 					} while(currentPiece.getDead());
-					//}
-					//else
-					//{
-					//	selectedCard = (int)(Math.random()*2+1);
-					//	randomPieceID = 4;
-					//	randomMove = (int)(Math.random()*(legalMoves.get(randomPieceID).size()));
-					//}
 					//System.out.println("SIZE: "+legalMoves.size());
 					//System.out.println("PIECE ID: "+randomPieceID);
 					//System.out.println("ROW: "+legalMoves.get(randomPieceID).get(randomMove).getRow()+" COLUMN: "+legalMoves.get(randomPieceID).get(randomMove).getCol());
@@ -528,6 +513,7 @@ public class Onitama implements MouseListener
 	
 	private boolean checkLegalMove() {
 		for(int i = 0; i < legalMoves.get(currentPiece.getID()).size();i++) {
+			if(legalMoves.get(currentPiece.getID())!=null)
 			if(currentPos.equals(legalMoves.get(currentPiece.getID()).get(i)))
 				return true;
 

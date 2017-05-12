@@ -859,14 +859,14 @@ public class Onitama implements MouseListener
 				if(winner.equals("Red win!"))
 				{
 					try {
-						g.drawImage(ImageIO.read(Onitama.class.getResourceAsStream("/resources/red wins.png")),196,600,null);
+						g.drawImage(ImageIO.read(Onitama.class.getResourceAsStream("/resources/Red Wins.PNG")),196,600,null);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
 				} else if(winner.equals("Blue win!"))
 				{
 					try {
-						g.drawImage(ImageIO.read(Onitama.class.getResourceAsStream("/resources/blue wins.png")),177,80,null);
+						g.drawImage(ImageIO.read(Onitama.class.getResourceAsStream("/resources/Blue Wins.PNG")),177,80,null);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}

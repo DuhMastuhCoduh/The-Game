@@ -492,21 +492,18 @@ public class Onitama implements MouseListener
 						//System.out.println(randomPieceID + " " + randomMove);
 
 						currentPiece = bluePlayer.getPiece(randomPieceID);
-						System.out.println(randomPieceID);
-						System.out.println(currentPiece);
-					} while(currentPiece.getDead());
+					} while(currentPiece.getDead()||legalMoves.get(randomPieceID).size()<1);
 					//System.out.println("SIZE: "+legalMoves.size());
 					//System.out.println("PIECE ID: "+randomPieceID);
 					//System.out.println("ROW: "+legalMoves.get(randomPieceID).get(randomMove).getRow()+" COLUMN: "+legalMoves.get(randomPieceID).get(randomMove).getCol());
 					//legalMoves.get(randomPieceID);
 					currentPos = new Position(legalMoves.get(randomPieceID).get(randomMove));
-
-					if(checkLegalMove())
+					
+					if(checkLegalMove()) {
 						move();
+					}
 				}
-
 			}
-
 		}
 	}
 
@@ -988,7 +985,7 @@ public class Onitama implements MouseListener
 							cardPressed = true;
 							setLegalMoves();
 						}
-					} else if(mouseY>80&&mouseY<180&&!redTurn)  //within y bounds of blue cards and not red turn
+					} else if(mouseY>80&&mouseY<180&&!redTurn&&PVP)  //within y bounds of blue cards and not red turn
 					{
 
 						if(mouseX<398)			//card 1
